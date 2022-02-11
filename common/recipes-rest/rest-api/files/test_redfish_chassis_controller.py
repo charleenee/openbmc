@@ -1,4 +1,5 @@
 import asyncio
+<<<<<<< HEAD
 import sys
 import types
 import typing as t
@@ -14,10 +15,18 @@ import aiohttp.web
 import pal
 import redfish_chassis_helper
 import sdr
+=======
+import unittest
+
+import aiohttp.web
+import redfish_chassis_helper
+import test_mock_modules  # noqa: F401
+>>>>>>> facebook/helium
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop
 from common_middlewares import jsonerrorhandler
 
 
+<<<<<<< HEAD
 # mocking a tuple instead of sdr.ThreshSensor bc sdr lib isn't available here
 sensor_thresh = t.NamedTuple(
     "sensor_thresh",
@@ -32,10 +41,13 @@ sensor_thresh = t.NamedTuple(
 )
 
 
+=======
+>>>>>>> facebook/helium
 class TestChassisService(AioHTTPTestCase):
     def setUp(self):
         asyncio.set_event_loop(asyncio.new_event_loop())
 
+<<<<<<< HEAD
         # mocking a tuple instead of pal.SensorHistory bc pal lib isn't available here
         SensorHistory = t.NamedTuple(
             "SensorHistory",
@@ -46,6 +58,8 @@ class TestChassisService(AioHTTPTestCase):
             ],
         )
 
+=======
+>>>>>>> facebook/helium
         self.patches = [
             unittest.mock.patch(
                 "rest_pal_legacy.pal_get_num_slots",
@@ -68,6 +82,7 @@ class TestChassisService(AioHTTPTestCase):
                 return_value=True,
             ),
             unittest.mock.patch(
+<<<<<<< HEAD
                 "pal.pal_get_fru_sensor_list", create=True, side_effect=[[224]]
             ),
             unittest.mock.patch(
@@ -106,6 +121,8 @@ class TestChassisService(AioHTTPTestCase):
                 side_effect=["SP_P5V", "SP_INLET_TEMP", "SP_FAN0_TACH"],
             ),
             unittest.mock.patch(
+=======
+>>>>>>> facebook/helium
                 "pal.LibPalError",
                 create=True,
                 new=type("LibPalError", (Exception,), {}),
@@ -115,10 +132,13 @@ class TestChassisService(AioHTTPTestCase):
                 new_callable=unittest.mock.MagicMock,  # python < 3.8 compat
                 return_value=asyncio.Future(),
             ),
+<<<<<<< HEAD
             unittest.mock.patch(
                 "redfish_chassis_helper.get_aggregate_sensors",
                 return_value=[],
             ),
+=======
+>>>>>>> facebook/helium
         ]
         for p in self.patches:
             p.start()
@@ -161,6 +181,7 @@ class TestChassisService(AioHTTPTestCase):
         for server_name in ["1", "server1", "server2", "server3", "server4"]:
             fru_name = self.get_fru_name(server_name)
             with self.subTest(server_name=server_name):
+<<<<<<< HEAD
                 sdr.sdr_get_sensor_thresh.side_effect = [
                     sensor_thresh(
                         0,
@@ -171,6 +192,8 @@ class TestChassisService(AioHTTPTestCase):
                         0,
                     ),
                 ]
+=======
+>>>>>>> facebook/helium
                 redfish_chassis_helper.get_fru_info.return_value = asyncio.Future()
                 redfish_chassis_helper.get_fru_info.return_value.set_result(
                     redfish_chassis_helper.FruInfo(
@@ -195,6 +218,7 @@ class TestChassisService(AioHTTPTestCase):
                         )
                     },
                     "Status": {"State": "Enabled", "Health": "OK"},
+<<<<<<< HEAD
                     "Thermal": {
                         "@odata.id": "/redfish/v1/Chassis/{}/Thermal".format(
                             server_name
@@ -204,6 +228,9 @@ class TestChassisService(AioHTTPTestCase):
                         "@odata.id": "/redfish/v1/Chassis/{}/Power".format(server_name)
                     },
                     "Links": {},
+=======
+                    "Links": {"ManagedBy": [{"@odata.id": "/redfish/v1/Managers/1"}]},
+>>>>>>> facebook/helium
                 }
                 req = await self.client.request(
                     "GET", "/redfish/v1/Chassis/{}".format(server_name)
@@ -214,6 +241,7 @@ class TestChassisService(AioHTTPTestCase):
                 self.assertEqual(req.status, 200)
 
     @unittest_run_loop
+<<<<<<< HEAD
     async def test_get_chassis_thermal(self):
         "Testing thermal response for both single sled frus and multisled frus"
 
@@ -381,6 +409,16 @@ class TestChassisService(AioHTTPTestCase):
                 self.maxDiff = None
                 self.assertEqual(resp, expected_resp)
                 self.assertEqual(req.status, 200)
+=======
+    async def test_multislot_routes_return_notfound_on_singleslot(self):
+        with unittest.mock.patch(
+            "rest_pal_legacy.pal_get_num_slots",
+            create=True,
+            return_value=1,
+        ):
+            req = await self.client.request("GET", "/redfish/v1/Chassis/server4")
+            self.assertEqual(req.status, 404)
+>>>>>>> facebook/helium
 
     async def get_application(self):
         webapp = aiohttp.web.Application(middlewares=[jsonerrorhandler])
@@ -388,5 +426,8 @@ class TestChassisService(AioHTTPTestCase):
 
         redfish = Redfish()
         redfish.setup_redfish_common_routes(webapp)
+<<<<<<< HEAD
         redfish.setup_multisled_routes(webapp)
+=======
+>>>>>>> facebook/helium
         return webapp

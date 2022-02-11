@@ -25,7 +25,11 @@ import typing as t
 from contextlib import suppress
 
 from aiohttp.log import server_logger
+<<<<<<< HEAD
 from aiohttp.web import Request, HTTPForbidden, HTTPUnauthorized
+=======
+from aiohttp.web import Request, HTTPForbidden
+>>>>>>> facebook/helium
 
 Identity = t.NamedTuple(
     "Identity",
@@ -34,7 +38,14 @@ Identity = t.NamedTuple(
         ("user", t.Optional[str]),
         # The hostname string as identified by a TLS certificate OR the
         # source ip address
+<<<<<<< HEAD
         ("host", t.Union[None, str, ipaddress.IPv6Address, ipaddress.IPv4Address]),
+=======
+        (
+            "host",
+            t.Union[None, str, ipaddress.IPv6Address, ipaddress.IPv4Address],
+        ),
+>>>>>>> facebook/helium
     ],
 )
 
@@ -60,13 +71,26 @@ def auth_required(request) -> Identity:
     return identity
 
 
+<<<<<<< HEAD
 def permissions_required(request, permissions: t.List[str], context=None) -> bool:
+=======
+def permissions_required(
+    request: Request, permissions: t.List[str], context=None
+) -> bool:
+>>>>>>> facebook/helium
     identity = _extract_identity(request)
     if request.app["acl_provider"].is_authorized(identity, permissions):
         return True
     else:
         server_logger.info(
+<<<<<<< HEAD
             "AUTH:Failed to authorize %s for endpoint [%s]%s . Required permissions :%s"
+=======
+            (
+                "AUTH:Failed to authorize %s for endpoint [%s]%s ."
+                " Required permissions :%s"
+            )
+>>>>>>> facebook/helium
             % (identity, request.method, request.path, str(permissions))
         )
         raise HTTPForbidden()
@@ -85,9 +109,19 @@ def _validate_cert_date(request) -> bool:
     cert_valid = (
         datetime.datetime.strptime(peercert["notAfter"], "%b %d %H:%M:%S %Y %Z") > now()
     )
+<<<<<<< HEAD
     if not cert_valid:
         server_logger.info(
             "AUTH:Client sent client certificates for request [%s]%s, but it expired at: %s"
+=======
+
+    if not cert_valid:
+        server_logger.info(
+            (
+                "AUTH:Client sent client certificates for request [%s]%s,"
+                " but it expired at: %s"
+            )
+>>>>>>> facebook/helium
             % (request.method, request.path, peercert["notAfter"])
         )
         return False
@@ -124,7 +158,12 @@ def _extract_identity_from_peercert(request: Request) -> Identity:
 
             if m and m.group("type") in ["user", "svc"]:
                 return Identity(
+<<<<<<< HEAD
                     user=m.group("type") + ":" + m.group("user_or_svc"), host=None
+=======
+                    user=m.group("type") + ":" + m.group("user_or_svc"),
+                    host=None,
+>>>>>>> facebook/helium
                 )
 
             if m and m.group("type") == "host":

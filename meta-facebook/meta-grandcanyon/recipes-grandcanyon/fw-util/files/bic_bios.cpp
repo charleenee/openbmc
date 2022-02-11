@@ -130,7 +130,11 @@ int BiosComponent::print_version() {
   try {
     server.ready();
     if (get_ver_str(ver) < 0) {
+<<<<<<< HEAD
       throw std::runtime_error("Error in getting the version of BIOS");
+=======
+      throw string("Error in getting the version of BIOS");
+>>>>>>> facebook/helium
     }
     cout << "BIOS Version: " << ver << endl;
   } catch(string& err) {

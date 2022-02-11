@@ -21,7 +21,23 @@ paths:
                   Logs: 
                     type: array
                     items: 
+<<<<<<< HEAD
                       type: string
+=======
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        APP_NAME: 
+                          type: string
+                        FRU#: 
+                          type: string
+                        FRU_NAME: 
+                          type: string
+                        MESSAGE: 
+                          type: string
+                        TIME_STAMP: 
+                          type: string
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

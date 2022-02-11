@@ -18,25 +18,234 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   SP_P5V: 
+=======
+                  SP_SENSOR_P1V15_BMC_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SP_P3V3_STBY: 
+=======
+                  SP_HSC_IN_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SP_OUTLET_TEMP: 
+=======
+                  SP_INLET_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SP_P3V3: 
+=======
+                  SP_HSC_PEAK_PIN: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_SENSOR_P1V2_BMC_STBY: 
+=======
+                  SP_FAN0_TACH: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_IN_POWER: 
+=======
+                  SP_P12V_SLOT1: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_INLET_TEMP: 
+=======
+                  SP_P5V: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_IN_VOLT: 
+=======
+                  SP_HSC_OUT_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_FAN1_TACH: 
+=======
+                  SP_FAN0_PWM: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_PEAK_IOUT: 
+=======
+                  SP_P3V3_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P12V: 
+=======
+                  SP_HSC_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_TEMP: 
+=======
+                  SP_P1V8_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P12V_SLOT2: 
+=======
+                  SP_SENSOR_P2V5_BMC_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P12V_SLOT3: 
+=======
+                  SP_HSC_PEAK_IOUT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P12V_SLOT1: 
+=======
+                  SP_P3V3: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P12V_SLOT4: 
+=======
+                  SP_FAN1_PWM: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_FAN0_TACH: 
+=======
+                  SP_HSC_IN_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_OUT_CURR: 
+=======
+                  SP_HSC_IN_POWERAVG: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_P1V8_STBY: 
+=======
+                  SP_P12V: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_HSC_PEAK_PIN: 
+=======
+                  SP_P12V_SLOT3: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_SENSOR_P1V15_BMC_STBY: 
+=======
+                  SP_P12V_SLOT2: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SP_SENSOR_P2V5_BMC_STBY: 
+=======
+                  SP_OUTLET_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+=======
+                  SP_P12V_SLOT4: 
                     type: object
                     additionalProperties: false
                     properties: 
@@ -48,113 +257,18 @@ paths:
                     properties: 
                       value: 
                         type: string
-                  SP_HSC_IN_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_INLET_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_HSC_IN_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
                   SP_FAN1_TACH: 
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SP_HSC_PEAK_IOUT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P12V: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_HSC_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P12V_SLOT2: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P12V_SLOT3: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P12V_SLOT1: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P12V_SLOT4: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_FAN0_TACH: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_HSC_OUT_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_P1V8_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_HSC_PEAK_PIN: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_SENSOR_P1V15_BMC_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SP_SENSOR_P2V5_BMC_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-              Actions: 
+              Resources: 
                 type: array
                 items: 
                   type: string
-              Resources: 
+              Actions: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

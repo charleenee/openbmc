@@ -23,7 +23,12 @@ After=fscd.service openbmc_gpio_setup.service setup_i2c.service
 [Service]
 ExecStart=/usr/local/bin/rest.py
 ExecReload=/bin/kill -HUP $MAINPID
+<<<<<<< HEAD
 Restart=on-success
+=======
+Restart=always
+RestartSec=60s
+>>>>>>> facebook/helium
 
 [Install]
 WantedBy=multi-user.target

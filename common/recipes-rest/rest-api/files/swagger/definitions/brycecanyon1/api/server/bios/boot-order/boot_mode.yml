@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Boot Mode: 
                     type: string
                   Note #1: Actions Format:: 
@@ -29,6 +30,19 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  Note #2: Boot Mode No.: 
+                    type: string
+                  Note #1: Actions Format:: 
+                    type: string
+                  Boot Mode: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

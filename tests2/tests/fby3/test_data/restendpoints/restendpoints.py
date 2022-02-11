@@ -20,10 +20,13 @@
 
 REST_END_POINTS = {
     "/api": ["Description", "version"],
+<<<<<<< HEAD
     "/api/attestation": [],
     "/api/attestation/device": [],
     "/api/attestation/system_information": ["system_hashes", "tpm_info", "system_info"],
     "/api/attestation/tpm": [],
+=======
+>>>>>>> facebook/helium
     "/api/bmc": [
         "Description",
         "MAC Addr",

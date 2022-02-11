@@ -1,11 +1,19 @@
 #!/usr/bin/env python
 
+<<<<<<< HEAD
 from subprocess import *
+=======
+from typing import Any, Dict, Optional
+>>>>>>> facebook/helium
 
 from common_utils import async_exec
 from kv import FPERSIST, kv_get
 from node import node
+<<<<<<< HEAD
 from rest_pal_legacy import *
+=======
+from rest_pal_legacy import pal_get_platform_name
+>>>>>>> facebook/helium
 
 identify_name = {"FBTTN": "identify_slot1", "Grand Canyon": "system_identify_server"}
 
@@ -23,7 +31,11 @@ class identifyNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         # Get Platform Name
         plat_name = pal_get_platform_name()
 
@@ -35,7 +47,11 @@ class identifyNode(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
+=======
+    async def doAction(self, data, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         if data["action"] == "on":
             cmd = "/usr/bin/fpc-util --identify on"
             _, stdout, _ = await async_exec(cmd, shell=True)

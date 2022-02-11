@@ -34,7 +34,11 @@ try:
     with open("/tmp/spb_type") as f:
         spb_type = f.readline()
         if spb_type == "3":  # Northdome
+<<<<<<< HEAD
             get_fan_mode_scenario_list = ["sensor_hit_UCR", "sensor_fail"]
+=======
+            get_fan_mode_scenario_list = ["sensor_hit_UCR", "sensor_fail","one_fan_failure"]
+>>>>>>> facebook/helium
 except:
     Logger.warn("failed to open or read /tmp/spb_type")
 
@@ -157,7 +161,11 @@ def all_slots_power_off():
 
 
 def sensor_fail_ignore_check(sname):
+<<<<<<< HEAD
     if re.match(r"host_boot_temp", sname) is not None:
+=======
+    if re.match(r"(.*)host_boot_temp", sname) is not None:
+>>>>>>> facebook/helium
         return True
     return False
 
@@ -249,8 +257,16 @@ def sensor_valid_check(board, sname, check_name, attribute):
 
 def get_fan_mode(scenario="None"):
     if "sensor_hit_UCR" in scenario:
+<<<<<<< HEAD
         return fsc_zone.fan_mode["boost_mode"], int(100)
     elif "sensor_fail" in scenario:
         return fsc_zone.fan_mode["boost_mode"], int(60)
+=======
+        return fsc_zone.fan_mode["boost_mode"], int(90)
+    elif "sensor_fail" in scenario:
+        return fsc_zone.fan_mode["boost_mode"], int(60)
+    elif "one_fan_failure" in scenario:
+        return fsc_zone.fan_mode["trans_mode"], int(95)
+>>>>>>> facebook/helium
 
     return None, None

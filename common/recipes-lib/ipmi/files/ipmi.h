@@ -537,6 +537,10 @@ enum
   CMD_OEM_1S_GET_SYS_FW_VER = 0x40,
   CMD_OEM_1S_SINGLE_GPIO_CONFIG = 0x41,
   CMD_OEM_1S_GET_SHA256 = 0x43,
+<<<<<<< HEAD
+=======
+  CMD_OEM_1S_UPDATE_SDR = 0x44,
+>>>>>>> facebook/helium
 
   CMD_OEM_1S_GET_PCIE_CONFIG = 0x67,
 };

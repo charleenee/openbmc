@@ -1,4 +1,5 @@
 OVERRIDES:append = ":pn-obmc-phosphor-image"
+<<<<<<< HEAD
 require recipes-phosphor/images/obmc-phosphor-image.bb
 
 # TODO (T100404841): These come from obmc-phosphor-image.bbappend upstream but
@@ -11,3 +12,7 @@ OBMC_IMAGE_EXTRA_INSTALL:append = "\
         bb.utils.contains('MACHINE_FEATURES', 'tpm2', 'tpm2-tools', '', d), \
         '', d)} \
     "
+=======
+require recipes-phosphor/images/fb-phosphor-image.inc
+require recipes-phosphor/images/obmc-phosphor-image.bb
+>>>>>>> facebook/helium

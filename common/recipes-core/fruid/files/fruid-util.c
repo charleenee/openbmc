@@ -47,6 +47,7 @@ static char pal_fru_list_rw_t[1024] = {0};
 static char pal_dev_list_print_t[1024] = {0};
 static char pal_dev_list_rw_t[1024] = {0};
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 #define EXP_FRU_FIRST 32
 #define EXP_FRU_LAST 33
@@ -58,6 +59,8 @@ static uint8_t expFru = 0;
 static uint8_t cwcPlat = 0;
 #endif
 
+=======
+>>>>>>> facebook/helium
 static char* rtrim(char* buf)
 {
   if(strlen(buf) == 0) {
@@ -166,6 +169,7 @@ static bool is_in_list(const char *list, const char *name)
   return false;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 static void
 create_exp_dev_lists(const char *fru_name, uint8_t fru)
@@ -173,12 +177,23 @@ create_exp_dev_lists(const char *fru_name, uint8_t fru)
   uint8_t num_devs, dev;
   unsigned int caps;
 
+=======
+static void
+create_dev_lists(const char *fru_name, uint8_t fru)
+{
+  uint8_t num_devs, dev;
+  unsigned int caps;
+>>>>>>> facebook/helium
   if (pal_get_num_devs(fru, &num_devs)) {
     printf("%s: Cannot get number of devs\n", fru_name);
     return;
   }
+<<<<<<< HEAD
 
   for (dev = 5; dev <= num_devs; dev++) {
+=======
+  for (dev = 1; dev <= num_devs; dev++) {
+>>>>>>> facebook/helium
     char name[128];
     if (pal_get_dev_name(fru, dev, name)) {
       printf("%s: Cannot get name for device: %u\n", fru_name, dev);
@@ -189,16 +204,26 @@ create_exp_dev_lists(const char *fru_name, uint8_t fru)
       continue;
     }
     if ((caps & FRU_CAPABILITY_FRUID_READ) &&
+<<<<<<< HEAD
         !is_in_list(pal_exp_dev_list_print_t, name)) {
       append_list(pal_exp_dev_list_print_t, name);
     }
     if ((caps & FRU_CAPABILITY_FRUID_WRITE) &&
         !is_in_list(pal_exp_dev_list_rw_t, name)) {
       append_list(pal_exp_dev_list_rw_t, name);
+=======
+        !is_in_list(pal_dev_list_print_t, name)) {
+      append_list(pal_dev_list_print_t, name);
+    }
+    if ((caps & FRU_CAPABILITY_FRUID_WRITE) &&
+        !is_in_list(pal_dev_list_rw_t, name)) {
+      append_list(pal_dev_list_rw_t, name);
+>>>>>>> facebook/helium
     }
   }
 }
 
+<<<<<<< HEAD
 
 static void
 create_exp_fru_lists()
@@ -257,6 +282,37 @@ create_dev_lists(const char *fru_name, uint8_t fru)
     if ((caps & FRU_CAPABILITY_FRUID_WRITE) &&
         !is_in_list(pal_dev_list_rw_t, name)) {
       append_list(pal_dev_list_rw_t, name);
+=======
+static void
+create_exp_fru_lists()
+{
+  uint8_t fru = 0, i = 0;
+  uint8_t list[MAX_NUM_FRUS] = {0}, len = 0;
+  unsigned int caps;
+
+  if (pal_get_exp_fru_list(list, &len) != PAL_EOK) {
+    return;
+  }
+  for (i = 0; i < len; i++) {
+    char arg[64] = {0};
+    fru = list[i];
+    if (pal_get_exp_arg_name(fru, arg) != PAL_EOK) {
+      printf("Cannot get FRU argument for %d\n", fru);
+      continue;
+    }
+    if (pal_get_fru_capability(fru, &caps)) {
+      printf("%s: Cannot get FRU capability!\n", arg);
+      continue;
+    }
+    if ((caps & FRU_CAPABILITY_HAS_DEVICE)) {
+      create_dev_lists(arg, fru);
+    }
+    if ((caps & FRU_CAPABILITY_FRUID_READ)) {
+      append_list(pal_fru_list_print_t, arg);
+    }
+    if ((caps & FRU_CAPABILITY_FRUID_WRITE)) {
+      append_list(pal_fru_list_rw_t, arg);
+>>>>>>> facebook/helium
     }
   }
 }
@@ -286,6 +342,12 @@ create_fru_lists(void)
       append_list(pal_fru_list_rw_t, name);
     }
   }
+<<<<<<< HEAD
+=======
+  if (pal_is_exp() == PAL_EOK) {
+    create_exp_fru_lists();
+  }
+>>>>>>> facebook/helium
   prepend_all(pal_fru_list_print_t, 1024);
   if (pal_dev_list_print_t[0] != '\0') {
     prepend_all(pal_dev_list_print_t, 1024);
@@ -541,6 +603,7 @@ print_usage() {
       pal_fru_list_print_t, pal_dev_list_print_t, pal_fru_list_rw_t, pal_dev_list_rw_t);
     printf("Usage: fruid-util [ %s ] [ %s ] --modify --<field> <data> <file>\n",
       pal_fru_list_rw_t, pal_dev_list_rw_t);
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     if (cwcPlat) {
       printf("Usage: fruid-util <slot1> [ %s ] [ %s ] [--json]\n"
@@ -550,6 +613,9 @@ print_usage() {
         pal_exp_fru_list_rw_t, pal_exp_dev_list_rw_t);  
     }
 #endif
+=======
+
+>>>>>>> facebook/helium
     printf("       <field> : CPN  (Chassis Part Number)\n"
            "                       e.g., fruid-util fru1 --modify --CPN \"xxxxx\" xxx.bin\n"
            "                 CSN  (Chassis Serial Number)\n"
@@ -591,6 +657,7 @@ print_usage() {
       pal_fru_list_print_t, pal_fru_list_rw_t);
     printf("Usage: fruid-util [ %s ] --modify <field> <data> <file>\n",
       pal_fru_list_rw_t);
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     if (cwcPlat) {
       printf("Usage: fruid-util <slot1> [ %s ] [--json]\n"
@@ -600,6 +667,9 @@ print_usage() {
         pal_exp_fru_list_rw_t);  
     }
 #endif
+=======
+
+>>>>>>> facebook/helium
     printf("       [field] : CPN  (Chassis Part Number)\n"
            "                       e.g., fruid-util fru1 --modify --CPN \"xxxxx\" xxx.bin\n"
            "                 CSN  (Chassis Serial Number)\n"
@@ -760,6 +830,10 @@ int print_fru(int fru, char * device, bool allow_absent, unsigned char print_for
   uint8_t status;
   uint8_t num_devs = 0;
   uint8_t dev_id = DEV_NONE;
+<<<<<<< HEAD
+=======
+  uint8_t exp = 0, slot = 0, list[MAX_NUM_FRUS] = {0}, len = 0, i = 0;
+>>>>>>> facebook/helium
   json_t *fru_object = json_object();
 
   ret = pal_get_fruid_name(fru, name);
@@ -834,6 +908,7 @@ int print_fru(int fru, char * device, bool allow_absent, unsigned char print_for
         ret = get_fruid_info(fru, path, name, print_format,fru_array);
       }
     }
+<<<<<<< HEAD
   }
 
 #ifdef CONFIG_FBY3_CWC
@@ -849,6 +924,23 @@ int print_fru(int fru, char * device, bool allow_absent, unsigned char print_for
     }
   }
 #endif
+=======
+
+    if (pal_is_exp() == PAL_EOK && pal_get_exp_fru_list(list, &len) == PAL_EOK) {
+      for (i = 0; i < len; ++i) {
+        exp = list[i];
+        unsigned int caps = 0;
+        if (pal_get_fru_slot(exp, &slot) != PAL_EOK || fru != slot) {
+          continue; //exp not belongs to this fru
+        }
+        if (pal_get_fru_capability(exp, &caps) || !(caps & FRU_CAPABILITY_FRUID_READ)) {
+          continue;
+        }
+        ret |= print_fru(exp, device, true, print_format,fru_array);
+      }
+    }
+  }
+>>>>>>> facebook/helium
 
   return ret;
 
@@ -881,12 +973,15 @@ int do_print_fru(int argc, char * argv[], unsigned char print_format)
     return ret;
   }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (cwcPlat > 0 && expFru > 0) {
     fru = expFru;
   }
 #endif
 
+=======
+>>>>>>> facebook/helium
   if (fru != FRU_ALL) {
     ret = print_fru(fru, device, false, print_format,fru_array);
     if (ret < 0) {
@@ -934,12 +1029,15 @@ int do_action(int argc, char * argv[], unsigned char action_flag) {
     print_usage();
   }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (cwcPlat > 0 && expFru > 0) {
     fru = expFru;
   }
 #endif
 
+=======
+>>>>>>> facebook/helium
   if (fru == FRU_ALL) {
     print_usage();
     return -1;
@@ -1174,6 +1272,7 @@ int main(int argc, char * argv[]) {
   unsigned char action_flag = 0;
   int ret = 0;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   uint8_t expDev = 0;
   if (pal_is_cwc() == PAL_EOK) {
@@ -1194,6 +1293,8 @@ int main(int argc, char * argv[]) {
     create_exp_fru_lists();
   }
 #endif
+=======
+>>>>>>> facebook/helium
   create_fru_lists();
 
   struct option opts[] = {

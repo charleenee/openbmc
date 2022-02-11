@@ -21,6 +21,7 @@ SRC_URI += "file://setup-fan.sh \
             file://setup-fsc-config.sh \
             file://FSC_GC_PVT_default_zone0.fsc \
             file://FSC_GC_Type5_PVT_v1_zone0.fsc \
+<<<<<<< HEAD
             file://FSC_GC_Type5_PVT_v1_config.json \
             file://FSC_GC_Type7_PVT_v1_zone0.fsc \
             file://FSC_GC_Type7_PVT_v1_config.json \
@@ -29,6 +30,20 @@ SRC_URI += "file://setup-fan.sh \
            "
 FSC_CONFIG += "FSC_GC_Type5_PVT_v1_config.json \
                FSC_GC_Type7_PVT_v1_config.json \
+=======
+            file://FSC_GC_Type5_PVT_AVC_v1_config.json \
+            file://FSC_GC_Type5_PVT_DELTA_v1_config.json \
+            file://FSC_GC_Type7_PVT_v1_zone0.fsc \
+            file://FSC_GC_Type7_PVT_AVC_v1_config.json \
+            file://FSC_GC_Type7_PVT_DELTA_v1_config.json \
+            file://fsc_board.py \
+            file://set_default_fan_table.py \
+           "
+FSC_CONFIG += "FSC_GC_Type5_PVT_AVC_v1_config.json \
+               FSC_GC_Type5_PVT_DELTA_v1_config.json \
+               FSC_GC_Type7_PVT_AVC_v1_config.json \
+               FSC_GC_Type7_PVT_DELTA_v1_config.json \
+>>>>>>> facebook/helium
               "
 
 FSC_ZONE_CONFIG += "FSC_GC_PVT_default_zone0.fsc \

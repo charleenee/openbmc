@@ -32,6 +32,10 @@ class Sensor(object):
         self.fru = None
         self.offset = None
         self.offset_table = None
+<<<<<<< HEAD
+=======
+        self.source = None
+>>>>>>> facebook/helium
         try:
             self.fru = pTable.get("fru", None)
             if "read_source" in pTable:

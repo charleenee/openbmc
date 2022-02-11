@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   server_pcie_port_config: 
                     type: string
                   slot1_boot_order: 
@@ -26,10 +27,15 @@ paths:
                     type: string
                   slot1_sensor_health: 
                     type: string
+=======
+                  slot1_boot_order: 
+                    type: string
+>>>>>>> facebook/helium
                   pwr_server1_last_state: 
                     type: string
                   sysfw_ver_slot1: 
                     type: string
+<<<<<<< HEAD
                   identify_slot1: 
                     type: string
                   slot1_sel_error: 
@@ -39,6 +45,23 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  slot1_sensor_health: 
+                    type: string
+                  identify_slot1: 
+                    type: string
+                  slot1_por_cfg: 
+                    type: string
+                  slot1_sel_error: 
+                    type: string
+                  server_pcie_port_config: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

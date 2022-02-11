@@ -52,8 +52,15 @@
 /*
  * Types of gpio chips supported by this library.
  */
+<<<<<<< HEAD
 #define GPIO_CHIP_ASPEED_SOC    GPIO_CHIP_ASPEED
 #define GPIO_CHIP_I2C_EXPANDER  GPIO_CHIP_I2C_IO_EXP
+=======
+#define GPIO_CHIP_ASPEED_SOC		GPIO_CHIP_ASPEED
+#define GPIO_CHIP_I2C_EXPANDER  	GPIO_CHIP_I2C_IO_EXP
+#define SGPIO_CHIP_ASPEED_SOC   	SGPIO_CHIP_ASPEED 
+#define GPIO1V8_CHIP_ASPEED_SOC    	GPIO1V8_CHIP_ASPEED
+>>>>>>> facebook/helium
 
 /*
  * "gpio_sysfs_attr" is needed when accessing gpio via sysfs interface.

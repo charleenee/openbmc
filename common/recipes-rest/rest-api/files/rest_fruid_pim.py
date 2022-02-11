@@ -17,9 +17,12 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
 
 import json
 import re
+=======
+>>>>>>> facebook/helium
 import subprocess
 
 # Import helper functions for Minipack PIM information fetching
@@ -29,7 +32,11 @@ from rest_utils import DEFAULT_TIMEOUT_SEC
 
 # Minipack's FRUID handler is a bit different from other FRUID handler in general,
 # in that it will include some of the inforation regarding all PIMs
+<<<<<<< HEAD
 def get_fruid(cmd=["weutil"]):
+=======
+def get_fruid(cmd=["weutil"]):  # noqa: B006
+>>>>>>> facebook/helium
     result = {}
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
@@ -37,7 +44,10 @@ def get_fruid(cmd=["weutil"]):
         data = data.decode(errors="ignore")
     except proc.TimeoutError as ex:
         data = ex.output
+<<<<<<< HEAD
         err = ex.error
+=======
+>>>>>>> facebook/helium
 
     # First, need to remove the first info line from weutil
     adata = data.split("\n", 1)

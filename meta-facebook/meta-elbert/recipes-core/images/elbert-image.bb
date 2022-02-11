@@ -36,3 +36,8 @@ IMAGE_INSTALL += " \
 
 # Add vboot-utils for ELBERTVBOOT image
 IMAGE_INSTALL += '${@bb.utils.contains("IMAGE_FEATURES", "verified-boot", "vboot-utils", "", d)}'
+<<<<<<< HEAD
+=======
+
+PROVIDES += "elbertvboot-image"
+>>>>>>> facebook/helium

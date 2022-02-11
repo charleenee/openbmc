@@ -934,6 +934,10 @@ const uint8_t psu1_sensor_list[] = {
   PSU1_SENSOR_TEMP1,
   PSU1_SENSOR_TEMP2,
   PSU1_SENSOR_TEMP3,
+<<<<<<< HEAD
+=======
+  PSU1_SENSOR_FAN2_TACH,
+>>>>>>> facebook/helium
 };
 
 const uint8_t psu2_sensor_list[] = {
@@ -950,6 +954,10 @@ const uint8_t psu2_sensor_list[] = {
   PSU2_SENSOR_TEMP1,
   PSU2_SENSOR_TEMP2,
   PSU2_SENSOR_TEMP3,
+<<<<<<< HEAD
+=======
+  PSU2_SENSOR_FAN2_TACH,
+>>>>>>> facebook/helium
 };
 
 const uint8_t psu3_sensor_list[] = {
@@ -966,6 +974,10 @@ const uint8_t psu3_sensor_list[] = {
   PSU3_SENSOR_TEMP1,
   PSU3_SENSOR_TEMP2,
   PSU3_SENSOR_TEMP3,
+<<<<<<< HEAD
+=======
+  PSU3_SENSOR_FAN2_TACH,
+>>>>>>> facebook/helium
 };
 
 const uint8_t psu4_sensor_list[] = {
@@ -982,6 +994,10 @@ const uint8_t psu4_sensor_list[] = {
   PSU4_SENSOR_TEMP1,
   PSU4_SENSOR_TEMP2,
   PSU4_SENSOR_TEMP3,
+<<<<<<< HEAD
+=======
+  PSU4_SENSOR_FAN2_TACH,
+>>>>>>> facebook/helium
 };
 
 float scm_sensor_threshold[MAX_SENSOR_NUM + 1][MAX_SENSOR_THRESHOLD + 1] = {0};
@@ -1010,6 +1026,11 @@ size_t psu4_sensor_cnt = sizeof(psu4_sensor_list)/sizeof(uint8_t);
 
 static int hsc_power_div = 1;
 
+<<<<<<< HEAD
+=======
+bool is_psu48(void);
+
+>>>>>>> facebook/helium
 int
 pal_get_fru_discrete_list(uint8_t fru, uint8_t **sensor_list, int *cnt) {
   switch(fru) {
@@ -1427,6 +1448,7 @@ pal_get_fru_sensor_list(uint8_t fru, uint8_t **sensor_list, int *cnt) {
     break;
   case FRU_PSU1:
     *sensor_list = (uint8_t *) psu1_sensor_list;
+<<<<<<< HEAD
     *cnt = psu1_sensor_cnt;
     break;
   case FRU_PSU2:
@@ -1440,6 +1462,39 @@ pal_get_fru_sensor_list(uint8_t fru, uint8_t **sensor_list, int *cnt) {
   case FRU_PSU4:
     *sensor_list = (uint8_t *) psu4_sensor_list;
     *cnt = psu4_sensor_cnt;
+=======
+    if (is_psu48()) {
+      *cnt = psu1_sensor_cnt;
+    } else {
+      *cnt = psu1_sensor_cnt-1;
+    }
+
+    break;
+  case FRU_PSU2:
+    *sensor_list = (uint8_t *) psu2_sensor_list;
+    if (is_psu48()) {
+      *cnt = psu2_sensor_cnt;
+    } else {
+      *cnt = psu2_sensor_cnt-1;
+    }
+    break;
+  case FRU_PSU3:
+    *sensor_list = (uint8_t *) psu3_sensor_list;
+    if (is_psu48()) {
+      *cnt = psu3_sensor_cnt;
+    } else {
+      *cnt = psu3_sensor_cnt-1;
+    }
+    break;
+  case FRU_PSU4:
+    *sensor_list = (uint8_t *) psu4_sensor_list;
+    if (is_psu48()) {
+      *cnt = psu4_sensor_cnt;
+    } else {
+      *cnt = psu4_sensor_cnt-1;
+    }
+
+>>>>>>> facebook/helium
     break;
   case FRU_PEM1:
     *sensor_list = (uint8_t *) pem1_sensor_list;
@@ -3096,6 +3151,12 @@ psu_sensor_read(uint8_t fru, uint8_t sensor_num, float *value) {
     case PSU1_SENSOR_TEMP3:
       ret = read_attr(fru, sensor_num, PSU1_DEVICE, TEMP(3), value);
       break;
+<<<<<<< HEAD
+=======
+    case PSU1_SENSOR_FAN2_TACH:
+      ret = read_fan_rpm_f(PSU1_DEVICE, 2, value);
+      break;
+>>>>>>> facebook/helium
     case PSU2_SENSOR_IN_VOLT:
       ret = read_attr(fru, sensor_num, PSU2_DEVICE, VOLT(0), value);
       break;
@@ -3135,6 +3196,12 @@ psu_sensor_read(uint8_t fru, uint8_t sensor_num, float *value) {
     case PSU2_SENSOR_TEMP3:
       ret = read_attr(fru, sensor_num, PSU2_DEVICE, TEMP(3), value);
       break;
+<<<<<<< HEAD
+=======
+    case PSU2_SENSOR_FAN2_TACH:
+      ret = read_fan_rpm_f(PSU2_DEVICE, 2, value);
+      break;
+>>>>>>> facebook/helium
     case PSU3_SENSOR_IN_VOLT:
       ret = read_attr(fru, sensor_num, PSU3_DEVICE, VOLT(0), value);
       break;
@@ -3174,6 +3241,12 @@ psu_sensor_read(uint8_t fru, uint8_t sensor_num, float *value) {
     case PSU3_SENSOR_TEMP3:
       ret = read_attr(fru, sensor_num, PSU3_DEVICE, TEMP(3), value);
       break;
+<<<<<<< HEAD
+=======
+    case PSU3_SENSOR_FAN2_TACH:
+      ret = read_fan_rpm_f(PSU3_DEVICE, 2, value);
+      break;
+>>>>>>> facebook/helium
     case PSU4_SENSOR_IN_VOLT:
       ret = read_attr(fru, sensor_num, PSU4_DEVICE, VOLT(0), value);
       break;
@@ -3213,6 +3286,12 @@ psu_sensor_read(uint8_t fru, uint8_t sensor_num, float *value) {
     case PSU4_SENSOR_TEMP3:
       ret = read_attr(fru, sensor_num, PSU4_DEVICE, TEMP(3), value);
       break;
+<<<<<<< HEAD
+=======
+    case PSU4_SENSOR_FAN2_TACH:
+      ret = read_fan_rpm_f(PSU4_DEVICE, 2, value);
+      break;
+>>>>>>> facebook/helium
     default:
       ret = READING_NA;
       break;
@@ -4609,6 +4688,15 @@ get_psu_sensor_name(uint8_t sensor_num, char *name) {
     case PSU1_SENSOR_TEMP3:
       sprintf(name, "PSU1_TEMP3");
       break;
+<<<<<<< HEAD
+=======
+    case PSU1_SENSOR_FAN2_TACH:
+      if (is_psu48())
+      {
+        sprintf(name, "PSU1_FAN2_SPEED");
+      }
+      break;
+>>>>>>> facebook/helium
     case PSU2_SENSOR_IN_VOLT:
       sprintf(name, "PSU2_IN_VOLT");
       break;
@@ -4648,6 +4736,15 @@ get_psu_sensor_name(uint8_t sensor_num, char *name) {
     case PSU2_SENSOR_TEMP3:
       sprintf(name, "PSU2_TEMP3");
       break;
+<<<<<<< HEAD
+=======
+    case PSU2_SENSOR_FAN2_TACH:
+      if (is_psu48())
+      {
+        sprintf(name, "PSU2_FAN2_SPEED");
+      }
+      break;
+>>>>>>> facebook/helium
     case PSU3_SENSOR_IN_VOLT:
       sprintf(name, "PSU3_IN_VOLT");
       break;
@@ -4687,6 +4784,15 @@ get_psu_sensor_name(uint8_t sensor_num, char *name) {
     case PSU3_SENSOR_TEMP3:
       sprintf(name, "PSU3_TEMP3");
       break;
+<<<<<<< HEAD
+=======
+    case PSU3_SENSOR_FAN2_TACH:
+      if (is_psu48())
+      {
+        sprintf(name, "PSU3_FAN2_SPEED");
+      }
+      break;
+>>>>>>> facebook/helium
     case PSU4_SENSOR_IN_VOLT:
       sprintf(name, "PSU4_IN_VOLT");
       break;
@@ -4726,6 +4832,15 @@ get_psu_sensor_name(uint8_t sensor_num, char *name) {
     case PSU4_SENSOR_TEMP3:
       sprintf(name, "PSU4_TEMP3");
       break;
+<<<<<<< HEAD
+=======
+    case PSU4_SENSOR_FAN2_TACH:
+      if (is_psu48())
+      {
+        sprintf(name, "PSU4_FAN2_SPEED");
+      }
+      break;
+>>>>>>> facebook/helium
     default:
       return -1;
   }
@@ -5262,6 +5377,13 @@ get_psu_sensor_units(uint8_t sensor_num, char *units) {
     case PSU2_SENSOR_FAN_TACH:
     case PSU3_SENSOR_FAN_TACH:
     case PSU4_SENSOR_FAN_TACH:
+<<<<<<< HEAD
+=======
+    case PSU1_SENSOR_FAN2_TACH:
+    case PSU2_SENSOR_FAN2_TACH:
+    case PSU3_SENSOR_FAN2_TACH:
+    case PSU4_SENSOR_FAN2_TACH:
+>>>>>>> facebook/helium
       sprintf(units, "RPM");
       break;
     case PSU1_SENSOR_TEMP1:
@@ -5514,6 +5636,7 @@ scm_thresh_done:
     case FRU_PSU2:
     case FRU_PSU3:
     case FRU_PSU4:
+<<<<<<< HEAD
       i = fru - 11;
       psu_sensor_threshold[PSU1_SENSOR_IN_VOLT+(i*0x0d)][UCR_THRESH] = 310;
       psu_sensor_threshold[PSU1_SENSOR_IN_VOLT+(i*0x0d)][LCR_THRESH] = 92;
@@ -5531,6 +5654,45 @@ scm_thresh_done:
       psu_sensor_threshold[PSU1_SENSOR_TEMP1+(i*0x0d)][UCR_THRESH] = 60;
       psu_sensor_threshold[PSU1_SENSOR_TEMP2+(i*0x0d)][UCR_THRESH] = 80;
       psu_sensor_threshold[PSU1_SENSOR_TEMP3+(i*0x0d)][UCR_THRESH] = 95;
+=======
+      fru_offset = fru - FRU_PSU1;
+      if (is_psu48())
+      {
+        psu_sensor_threshold[PSU1_SENSOR_IN_VOLT + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 59;
+        psu_sensor_threshold[PSU1_SENSOR_IN_VOLT + (fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 40;
+        psu_sensor_threshold[PSU1_SENSOR_12V_VOLT + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 12.6;
+        psu_sensor_threshold[PSU1_SENSOR_12V_VOLT + (fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 11.4;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_VOLT + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 3.45;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_VOLT + (fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 3.15;
+        psu_sensor_threshold[PSU1_SENSOR_IN_CURR + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 40;
+        psu_sensor_threshold[PSU1_SENSOR_12V_CURR + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 140;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_CURR + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 3;
+        psu_sensor_threshold[PSU1_SENSOR_IN_POWER + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 1850;
+        psu_sensor_threshold[PSU1_SENSOR_12V_POWER + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 1680;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_POWER + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 9.9;
+        psu_sensor_threshold[PSU1_SENSOR_FAN_TACH + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 32450;
+        psu_sensor_threshold[PSU1_SENSOR_FAN_TACH + (fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 1000;
+        psu_sensor_threshold[PSU1_SENSOR_FAN2_TACH + (fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 21950;
+        psu_sensor_threshold[PSU1_SENSOR_FAN2_TACH + (fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 1000;
+      } else {
+        psu_sensor_threshold[PSU1_SENSOR_IN_VOLT+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 310;
+        psu_sensor_threshold[PSU1_SENSOR_IN_VOLT+(fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 92;
+        psu_sensor_threshold[PSU1_SENSOR_12V_VOLT+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 13;
+        psu_sensor_threshold[PSU1_SENSOR_12V_VOLT+(fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 11;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_VOLT+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 3.6;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_VOLT+(fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 3.0;
+        psu_sensor_threshold[PSU1_SENSOR_IN_CURR+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 10;
+        psu_sensor_threshold[PSU1_SENSOR_12V_CURR+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 125;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_CURR+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 5;
+        psu_sensor_threshold[PSU1_SENSOR_IN_POWER+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 1500;
+        psu_sensor_threshold[PSU1_SENSOR_12V_POWER+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 1500;
+        psu_sensor_threshold[PSU1_SENSOR_STBY_POWER+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 15;
+        psu_sensor_threshold[PSU1_SENSOR_FAN_TACH+(fru_offset * PSU1_SENSOR_CNT)][LCR_THRESH] = 500;
+        psu_sensor_threshold[PSU1_SENSOR_TEMP1+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 60;
+        psu_sensor_threshold[PSU1_SENSOR_TEMP2+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 80;
+        psu_sensor_threshold[PSU1_SENSOR_TEMP3+(fru_offset * PSU1_SENSOR_CNT)][UCR_THRESH] = 95;
+      }
+>>>>>>> facebook/helium
       break;
     case FRU_PIM1:
     case FRU_PIM2:
@@ -6183,6 +6345,10 @@ psu_sensor_poll_interval(uint8_t sensor_num, uint32_t *value) {
     case PSU1_SENSOR_TEMP1:
     case PSU1_SENSOR_TEMP2:
     case PSU1_SENSOR_TEMP3:
+<<<<<<< HEAD
+=======
+    case PSU1_SENSOR_FAN2_TACH:
+>>>>>>> facebook/helium
     case PSU2_SENSOR_IN_VOLT:
     case PSU2_SENSOR_12V_VOLT:
     case PSU2_SENSOR_STBY_VOLT:
@@ -6196,6 +6362,10 @@ psu_sensor_poll_interval(uint8_t sensor_num, uint32_t *value) {
     case PSU2_SENSOR_TEMP1:
     case PSU2_SENSOR_TEMP2:
     case PSU2_SENSOR_TEMP3:
+<<<<<<< HEAD
+=======
+    case PSU2_SENSOR_FAN2_TACH:
+>>>>>>> facebook/helium
     case PSU3_SENSOR_IN_VOLT:
     case PSU3_SENSOR_12V_VOLT:
     case PSU3_SENSOR_STBY_VOLT:
@@ -6209,6 +6379,10 @@ psu_sensor_poll_interval(uint8_t sensor_num, uint32_t *value) {
     case PSU3_SENSOR_TEMP1:
     case PSU3_SENSOR_TEMP2:
     case PSU3_SENSOR_TEMP3:
+<<<<<<< HEAD
+=======
+    case PSU3_SENSOR_FAN2_TACH:
+>>>>>>> facebook/helium
     case PSU4_SENSOR_IN_VOLT:
     case PSU4_SENSOR_12V_VOLT:
     case PSU4_SENSOR_STBY_VOLT:
@@ -6222,6 +6396,10 @@ psu_sensor_poll_interval(uint8_t sensor_num, uint32_t *value) {
     case PSU4_SENSOR_TEMP1:
     case PSU4_SENSOR_TEMP2:
     case PSU4_SENSOR_TEMP3:
+<<<<<<< HEAD
+=======
+    case PSU4_SENSOR_FAN2_TACH:
+>>>>>>> facebook/helium
       *value = 30;
       break;
     default:
@@ -6950,7 +7128,16 @@ int pal_get_sensor_util_timeout(uint8_t fru) {
     case FRU_PSU2:
     case FRU_PSU3:
     case FRU_PSU4:
+<<<<<<< HEAD
       cnt = psu1_sensor_cnt;
+=======
+      if (is_psu48()) {
+        cnt = psu1_sensor_cnt;
+      } else {
+        cnt = psu1_sensor_cnt - 1;
+      }
+
+>>>>>>> facebook/helium
       break;
     case FRU_PEM1:
     case FRU_PEM2:
@@ -6965,3 +7152,31 @@ int pal_get_sensor_util_timeout(uint8_t fru) {
   }
   return (READ_UNIT_SENSOR_TIMEOUT * cnt);
 }
+<<<<<<< HEAD
+=======
+
+bool is_psu48(void)
+{
+  char buffer[6];
+  FILE *fp;
+  fp = popen("source /usr/local/bin/openbmc-utils.sh;wedge_power_supply_type", "r");
+
+  if (NULL == fp)
+     return false;
+
+  if (fgets(buffer, sizeof(buffer), fp) == NULL) {
+    pclose(fp);
+    return false;
+  }
+
+  pclose(fp);
+  if (!strcmp(buffer, "PSU48"))
+  {
+      return true;
+  }
+  else
+  {
+    return false;
+  }
+}
+>>>>>>> facebook/helium

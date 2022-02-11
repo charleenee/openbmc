@@ -18,15 +18,22 @@
 # Boston, MA 02110-1301 USA
 #
 
+<<<<<<< HEAD
 import json
 import re
+=======
+>>>>>>> facebook/helium
 import subprocess
 
 from rest_utils import DEFAULT_TIMEOUT_SEC
 
 
 # Handler for FRUID resource endpoint
+<<<<<<< HEAD
 def get_fruid(cmd=["weutil"]):
+=======
+def get_fruid(cmd=["weutil"]):  # noqa: B006
+>>>>>>> facebook/helium
     result = {}
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
@@ -34,7 +41,10 @@ def get_fruid(cmd=["weutil"]):
         data = data.decode(errors="ignore")
     except proc.TimeoutError as ex:
         data = ex.output
+<<<<<<< HEAD
         err = ex.error
+=======
+>>>>>>> facebook/helium
 
     # need to remove the first info line from weutil
     adata = data.split("\n", 1)

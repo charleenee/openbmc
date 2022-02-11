@@ -349,6 +349,7 @@ int bic_me_xmit(uint8_t slot_id, uint8_t *txbuf, uint8_t txlen, uint8_t *rxbuf, 
 }
 
 int
+<<<<<<< HEAD
 _set_fw_update_ongoing(uint8_t slot_id, uint16_t tmout) {
   char key[64];
   char value[64] = {0};
@@ -368,6 +369,8 @@ _set_fw_update_ongoing(uint8_t slot_id, uint16_t tmout) {
 }
 
 int
+=======
+>>>>>>> facebook/helium
 send_image_data_via_bic(uint8_t slot_id, uint8_t comp, uint8_t intf, uint32_t offset, uint16_t len, uint32_t image_len, uint8_t *buf)
 {
   uint8_t tbuf[256] = {0};

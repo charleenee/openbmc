@@ -41,11 +41,19 @@
 #define MONITOR_SCC_STBY_POWER_INTERVAL         1  // seconds
 
 static void
+<<<<<<< HEAD
 e1s_iocm_remove_event(int e1s_iocm_slot_id, uint8_t *present_status, uint8_t *gpio_power_good_pin) {
   char cmd[MAX_PATH_LEN] = {0};
   uint8_t chassis_type = 0;
 
   if ((present_status == NULL) || (gpio_power_good_pin == NULL)) {
+=======
+e1s_iocm_remove_event(int e1s_iocm_slot_id, uint8_t *present_status) {
+  char cmd[MAX_PATH_LEN] = {0};
+  uint8_t chassis_type = 0;
+
+  if (present_status == NULL) {
+>>>>>>> facebook/helium
     syslog(LOG_ERR, "%s() Failed to disable E1.S %d/IOCM I2C because the parameter is NULL\n", __func__, e1s_iocm_slot_id);
     return;
   }
@@ -64,21 +72,32 @@ e1s_iocm_remove_event(int e1s_iocm_slot_id, uint8_t *present_status, uint8_t *gp
         return;
       }
     }
+<<<<<<< HEAD
 
     if (gpio_set_init_value_by_shadow(fbgc_get_gpio_name(gpio_power_good_pin[e1s_iocm_slot_id]), GPIO_VALUE_LOW) < 0) {
       syslog(LOG_ERR, "%s() Failed to disable E1.S %d/IOCM I2C\n", __func__, e1s_iocm_slot_id);
       return;
     }
+=======
+>>>>>>> facebook/helium
   }
 }
 
 static void
+<<<<<<< HEAD
 e1s_iocm_insert_event(int e1s_iocm_slot_id, uint8_t *present_status, uint8_t *gpio_power_good_pin) {
+=======
+e1s_iocm_insert_event(int e1s_iocm_slot_id, uint8_t *present_status) {
+>>>>>>> facebook/helium
   char cmd[MAX_PATH_LEN] = {0};
   uint8_t chassis_type = 0;
   uint8_t server_power_status = SERVER_POWER_ON;
 
+<<<<<<< HEAD
   if ((present_status == NULL) || (gpio_power_good_pin == NULL)) {
+=======
+  if (present_status == NULL) {
+>>>>>>> facebook/helium
     syslog(LOG_ERR, "%s() Failed to enable E1.S %d/IOCM I2C because the parameter is NULL\n", __func__, e1s_iocm_slot_id);
     return;
   }
@@ -94,11 +113,14 @@ e1s_iocm_insert_event(int e1s_iocm_slot_id, uint8_t *present_status, uint8_t *gp
   }
 
   if ((present_status[e1s_iocm_slot_id] == FRU_PRESENT) && (server_power_status == SERVER_POWER_ON)) {
+<<<<<<< HEAD
     if (gpio_set_init_value_by_shadow(fbgc_get_gpio_name(gpio_power_good_pin[e1s_iocm_slot_id]), GPIO_VALUE_HIGH) < 0) {
       syslog(LOG_ERR, "%s() Failed to enable E1.S %d/IOCM I2C\n", __func__, e1s_iocm_slot_id);
       return;
     }
 
+=======
+>>>>>>> facebook/helium
     if ((chassis_type == CHASSIS_TYPE7) && (e1s_iocm_slot_id == T5_E1S0_T7_IOC_AVENGER)) {
       memset(cmd, 0, sizeof(cmd));
       snprintf(cmd, sizeof(cmd), "sv start iocd_%d > /dev/null 2>&1", I2C_T5E1S0_T7IOC_BUS);
@@ -114,7 +136,10 @@ static void
 fru_remove_event(int fru_id, uint8_t *e1s_iocm_present_status) {
   int ret = 0;
   uint8_t chassis_type = 0;
+<<<<<<< HEAD
   uint8_t e1s_iocm_gpio_power_good_pin[E1S_IOCM_SLOT_NUM] = {GPIO_E1S_1_P3V3_PG_R, GPIO_E1S_2_P3V3_PG_R};
+=======
+>>>>>>> facebook/helium
   char cmd[MAX_FILE_PATH] = {0};
 
   if (fru_id == FRU_SERVER) {
@@ -147,8 +172,13 @@ fru_remove_event(int fru_id, uint8_t *e1s_iocm_present_status) {
       syslog(LOG_ERR, "%s(): Failed to deal with remove event because the parameter: *e1s_iocm_present_status is NULL\n", __func__);
       return;
     }
+<<<<<<< HEAD
     e1s_iocm_remove_event(T5_E1S0_T7_IOC_AVENGER, e1s_iocm_present_status, e1s_iocm_gpio_power_good_pin);
     e1s_iocm_remove_event(T5_E1S1_T7_IOCM_VOLT, e1s_iocm_present_status, e1s_iocm_gpio_power_good_pin);
+=======
+    e1s_iocm_remove_event(T5_E1S0_T7_IOC_AVENGER, e1s_iocm_present_status);
+    e1s_iocm_remove_event(T5_E1S1_T7_IOCM_VOLT, e1s_iocm_present_status);
+>>>>>>> facebook/helium
     
     if (fbgc_common_get_chassis_type(&chassis_type) < 0) {
       pal_set_error_code(ERR_CODE_E1S_MISSING, ERR_CODE_ENABLE);
@@ -171,7 +201,10 @@ fru_insert_event(int fru_id, uint8_t *e1s_iocm_present_status) {
   int ret = 0;
   uint8_t chassis_type = 0;
   char power_policy_cfg[MAX_VALUE_LEN] = {0};
+<<<<<<< HEAD
   uint8_t e1s_iocm_gpio_power_good_pin[E1S_IOCM_SLOT_NUM] = {GPIO_E1S_1_P3V3_PG_R, GPIO_E1S_2_P3V3_PG_R};
+=======
+>>>>>>> facebook/helium
   
   memset(power_policy_cfg, 0, sizeof(power_policy_cfg));
 
@@ -214,8 +247,13 @@ fru_insert_event(int fru_id, uint8_t *e1s_iocm_present_status) {
       syslog(LOG_ERR, "%s(): Failed to deal with insert event because the parameter: *e1s_iocm_present_status is NULL\n", __func__);
       return;
     }
+<<<<<<< HEAD
     e1s_iocm_insert_event(T5_E1S0_T7_IOC_AVENGER, e1s_iocm_present_status, e1s_iocm_gpio_power_good_pin);
     e1s_iocm_insert_event(T5_E1S1_T7_IOCM_VOLT, e1s_iocm_present_status, e1s_iocm_gpio_power_good_pin);
+=======
+    e1s_iocm_insert_event(T5_E1S0_T7_IOC_AVENGER, e1s_iocm_present_status);
+    e1s_iocm_insert_event(T5_E1S1_T7_IOCM_VOLT, e1s_iocm_present_status);
+>>>>>>> facebook/helium
     
     if (fbgc_common_get_chassis_type(&chassis_type) < 0) {
       pal_set_error_code(ERR_CODE_E1S_MISSING, ERR_CODE_DISABLE);

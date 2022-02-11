@@ -90,6 +90,10 @@ int bic_set_gpio_config(uint8_t gpio, uint8_t data);
 int bic_get_sdr_info(ipmi_sel_sdr_info_t *info);
 int bic_get_sel(ipmi_sel_sdr_req_t *req, ipmi_sel_sdr_res_t *res, uint8_t *rlen);
 int bic_get_config(bic_config_t *cfg);
+<<<<<<< HEAD
+=======
+int bic_get_sys_fw_ver(uint8_t *ver);
+>>>>>>> facebook/helium
 
 #ifdef __cplusplus
 } // extern "C"

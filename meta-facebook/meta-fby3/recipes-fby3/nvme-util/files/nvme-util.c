@@ -31,18 +31,30 @@
 #define MAX_RETRY 3
 static uint8_t m_slot_id = 0;
 static uint8_t m_intf = 0;
+<<<<<<< HEAD
 static uint8_t expFru = 0;
+=======
+>>>>>>> facebook/helium
 
 static void
 print_usage_help(void) {
   printf("Usage: nvme-util <slot1|slot3> <2U-dev[0..n]> <register> <read length> <[0..n]data_bytes_to_send>\n");
+<<<<<<< HEAD
   if ( pal_is_cwc() == PAL_EOK ) {
     printf("Usage: nvme-util <slot1> <2U-top|2U-bot> <2U-dev[0..n]> <register> <read length> <[0..n]data_bytes_to_send>\n");
+=======
+  if ( pal_is_exp() == PAL_EOK ) {
+    printf("Usage: nvme-util <slot1-2U-top|slot1-2U-bot> <2U-dev[0..n]> <register> <read length> <[0..n]data_bytes_to_send>\n");
+>>>>>>> facebook/helium
   }
 }
 
 static int
+<<<<<<< HEAD
 read_bic_nvme_data(uint8_t slot_id, uint8_t dev_id, int argc, char **argv) {
+=======
+read_bic_nvme_data(uint8_t fru_id, uint8_t slot_id, uint8_t dev_id, int argc, char **argv) {
+>>>>>>> facebook/helium
   int ret = 0;
   char stype_str[32] = {0};
   uint8_t tbuf[256] = {0x00};
@@ -56,11 +68,15 @@ read_bic_nvme_data(uint8_t slot_id, uint8_t dev_id, int argc, char **argv) {
   printf("%s %u Drive%d\n", stype_str, slot_id, dev_id - DEV_ID0_2OU); // 0-based number
 
   // mux select
+<<<<<<< HEAD
   if ( expFru != 0 ) {
     ret = pal_gpv3_mux_select(expFru, dev_id);
   } else {
     ret = pal_gpv3_mux_select(slot_id, dev_id);
   }
+=======
+  ret = pal_gpv3_mux_select(fru_id, dev_id);
+>>>>>>> facebook/helium
   if (ret) {
     return ret; // fail to select mux
   }
@@ -120,10 +136,15 @@ main(int argc, char **argv) {
 #define DEV_PREFIX "2U-dev"
 
   int ret = -1;
+<<<<<<< HEAD
+=======
+  uint8_t fru_id = 0;
+>>>>>>> facebook/helium
   uint8_t slot_id = 0xff;
   uint8_t dev_id = DEV_NONE;
   uint8_t bmc_location = 0;
   uint8_t type_2ou = UNKNOWN_BOARD;
+<<<<<<< HEAD
   int (*read_write_nvme_data)(uint8_t, uint8_t, int, char **);
   struct sigaction sa;
   int i = 0;
@@ -139,15 +160,40 @@ main(int argc, char **argv) {
       }
     }
 
+=======
+  int (*read_write_nvme_data)(uint8_t, uint8_t, uint8_t, int, char **);
+  struct sigaction sa;
+
+  do {
+>>>>>>> facebook/helium
     if ( argc < 5 ) {
       print_usage_help();
       break;
     }
 
     // check slot info
+<<<<<<< HEAD
     if ( strcmp(argv[1], "slot1") == 0 ) slot_id = FRU_SLOT1;
     else if ( strcmp(argv[1], "slot3") == 0 ) slot_id = FRU_SLOT3;
     else break;
+=======
+    if ( strcmp(argv[1], "slot1") == 0 ) {
+      fru_id = FRU_SLOT1;
+      slot_id = FRU_SLOT1;
+    } else if ( strcmp(argv[1], "slot3") == 0 ) {
+      fru_id = FRU_SLOT3;
+      slot_id = FRU_SLOT3;
+    } else if ( strcmp(argv[1], "slot1-2U-top") == 0 ) {
+      fru_id = FRU_2U_TOP;
+      slot_id = FRU_SLOT1;
+    } else if ( strcmp(argv[1], "slot1-2U-bot") == 0 ) {
+      fru_id = FRU_2U_BOT;
+      slot_id = FRU_SLOT1;
+    } else {
+      printf("Unknown fru:%s\n", argv[1]);
+      break;
+    }
+>>>>>>> facebook/helium
 
     if ( fby3_common_get_bmc_location(&bmc_location) < 0 ) {
       printf("Failed to get bmc location\n");
@@ -161,12 +207,19 @@ main(int argc, char **argv) {
       printf("%s is not supported\n", argv[2]);
       break;
     } else {
+<<<<<<< HEAD
       if ( expFru != 0 ) {
         if ( expFru == FRU_2U_TOP ) {
           m_intf = RREXP_BIC_INTF1;
         } else if ( expFru == FRU_2U_BOT ) {
           m_intf = RREXP_BIC_INTF2;
         } else break;
+=======
+      if ( fru_id == FRU_2U_TOP ) {
+        m_intf = RREXP_BIC_INTF1;
+      } else if ( fru_id == FRU_2U_BOT ) {
+        m_intf = RREXP_BIC_INTF2;
+>>>>>>> facebook/helium
       } else {
         m_intf = REXP_BIC_INTF;
       }
@@ -216,7 +269,11 @@ main(int argc, char **argv) {
       break;
     }
 
+<<<<<<< HEAD
     if ( read_write_nvme_data(slot_id, dev_id, argc-3,argv+3) < 0 ) {
+=======
+    if ( read_write_nvme_data(fru_id, slot_id, dev_id, argc-3,argv+3) < 0 ) {
+>>>>>>> facebook/helium
       printf("err: failed to read_write_nvme_data\n");
       printf("info: try to enable SSD monitoring\n");
       if ( ssd_monitor_enable(slot_id, 0/*unused*/, true) < 0 ) {

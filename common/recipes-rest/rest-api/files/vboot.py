@@ -37,8 +37,13 @@ interested_keys = {
 }
 
 
+<<<<<<< HEAD
 async def get_vboot_status():
     info = dict()
+=======
+async def get_vboot_status():  # noqa: C901
+    info = {}
+>>>>>>> facebook/helium
     info["status"] = "-1"
     info["status_text"] = "Unsupported"
     vboot_util = "/usr/local/bin/vboot-util"
@@ -54,6 +59,7 @@ async def get_vboot_status():
         m = re.match("Status CRC: (0[xX][0-9a-fA-F]+)", data[-4].strip())
         if m:
             info["status_crc"] = m.group(1)
+<<<<<<< HEAD
         m = re.match("Status type \((\d+)\) code \((\d+)\)", data[-2].strip())
         if m:
             info["status"] = "{}.{}".format(m.group(1), m.group(2))
@@ -62,11 +68,25 @@ async def get_vboot_status():
             info["tpm_status"] = m.group(1)
         for l in data:
             a = l.split(": ")
+=======
+        m = re.match(r"Status type \((\d+)\) code \((\d+)\)", data[-2].strip())
+        if m:
+            info["status"] = "{}.{}".format(m.group(1), m.group(2))
+        m = re.match(r"TPM.? status  \((\d+)\)", data[-3].strip())
+        if m:
+            info["tpm_status"] = m.group(1)
+        for line in data:
+            a = line.split(": ")
+>>>>>>> facebook/helium
             if len(a) == 2:
                 key = a[0].strip()
                 value = a[1].strip()
                 if key in interested_keys:
                     info[interested_keys[key]] = value
+<<<<<<< HEAD
     except (OSError, subprocess.CalledProcessError) as e:
+=======
+    except (OSError, subprocess.CalledProcessError):
+>>>>>>> facebook/helium
         pass
     return info

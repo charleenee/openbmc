@@ -22,6 +22,10 @@
 #include <stdlib.h>
 #include <syslog.h>
 #include <unistd.h>
+<<<<<<< HEAD
+=======
+#include <openbmc/kv.h>
+>>>>>>> facebook/helium
 #include <openbmc/phymem.h>
 #include <openbmc/libgpio.h>
 #include <facebook/fby35_gpio.h>
@@ -32,6 +36,11 @@
 #define SCU_BASE        0x1E6E2000
 #define REG_SCU630      0x630
 
+<<<<<<< HEAD
+=======
+#define ARRAY_SIZE(a)   (sizeof(a) / sizeof((a)[0]))
+
+>>>>>>> facebook/helium
 int setup_gpio_with_value(const char *chip_name, const char *shadow_name, const char *pin_name, int offset, gpio_direction_t direction, gpio_value_t value)
 {
 	int ret = 0;
@@ -91,6 +100,29 @@ void setup_gpios_by_table(const char *chip_name, gpio_cfg *gpio_config) {
 	}
 }
 
+<<<<<<< HEAD
+=======
+static int setup_board_id(void) {
+	const char *shadows[] = {
+		"BOARD_ID0",
+		"BOARD_ID1",
+		"BOARD_ID2",
+		"BOARD_ID3",
+	};
+	char value[8] = {0};
+	unsigned int brd_id = 0;
+	int ret = -1;
+
+	if (!gpio_get_value_by_shadow_list(shadows, ARRAY_SIZE(shadows), &brd_id)) {
+		snprintf(value, sizeof(value), "%u", brd_id);
+		kv_set("board_id", value, 0, 0);
+		ret = 0;
+	}
+
+	return ret;
+}
+
+>>>>>>> facebook/helium
 int
 main(int argc, char **argv) {
 	uint32_t reg_value = 0;
@@ -111,6 +143,12 @@ main(int argc, char **argv) {
 	reg_value = reg_value | 0x00040000;
 	phymem_set_dword(SCU_BASE, REG_SCU630, reg_value);
 
+<<<<<<< HEAD
+=======
+	// Cache for BOARD_ID
+	setup_board_id();
+
+>>>>>>> facebook/helium
 	printf("done.\n");
 
 	return 0;

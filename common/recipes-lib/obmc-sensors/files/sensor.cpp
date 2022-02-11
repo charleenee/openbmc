@@ -34,7 +34,12 @@ void Sensor::initialize()
       subfeature->type != SENSORS_SUBFEATURE_POWER_INPUT &&
       subfeature->type != SENSORS_SUBFEATURE_ENERGY_INPUT &&
       subfeature->type != SENSORS_SUBFEATURE_CURR_INPUT &&
+<<<<<<< HEAD
       subfeature->type != SENSORS_SUBFEATURE_HUMIDITY_INPUT) {
+=======
+      subfeature->type != SENSORS_SUBFEATURE_HUMIDITY_INPUT &&
+      subfeature->type != SENSORS_SUBFEATURE_PWM_IO) {
+>>>>>>> facebook/helium
     label.assign(subfeature->name);
   } else {
     name.assign(feature->name);

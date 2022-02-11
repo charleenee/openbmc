@@ -103,10 +103,17 @@ class TestRestFwinfo(AioHTTPTestCase):
                         "vendor": "NIC Manufacturer",
                     },
                     "nicexp": {
+<<<<<<< HEAD
                         "model": None,
                         "part_number": None,
                         "serial_number": None,
                         "vendor": None,
+=======
+                        "model": "",
+                        "part_number": "",
+                        "serial_number": "",
+                        "vendor": "",
+>>>>>>> facebook/helium
                     },
                     "slot1": {
                         "model": "Twin Lakes Passive MP",

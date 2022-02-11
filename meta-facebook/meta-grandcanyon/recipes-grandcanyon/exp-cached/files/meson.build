@@ -10,6 +10,10 @@ dep_libs = [
     cc.find_library('pal'),
     cc.find_library('exp'),
     dependency('threads'),
+<<<<<<< HEAD
+=======
+    dependency('libkv'),
+>>>>>>> facebook/helium
 ]
 
 executable('exp-cached', 'exp-cached.c', dependencies : dep_libs, install: true)

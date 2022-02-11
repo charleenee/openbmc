@@ -146,6 +146,11 @@ enum {
 
   /* Other capabilities can be added here in a
    * backwards compatible way */
+<<<<<<< HEAD
+=======
+  /* Sensors of this fru depends on root fru */
+  FRU_CAPABILITY_SENSOR_SLAVE = (1UL << 19),
+>>>>>>> facebook/helium
 
   /* Magic to indicate all capabilities */
   FRU_CAPABILITY_ALL = 0xffffffffUL
@@ -215,6 +220,7 @@ enum CTRL_LOW_ACTIVE{
 /* Enum for type of Upper and Lower threshold values */
 enum {
   SENSOR_VALID = 0x0,
+<<<<<<< HEAD
   UCR_THRESH = 0x01,
   UNC_THRESH,
   UNR_THRESH,
@@ -223,6 +229,16 @@ enum {
   LNR_THRESH,
   POS_HYST,
   NEG_HYST,
+=======
+  UCR_THRESH = 0x01,  /* Upper Critical */
+  UNC_THRESH,         /* Upper Non-Critical */
+  UNR_THRESH,         /* Upper Non-Recoverable */
+  LCR_THRESH,         /* Lower Critical */
+  LNC_THRESH,         /* Lower Non-Critical */
+  LNR_THRESH,         /* Lower Non-Recoverable */
+  POS_HYST,           /* Positive Hysteresis */
+  NEG_HYST,           /* Negative Hysteresis */
+>>>>>>> facebook/helium
 };
 
 enum {
@@ -576,6 +592,17 @@ int pal_handle_oem_1s_dev_power(uint8_t slot, uint8_t *req_data, uint8_t req_len
 int pal_get_exp_power(uint8_t fru, uint8_t *status);
 int pal_set_exp_power(uint8_t fru, uint8_t cmd);
 int pal_handle_fan_fru_checksum_sel(char *log, uint8_t log_len);
+<<<<<<< HEAD
+=======
+int pal_is_exp(void);
+int pal_get_exp_fru_list(uint8_t *list, uint8_t *len);
+int pal_get_exp_arg_name(uint8_t fru, char *name);
+int pal_get_fru_slot(uint8_t fru, uint8_t *slot);
+int pal_get_print_fru_name(const char **list);
+int pal_get_root_fru(uint8_t fru, uint8_t *slot);
+int pal_get_print_sensor_name(const char **list);
+int pal_handle_oem_1s_update_sdr(uint8_t slot);
+>>>>>>> facebook/helium
 
 #ifdef __cplusplus
 }

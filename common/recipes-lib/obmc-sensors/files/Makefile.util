@@ -20,6 +20,10 @@ all: obmc-sensors-test
 C_SRCS := obmc-sensors-test.c
 C_OBJS := ${C_SRCS:.c=.o}
 CFLAGS += -Wall -Werror
+<<<<<<< HEAD
+=======
+LDFLAGS += -lpthread
+>>>>>>> facebook/helium
 
 obmc-sensors-test: $(C_SRCS)
 	$(CC) -lobmc-sensors $(CFLAGS) -o obmc-sensors-test $^ $(LDFLAGS)

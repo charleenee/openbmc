@@ -1,5 +1,9 @@
 import asyncio
 import unittest
+<<<<<<< HEAD
+=======
+from typing import Any, List
+>>>>>>> facebook/helium
 
 import aiohttp.web
 import rest_modbus_cmd
@@ -195,7 +199,21 @@ EXAMPLE_PAYLOAD = {
     "custom_timeout": 2,
 }
 
+<<<<<<< HEAD
 EXAMPLE_MODBUS_RESPONSE = [0x7, 0x0, 0xA4, 0x3, 0x2, 0x49, 0x76, 0x42, 0x2B]
+=======
+EXAMPLE_MODBUS_RESPONSE = [
+    0x7,
+    0x0,
+    0xA4,
+    0x3,
+    0x2,
+    0x49,
+    0x76,
+    0x42,
+    0x2B,
+]  # type: List[int]
+>>>>>>> facebook/helium
 
 EXAMPLE_INVALID_PAYLOADS = [
     [],
@@ -231,7 +249,11 @@ EXAMPLE_INVALID_PAYLOADS = [
         "expected_response_length": 0,
         "custom_timeout": 2,
     },  # wrong type
+<<<<<<< HEAD
 ]
+=======
+]  # type: List[Any]
+>>>>>>> facebook/helium
 
 
 class MockAsyncContextManager:

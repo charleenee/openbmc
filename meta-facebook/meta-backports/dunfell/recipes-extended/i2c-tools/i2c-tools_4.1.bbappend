@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+=======
+FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
+>>>>>>> facebook/helium
 
 SRC_URI:append = " \
     file://0001-i2cget-Add-support-for-I2C-block-data.patch \

@@ -19,8 +19,12 @@
 #
 
 
+<<<<<<< HEAD
 import os
 from subprocess import *
+=======
+from subprocess import check_output, CalledProcessError, PIPE, Popen
+>>>>>>> facebook/helium
 
 
 # return value
@@ -36,7 +40,11 @@ def get_bic_status():
             return 0
         else:
             return 1
+<<<<<<< HEAD
     except (OSError, IOError):
+=======
+    except OSError:
+>>>>>>> facebook/helium
         return 2  # cmd not found, i.e. no BIC on this platform
     except (CalledProcessError):
         return 0  # bic-util returns error

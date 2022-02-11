@@ -14,35 +14,62 @@ paths:
             type: object
             additionalProperties: false
             properties: 
+<<<<<<< HEAD
+=======
+              Resources: 
+                type: array
+                items: 
+                  type: string
+>>>>>>> facebook/helium
               Information: 
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIN_POWER: 
+=======
+                  MB_PVNN_PCH_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIO_POWER: 
+=======
+                  MB_CONN_P12V_INA230_PWR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VDDQ_GRPC_CURR: 
+=======
+                  MB_VR_CPU0_VCCIO_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VCCIO_POWER: 
+=======
+                  MB_P3V_BAT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_OUTLET_TEMP: 
+=======
+                  MB_VR_PCH_P1V05_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -54,49 +81,81 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CONN_P12V_INA230_CURR: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPA_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VSA_POWER: 
+=======
+                  MB_VR_CPU1_VSA_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CPU1_DIMM_GRPD_TEMP: 
+=======
+                  MB_VR_CPU1_VCCIN_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VCCIO_CURR: 
+=======
+                  MB_VR_CPU1_VCCIO_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_PCH_P1V05_TEMP: 
+=======
+                  MB_CPU1_THERM_MARGIN: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CONN_P12V_INA230_VOL: 
+=======
+                  MB_CPU0_TJMAX: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIN_CURR: 
+=======
+                  MB_P1V05: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VSA_POWER: 
+=======
+                  MB_CPU1_TJMAX: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -108,49 +167,81 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VCCIN_POWER: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPD_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VSA_VOLT: 
+=======
+                  MB_VR_CPU0_VCCIN_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_P3V_BAT: 
+=======
+                  MB_CPU1_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_P5V: 
+=======
+                  MB_VR_PCH_P1V05_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VDDQ_GRPC_VOLT: 
+=======
+                  MB_CONN_P12V_INA230_VOL: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VCCIN_TEMP: 
+=======
+                  MB_P5V_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIO_VOLT: 
+=======
+                  MB_VR_CPU1_VCCIO_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU1_VCCIO_VOLT: 
+=======
+                  MB_CPU0_PKG_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -162,7 +253,11 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VDDQ_GRPB_CURR: 
+=======
+                  MB_P3V3: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -174,127 +269,217 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIO_TEMP: 
+=======
+                  MB_CPU0_DIMM_GRPA_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CPU0_TEMP: 
+=======
+                  MB_CPU1_PKG_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CPU0_DIMM_GRPB_TEMP: 
+=======
+                  MB_VR_PCH_PVNN_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_P3V3_STBY: 
+=======
+                  MB_P5V: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIN_VOLT: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPB_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_PCH_PVNN_TEMP: 
+=======
+                  MB_VR_PCH_PVNN_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_CPU0_VCCIO_CURR: 
+=======
+                  MB_VR_CPU1_VCCIN_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CPU1_DIMM_GRPC_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VCCIN_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU1_TJMAX: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VDDQ_GRPA_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VSA_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VDDQ_GRPA_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VSA_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_PCH_PVNN_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   MB_VR_CPU0_VDDQ_GRPA_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VCCIN_TEMP: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU1_TJMAX: 
+=======
+                  MB_OUTLET_REMOTE_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPA_CURR: 
+=======
+                  MB_HOST_BOOT_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VSA_TEMP: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPA_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPA_TEMP: 
+=======
+                  MB_VR_CPU0_VCCIN_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VSA_TEMP: 
+=======
+                  MB_INLET_REMOTE_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_PCH_PVNN_VOLT: 
+=======
+                  MB_VR_CPU1_VCCIO_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPA_VOLT: 
+=======
+                  MB_VR_CPU1_VCCIN_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VSA_CURR: 
+=======
+                  MB_P3V3_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_PVNN_PCH_STBY: 
+=======
+                  MB_CPU1_DIMM_GRPD_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_PCH_PVNN_POWER: 
+=======
+                  MB_VR_PCH_P1V05_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPA_POWER: 
+=======
+                  MB_CPU0_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_INLET_TEMP: 
+=======
                   MB_VR_CPU0_VSA_CURR: 
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  MB_PVNN_PCH_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_PCH_PVNN_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VDDQ_GRPA_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_INLET_TEMP: 
+                  MB_HSC_IN_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -306,214 +491,353 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_CPU0_PKG_POWER: 
+=======
+                  MB_VR_PCH_PVNN_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB_VR_PCH_P1V05_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_HSC_IN_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   MB_VR_CPU0_VDDQ_GRPB_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  MB_VR_PCH_P1V05_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VCCIO_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_P5V_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CONN_P12V_INA230_PWR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_P12V: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_OUTLET_REMOTE_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VDDQ_GRPC_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VDDQ_GRPD_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU0_THERM_MARGIN: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VDDQ_GRPD_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_P1V05: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VDDQ_GRPB_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_P3V3: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VDDQ_GRPD_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU0_DIMM_GRPA_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VCCIN_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU1_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_PCH_PVNN_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU0_VDDQ_GRPB_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_INLET_REMOTE_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_FAN0_TACH: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_PCH_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VCCIN_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VDDQ_GRPD_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU0_TJMAX: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU1_THERM_MARGIN: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_VR_CPU1_VSA_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_HSC_OUT_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB_CPU1_PKG_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  MB_HSC_IN_VOLT: 
+=======
                   MB_VR_CPU1_VSA_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPB_VOLT: 
+=======
+                  MB_HSC_OUT_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_PCH_P1V05_VOLT: 
+=======
+                  MB_VR_CPU0_VSA_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VCCIO_TEMP: 
+=======
+                  MB_CONN_P12V_INA230_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_P5V_STBY: 
+=======
+                  MB_VR_CPU1_VCCIN_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CONN_P12V_INA230_PWR: 
+=======
+                  MB_VR_CPU1_VCCIO_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_P12V: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPB_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_OUTLET_REMOTE_TEMP: 
+=======
+                  MB_VR_CPU0_VCCIN_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VDDQ_GRPC_TEMP: 
+=======
+                  MB_VR_CPU1_VSA_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VDDQ_GRPD_POWER: 
+=======
+                  MB_VR_CPU0_VCCIO_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU0_THERM_MARGIN: 
+=======
+                  MB_CPU1_DIMM_GRPC_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VDDQ_GRPD_VOLT: 
+=======
+                  MB_VR_CPU0_VCCIO_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_P1V05: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPC_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPB_TEMP: 
+=======
+                  MB_CPU0_DIMM_GRPB_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_P3V3: 
+=======
+                  MB_VR_CPU0_VSA_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VDDQ_GRPD_CURR: 
+=======
+                  MB_VR_CPU0_VCCIO_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU0_DIMM_GRPA_TEMP: 
+=======
+                  MB_FAN0_TACH: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VCCIN_CURR: 
+=======
+                  MB_OUTLET_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU1_TEMP: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPA_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_PCH_PVNN_CURR: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPD_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU0_VDDQ_GRPB_POWER: 
+=======
+                  MB_VR_PCH_PVNN_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_INLET_REMOTE_TEMP: 
+=======
+                  MB_VR_CPU0_VCCIN_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_FAN0_TACH: 
+=======
+                  MB_P12V: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_PCH_TEMP: 
+=======
+                  MB_VR_CPU1_VSA_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VCCIN_VOLT: 
+=======
+                  MB_INLET_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VDDQ_GRPD_TEMP: 
+=======
+                  MB_VR_CPU0_VDDQ_GRPB_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU0_TJMAX: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPD_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU1_THERM_MARGIN: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPD_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VSA_VOLT: 
+=======
+                  MB_VR_CPU1_VDDQ_GRPC_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_HSC_OUT_CURR: 
+=======
+                  MB_VR_CPU0_VSA_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_CPU1_PKG_POWER: 
+=======
+                  MB_PCH_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB_VR_CPU1_VSA_CURR: 
+=======
+                  MB_CPU0_THERM_MARGIN: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
+=======
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

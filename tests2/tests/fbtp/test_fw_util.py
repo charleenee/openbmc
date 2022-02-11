@@ -20,10 +20,18 @@
 import unittest
 
 from common.base_fw_util_test import CommonFwUtilTest
+<<<<<<< HEAD
+=======
+from utils.test_utils import qemu_check
+>>>>>>> facebook/helium
 
 PLATFORM = "fbtp"
 
 
+<<<<<<< HEAD
+=======
+@unittest.skipIf(qemu_check(), "test env is QEMU, skipped")
+>>>>>>> facebook/helium
 class FwUtilVersionTest(CommonFwUtilTest, unittest.TestCase):
     def set_platform(self):
         self.platform = PLATFORM

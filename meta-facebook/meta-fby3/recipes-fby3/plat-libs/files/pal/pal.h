@@ -85,7 +85,10 @@ extern const char pal_dev_fru_list[];
 extern const char pal_dev_pwr_list[];
 extern const char pal_dev_pwr_option_list[];
 extern const char pal_fan_opt_list[];
+<<<<<<< HEAD
 extern const char pal_fru_exp_list[];
+=======
+>>>>>>> facebook/helium
 extern const char pal_m2_dual_list[];
 
 enum {
@@ -250,6 +253,17 @@ bool pal_get_crit_act_status(int fd);
 bool pal_is_fan_manual_mode(uint8_t slot_id);
 int pal_is_exp(void);
 int pal_get_fru_slot(uint8_t fru, uint8_t *slot);
+<<<<<<< HEAD
+=======
+int pal_get_exp_fru_list(uint8_t *list, uint8_t *len);
+int pal_get_exp_arg_name(uint8_t fru, char *name);
+int pal_get_print_fru_name(const char **list);
+int pal_get_root_fru(uint8_t fru, uint8_t *root);
+int pal_get_print_sensor_name(const char **list);
+int pal_get_2ou_board_type(uint8_t fru, uint8_t *type_2ou);
+int pal_is_sensor_num_exceed(uint8_t sensor_num);
+
+>>>>>>> facebook/helium
 #ifdef __cplusplus
 } // extern "C"
 #endif

@@ -24,6 +24,7 @@ paths:
                       type: object
                       additionalProperties: false
                       properties: 
+<<<<<<< HEAD
                         FRU_NAME: 
                           type: string
                         APP_NAME: 
@@ -39,6 +40,23 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                        FRU#: 
+                          type: string
+                        MESSAGE: 
+                          type: string
+                        APP_NAME: 
+                          type: string
+                        TIME_STAMP: 
+                          type: string
+                        FRU_NAME: 
+                          type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

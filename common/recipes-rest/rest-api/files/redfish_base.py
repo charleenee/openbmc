@@ -60,9 +60,13 @@ VALID_KEYS = {
     "Model",
     "SerialNumber",
     "PowerState",
+<<<<<<< HEAD
     "Thermal",
     "Thresholds",
     "Power",
+=======
+    "Thresholds",
+>>>>>>> facebook/helium
     "FruInfo",
     "PhysicalContext",
     "ReadingRangeMin",
@@ -79,6 +83,20 @@ VALID_KEYS = {
     "name",
     "kind",
     "url",
+<<<<<<< HEAD
+=======
+    "NameServers",
+    "LinkStatus",
+    "DateTime",
+    "DateTimeLocalOffset",
+    "Entries",
+    "LogEntryType",
+    "MaxNumberOfRecords",
+    "OverWritePolicy",
+    "SyslogFilters",
+    "LogFacilities",
+    "LowestSeverity",
+>>>>>>> facebook/helium
 }
 
 
@@ -94,7 +112,14 @@ async def validate_keys(body: t.Dict[str, t.Any]) -> None:
     for key, _value in body.items():
         if key not in VALID_KEYS:
             raise NotImplementedError(
+<<<<<<< HEAD
                 "key : {key} in response body : {body} is not a valid RedFish key".format(  # noqa: B950
+=======
+                (
+                    "key : {key} in response body : {body}"
+                    " is not a valid RedFish key"
+                ).format(  # noqa: B950
+>>>>>>> facebook/helium
                     key=repr(key), body=repr(body)
                 )
             )
@@ -115,8 +140,13 @@ class RedfishErrorExtendedInfo:
         self.severity = severity
         self.resolution = resolution
 
+<<<<<<< HEAD
     def as_dict(self) -> t.Dict[t.Any, t.Any]:
         result = {}
+=======
+    def as_dict(self) -> t.Dict[str, t.Any]:
+        result = {}  # type: t.Dict[str, t.Any]
+>>>>>>> facebook/helium
         if self.message_id is not None:
             result["MessageId"] = self.message_id
         if self.message is not None:

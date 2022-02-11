@@ -18,7 +18,11 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   PVCCIO VR Curr: 
+=======
+                  PVNN_PCH VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -26,7 +30,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVCCIO VR Vol: 
+=======
+                  PVCCIN VR Pout: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -34,7 +42,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVCCSA VR Vol: 
+=======
+                  INA230 Voltage: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -42,7 +54,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_AB VR Pout: 
+=======
+                  P1V05PCH VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -50,13 +66,21 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_HSC_IN_VOLT: 
+=======
+                  SP_SENSOR_P1V15_BMC_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   PVCCIN VR Curr: 
+=======
+                  PVCCSA VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -64,15 +88,17 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   P3V3_STBY_MB: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
+=======
+                  MEZZ_SENSOR_TEMP: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
                   P1V05_PCH: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -80,7 +106,23 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
+                  P1V05_PCH: 
+=======
+                  P3V3_STBY_MB: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
                   PVCCSA VR Pout: 
+=======
+                  PV_BAT: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -88,7 +130,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   P1V05PCH VR Pout: 
+=======
+                  SOC DIMMB0 Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -96,7 +142,17 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVCCIO VR Temp: 
+=======
+                  SP_SENSOR_P2V5_BMC_STBY: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  PVCCIN VR Vol: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -104,7 +160,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_DE VR Pout: 
+=======
+                  PVCCIN VR Curr: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -112,6 +172,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_INLET_TEMP: 
                     type: object
                     additionalProperties: false
@@ -131,6 +192,9 @@ paths:
                       value: 
                         type: string
                   PVCCIO VR Pout: 
+=======
+                  PVCCIO VR Curr: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -138,7 +202,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVNNPCH: 
+=======
+                  SOC DIMMA1 Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -146,7 +214,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_AB VR Vol: 
+=======
+                  PVDDQ_AB VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -154,37 +226,17 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PV_BAT: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  PVNN_PCH VR Curr: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  PVDDQ_DE VR Vol: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  SP_HSC_PEAK_IOUT: 
+=======
+                  SP_FAN1_TACH: 
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  PVNN_PCH VR Pout: 
+                  PVDDQ_DE VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -192,7 +244,35 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
+                  PVNN_PCH VR Curr: 
+=======
+                  SP_P5V: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  P1V05PCH VR Pout: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  PVDDQ_DE VR Vol: 
+=======
+                  SP_FAN1_PWM: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
                   P1V05PCH VR Vol: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -200,31 +280,81 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
+                  SP_HSC_PEAK_IOUT: 
+=======
+                  SP_HSC_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  PVNN_PCH VR Pout: 
+=======
+                  PVCCSA VR Pout: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  P1V05PCH VR Vol: 
+=======
+                  SOC Therm Margin: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
                   SOC DIMMB0 Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  P1V05PCH VR Curr: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  P12V_STBY_MB: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
+=======
                   SOC DIMME1 Temp: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  P1V05PCH VR Curr: 
+=======
+                  PVNN_PCH VR Curr: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  P12V_STBY_MB: 
+=======
+                  PVCCIO VR Pout: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  SOC DIMME1 Temp: 
+=======
+                  PVDDQ_AB: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -240,19 +370,54 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
+=======
+                  SP_HSC_IN_POWERAVG: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+>>>>>>> facebook/helium
                   SP_P12V: 
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SP_HSC_OUT_CURR: 
+=======
+                  SP_P12V_SLOT4: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SOC DIMME0 Temp: 
+=======
+                  SP_P12V_SLOT3: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SP_P12V_SLOT2: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SP_OUTLET_TEMP: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SOC DIMMD0 Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -260,15 +425,17 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_DE: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
+=======
+                  SP_INLET_TEMP: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
                   SOC Tjmax: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -276,6 +443,19 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
+                  SOC Tjmax: 
+=======
+                  HOST_BOOT_TEMP: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
                   SP_SENSOR_P1V2_BMC_STBY: 
                     type: object
                     additionalProperties: false
@@ -283,6 +463,9 @@ paths:
                       value: 
                         type: string
                   PVCCIN VR Vol: 
+=======
+                  SOC DIMME0 Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -290,7 +473,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_AB VR Curr: 
+=======
+                  MB Outlet Temp_B: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -298,7 +485,17 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVCCIN VR Pout: 
+=======
+                  SYSTEM_AIRFLOW: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SOC DIMMA0 Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -306,6 +503,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_HSC_PEAK_PIN: 
                     type: object
                     additionalProperties: false
@@ -313,6 +511,9 @@ paths:
                       value: 
                         type: string
                   SOC Therm Margin: 
+=======
+                  PVNNPCH: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -320,6 +521,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_FAN1_TACH: 
                     type: object
                     additionalProperties: false
@@ -357,6 +559,9 @@ paths:
                       value: 
                         type: string
                   PVDDQ_AB: 
+=======
+                  PVCCIO VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -364,7 +569,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   NVMe1 CTemp: 
+=======
+                  PVDDQ_AB VR Curr: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -372,6 +581,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_SENSOR_P2V5_BMC_STBY: 
                     type: object
                     additionalProperties: false
@@ -379,6 +589,9 @@ paths:
                       value: 
                         type: string
                   P1V05PCH VR Temp: 
+=======
+                  SOC Package Pwr: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -386,7 +599,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVCCIN VR Temp: 
+=======
+                  NVMe2 CTemp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -394,13 +611,21 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_FAN0_TACH: 
+=======
+                  SP_P1V8_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   MB Inlet Temp: 
+=======
+                  PCH Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -408,7 +633,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   P3V3_MB: 
+=======
+                  PVCCIN VR Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -416,19 +645,31 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_HSC_TEMP: 
+=======
+                  SP_HSC_IN_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SP_P12V_SLOT4: 
+=======
+                  SP_P3V3_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   PVCCSA VR Temp: 
+=======
+                  P1V05PCH VR Curr: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -436,6 +677,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_SENSOR_P1V15_BMC_STBY: 
                     type: object
                     additionalProperties: false
@@ -443,6 +685,9 @@ paths:
                       value: 
                         type: string
                   SOC DIMMD1 Temp: 
+=======
+                  PVNN_PCH VR Pout: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -450,7 +695,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SOC DIMMD0 Temp: 
+=======
+                  SOC Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -458,7 +707,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   INA230 Voltage: 
+=======
+                  MB Outlet Temp_T: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -466,6 +719,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_P12V_SLOT2: 
                     type: object
                     additionalProperties: false
@@ -473,6 +727,9 @@ paths:
                       value: 
                         type: string
                   SOC DIMMA1 Temp: 
+=======
+                  PVDDQ_DE VR Pout: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -480,13 +737,27 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SP_HSC_IN_POWER: 
+=======
+                  SP_P12V_SLOT1: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   PVNN_PCH VR Temp: 
+=======
+                  SP_HSC_PEAK_IOUT: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  P12V_STBY_MB: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -494,6 +765,7 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SYSTEM_AIRFLOW: 
                     type: object
                     additionalProperties: false
@@ -501,6 +773,9 @@ paths:
                       value: 
                         type: string
                   MB Outlet Temp_B: 
+=======
+                  P3V3_MB: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -508,7 +783,11 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   PVDDQ_AB VR Temp: 
+=======
+                  MB Inlet Temp: 
+>>>>>>> facebook/helium
                     type: array
                     items: 
                       type: object
@@ -516,97 +795,193 @@ paths:
                       properties: 
                         value: 
                           type: string
+<<<<<<< HEAD
                   SOC Package Pwr: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  SOC DIMMB1 Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  SOC Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  NVMe2 CTemp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  SOC DIMMA0 Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  MB Outlet Temp_T: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  PVCCSA VR Curr: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  INA230 Power: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  PVDDQ_DE VR Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  PCH Temp: 
-                    type: array
-                    items: 
-                      type: object
-                      additionalProperties: false
-                      properties: 
-                        value: 
-                          type: string
-                  MEZZ_SENSOR_TEMP: 
+=======
+                  SP_HSC_OUT_CURR: 
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+                  SOC DIMMD1 Temp: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  SOC DIMMB1 Temp: 
+=======
+                  PVDDQ_AB VR Pout: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  SOC Temp: 
+=======
+                  PVDDQ_AB VR Vol: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  NVMe2 CTemp: 
+=======
+                  PVDDQ_DE VR Vol: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  SOC DIMMA0 Temp: 
+=======
+                  SOC DIMMB1 Temp: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  MB Outlet Temp_T: 
+=======
+                  SP_SENSOR_P1V2_BMC_STBY: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  PVCCSA VR Curr: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  PVCCSA VR Curr: 
+=======
+                  NVMe1 CTemp: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  INA230 Power: 
+=======
+                  PVDDQ_DE: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  PVDDQ_DE VR Temp: 
+=======
+                  PVCCSA VR Vol: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  PCH Temp: 
+=======
+                  SP_FAN0_PWM: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SP_HSC_IN_VOLT: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SP_HSC_PEAK_PIN: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  SP_P3V3: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+                  INA230 Power: 
+>>>>>>> facebook/helium
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+<<<<<<< HEAD
+                  MEZZ_SENSOR_TEMP: 
+=======
+                  SP_FAN0_TACH: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
               Actions: 
                 type: array
                 items: 
                   type: string
               Resources: 
+=======
+                  PVCCIO VR Vol: 
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+              Resources: 
+                type: array
+                items: 
+                  type: string
+              Actions: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

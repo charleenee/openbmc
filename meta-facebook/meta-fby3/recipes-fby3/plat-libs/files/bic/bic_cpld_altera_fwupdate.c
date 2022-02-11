@@ -328,7 +328,10 @@ Max10_erase_sector(uint8_t slot_id, SectorType_t secType, uint8_t intf) {
 static int
 is_valid_cpld_image(uint8_t slot_id, uint8_t signed_byte, uint8_t intf) {
   int ret = -1;
+<<<<<<< HEAD
   int i2cfd = 0;
+=======
+>>>>>>> facebook/helium
   uint8_t tbuf[4] = {0};
   uint8_t rbuf[1] = {0};
   uint8_t tlen = 0;
@@ -336,7 +339,13 @@ is_valid_cpld_image(uint8_t slot_id, uint8_t signed_byte, uint8_t intf) {
   int retry= 0;
   int board_type_index = 0;
   bool board_rev_is_invalid = false;
+<<<<<<< HEAD
 
+=======
+  bic_gpio_t gpio = {0};
+  uint8_t hsc_det = 0;
+  uint8_t board_revision_id = 0xff;
+>>>>>>> facebook/helium
   switch (intf) {
     case BB_BIC_INTF:
         // Read Board Revision from BB CPLD
@@ -386,6 +395,7 @@ is_valid_cpld_image(uint8_t slot_id, uint8_t signed_byte, uint8_t intf) {
       break;
     case NONE_INTF:
         // Read Board Revision from SB CPLD
+<<<<<<< HEAD
         i2cfd = i2c_cdev_slave_open(slot_id + SLOT_BUS_BASE, CPLD_ADDRESS >> 1, I2C_SLAVE_FORCE_CLAIM);
         if ( i2cfd < 0 ) {
           syslog(LOG_WARNING, "%s() Failed to open %d", __func__, CPLD_ADDRESS);
@@ -410,6 +420,30 @@ is_valid_cpld_image(uint8_t slot_id, uint8_t signed_byte, uint8_t intf) {
           goto error_exit;
         }
 
+=======
+        if ( fby3_common_get_sb_board_rev(slot_id, &board_revision_id) ) {
+          syslog(LOG_WARNING, "Failed to get sb board rev");
+          goto error_exit;
+        }
+        // respin board, Need to process BOARD_REV through HSC_DETECT, keeping the original logic work
+        ret = bic_get_gpio(slot_id, &gpio, NONE_INTF);
+        if ( ret < 0 ) {
+          syslog(LOG_WARNING, "%s() bic_get_gpio returns %d\n", __func__, ret);
+          goto error_exit;
+        }
+        hsc_det |= ((BIT_VALUE(gpio, 77)) << 0); // 77    HSC_DETECT0
+        hsc_det |= ((BIT_VALUE(gpio, 78)) << 1); // 78    HSC_DETECT1
+        hsc_det |= ((BIT_VALUE(gpio, 79)) << 2); // 79    HSC_DETECT2
+        if ( hsc_det == HSC_DET_ADM1278 ) {
+          // old board, BOARD_REV_ID3 is floating.
+          board_revision_id &= 0x7;
+        } else {
+          // new respin board is the MP stage,
+          // rise bit3 to keep "if (board_type_index < CPLD_BOARD_PVT_REV)" work.
+          board_revision_id |= 0x8;
+        }
+        board_type_index = board_revision_id - 1;
+>>>>>>> facebook/helium
         // PVT & MP firmware could be used in common
         if (board_type_index < CPLD_BOARD_PVT_REV) {
           if (REVISION_ID(signed_byte) != board_type_index) {

@@ -21,7 +21,10 @@
 import json
 import os
 import os.path
+<<<<<<< HEAD
 import subprocess
+=======
+>>>>>>> facebook/helium
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -78,7 +81,11 @@ def begin_job(jobdesc):
         with os.fdopen(fwfd, "wb") as fwfile:
             fwfile.write(fwdata.read())
             fwfile.flush()
+<<<<<<< HEAD
     except:
+=======
+    except Exception:
+>>>>>>> facebook/helium
         os.remove(statusfilepath)
         raise
 

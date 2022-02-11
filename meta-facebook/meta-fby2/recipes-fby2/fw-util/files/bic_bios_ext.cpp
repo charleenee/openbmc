@@ -34,7 +34,11 @@ class BiosExtComponent : public BiosComponent {
 int BiosExtComponent::update_internal(const std::string &image, int fd, bool force) {
   int ret;
   uint8_t status;
+<<<<<<< HEAD
   int retry_count = 60;
+=======
+  int retry_count = (force ? 60 : 5*60); // give server 5 minutes for graceful.
+>>>>>>> facebook/helium
 
   try {
     server.ready();

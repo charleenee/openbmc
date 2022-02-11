@@ -20,6 +20,12 @@
   },
   "postcode": {
     "supported": true
+<<<<<<< HEAD
+=======
+  },
+  "force_clear_cmos": {
+    "supported": true
+>>>>>>> facebook/helium
   }
 }
 

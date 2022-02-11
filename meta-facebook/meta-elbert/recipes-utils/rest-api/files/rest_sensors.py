@@ -38,7 +38,11 @@ from rest_utils import DEFAULT_TIMEOUT_SEC
 # different from sensors command. So we need a separate REST API handler
 # for this.
 #
+<<<<<<< HEAD
 def get_fru_sensor(fru):
+=======
+def get_fru_sensor(fru, removeNA=False):
+>>>>>>> facebook/helium
     result = {}
     cmd = "/usr/local/bin/sensor-util"
     proc = subprocess.Popen([cmd, fru], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -72,7 +76,16 @@ def get_fru_sensor(fru):
             value = float(value)
             result[key] = "{:.2f}".format(value)
         except Exception:
+<<<<<<< HEAD
             result[key] = "NA"
+=======
+            # Some of FB Infra services expect "0" instead of NA,
+            # even when the PSU is not available or not responding.
+            if removeNA:
+                result[key] = "0"
+            else:
+                result[key] = "NA"
+>>>>>>> facebook/helium
     return result
 
 
@@ -85,6 +98,7 @@ def get_smb_sensors():
 
 
 def get_psu1_sensors():
+<<<<<<< HEAD
     return {"Information": get_fru_sensor("psu1"), "Actions": [], "Resources": []}
 
 
@@ -98,6 +112,37 @@ def get_psu3_sensors():
 
 def get_psu4_sensors():
     return {"Information": get_fru_sensor("psu4"), "Actions": [], "Resources": []}
+=======
+    return {
+        "Information": get_fru_sensor("psu1, removeNA=True"),
+        "Actions": [],
+        "Resources": [],
+    }
+
+
+def get_psu2_sensors():
+    return {
+        "Information": get_fru_sensor("psu2, removeNA=True"),
+        "Actions": [],
+        "Resources": [],
+    }
+
+
+def get_psu3_sensors():
+    return {
+        "Information": get_fru_sensor("psu3, removeNA=True"),
+        "Actions": [],
+        "Resources": [],
+    }
+
+
+def get_psu4_sensors():
+    return {
+        "Information": get_fru_sensor("psu4, removeNA=True"),
+        "Actions": [],
+        "Resources": [],
+    }
+>>>>>>> facebook/helium
 
 
 def get_pim2_sensors():
@@ -158,7 +203,11 @@ def get_all_sensors():
     ]
 
     for fru in frus:
+<<<<<<< HEAD
         sresult = get_fru_sensor(fru)
+=======
+        sresult = get_fru_sensor(fru, removeNA=True if fru.startswith("psu") else False)
+>>>>>>> facebook/helium
         result.append(sresult)
 
     fresult = {"Information": result, "Actions": [], "Resources": frus}

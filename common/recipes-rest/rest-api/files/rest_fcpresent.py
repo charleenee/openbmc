@@ -45,7 +45,11 @@ def get_fcpresent():
         mon_slot = slot - FC_CARD_BASE
 
     if mon_slot:
+<<<<<<< HEAD
         if is_mon_fc_present() == None:
+=======
+        if is_mon_fc_present() is None:
+>>>>>>> facebook/helium
             status = "Not Applicable"  # gpio read failed
         elif is_mon_fc_present():
             status = "Present"

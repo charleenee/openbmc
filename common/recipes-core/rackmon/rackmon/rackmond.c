@@ -153,10 +153,20 @@ static struct {
 
   int paused;
 
+<<<<<<< HEAD
   // the value we will auto-adjust to if possible
   speed_t desired_baudrate;
 
   rs485_dev_t rs485;
+=======
+  // multi port for ft4232
+  bool multi_port;
+
+  // the value we will auto-adjust to if possible
+  speed_t desired_baudrate;
+
+  rs485_dev_t rs485[3];
+>>>>>>> facebook/helium
 } rackmond_config = {
   .lock = PTHREAD_MUTEX_INITIALIZER,
   .modbus_timeout = 300000,
@@ -343,15 +353,25 @@ static char psu_address(int rack, int shelf, int psu) {
   return 0xA0 | rack_a | shelf_a | psu_a;
 }
 
+<<<<<<< HEAD
 static bool psu_location(int addr, int *rack, int *shelf, int *psu)
+=======
+static int psu_location(int addr, int *rack, int *shelf, int *psu)
+>>>>>>> facebook/helium
 {
   if ((addr & 0xA0)) {
     *psu = addr & 3;
     *shelf = (addr >> 2) & 1;
     *rack = (addr >> 3) & 3;
+<<<<<<< HEAD
     return true;
   }
   return false;
+=======
+    return 0;
+  }
+  return -1;
+>>>>>>> facebook/helium
 }
 
 static int check_psu_comms(psu_datastore_t *psu) {
@@ -417,7 +437,11 @@ static int psu_retry_limit(psu_datastore_t *info, int addr)
   }
 
   /* Do not waste time retrying on invalid PSU addresses */
+<<<<<<< HEAD
   if (!psu_location(addr, &rack, &shelf, &psu)) {
+=======
+  if (psu_location(addr, &rack, &shelf, &psu)) {
+>>>>>>> facebook/helium
     return 1;
   }
 
@@ -719,7 +743,14 @@ int write_holding_regs(rs485_dev_t *dev, int timeout, uint8_t slave_addr,
 int set_psu_timestamp(psu_datastore_t *psu, uint32_t unixtime)
 {
   uint16_t values[2];
+<<<<<<< HEAD
 
+=======
+  int rack=0,shelf=0,psu_no=0;
+  if (psu_location(psu->addr,&rack,&shelf,&psu_no)) {
+    return -1;
+  }
+>>>>>>> facebook/helium
   if (psu == NULL) {
     return -1;
   }
@@ -729,8 +760,18 @@ int set_psu_timestamp(psu_datastore_t *psu, uint32_t unixtime)
   OBMC_INFO("Writing timestamp 0x%08x to PSU: 0x%02x", unixtime, psu->addr);
   values[0] = unixtime >> 16;
   values[1] = unixtime & 0xFFFF;
+<<<<<<< HEAD
   return write_holding_regs(&rackmond_config.rs485, TIMESTAMP_CMD_TIMEOUT,
       psu->addr, REGISTER_PSU_TIMESTAMP, 2, values, psu->baudrate);
+=======
+  if (rackmond_config.multi_port){
+    return write_holding_regs(&rackmond_config.rs485[rack], TIMESTAMP_CMD_TIMEOUT,
+        psu->addr, REGISTER_PSU_TIMESTAMP, 2, values, psu->baudrate);
+  } else {
+    return write_holding_regs(&rackmond_config.rs485[0], TIMESTAMP_CMD_TIMEOUT,
+        psu->addr, REGISTER_PSU_TIMESTAMP, 2, values, psu->baudrate);
+  }
+>>>>>>> facebook/helium
 }
 
 static int sub_uint8s(const void* a, const void* b) {
@@ -748,6 +789,13 @@ static int check_psu_baudrate(psu_datastore_t *psu, speed_t *baudrate_out) {
   uint16_t value;
   uint16_t written_value;
   psu_datastore_t *mdata;
+<<<<<<< HEAD
+=======
+  int rack=0,shelf=0,psu_no=0;
+  if (psu_location(psu->addr,&rack,&shelf,&psu_no)) {
+    return -1;
+  }
+>>>>>>> facebook/helium
 
   if (psu == NULL) {
     OBMC_WARN("check_psu_baudrate received a null PSU argument, assuming default baudrate");
@@ -779,9 +827,21 @@ static int check_psu_baudrate(psu_datastore_t *psu, speed_t *baudrate_out) {
 
   // now attempt to raise the baudrate for this PSU
   value = baudrate_to_value(rackmond_config.desired_baudrate);
+<<<<<<< HEAD
   err = write_holding_reg(&rackmond_config.rs485, BAUDRATE_CMD_TIMEOUT,
                           psu->addr, REGISTER_PSU_BAUDRATE, value,
                           &written_value, psu->baudrate);
+=======
+  if (rackmond_config.multi_port) {
+    err = write_holding_reg(&rackmond_config.rs485[rack], BAUDRATE_CMD_TIMEOUT,
+                            psu->addr, REGISTER_PSU_BAUDRATE, value,
+                            &written_value, psu->baudrate);
+  } else {
+    err = write_holding_reg(&rackmond_config.rs485[0], BAUDRATE_CMD_TIMEOUT,
+                            psu->addr, REGISTER_PSU_BAUDRATE, value,
+                            &written_value, psu->baudrate);
+  }
+>>>>>>> facebook/helium
 
   // if unsuccessful, assume that the unit's baudrate didn't change
   if (err != 0) {
@@ -836,9 +896,21 @@ static int check_active_psus(void) {
           }
         }
 
+<<<<<<< HEAD
         err = read_holding_reg(&rackmond_config.rs485,
                                rackmond_config.modbus_timeout, addr,
                                REGISTER_PSU_STATUS, 1, &output, baudrate);
+=======
+        if (rackmond_config.multi_port){
+          err = read_holding_reg(&rackmond_config.rs485[rack],
+                                rackmond_config.modbus_timeout, addr,
+                                REGISTER_PSU_STATUS, 1, &output, baudrate);
+        } else {
+          err = read_holding_reg(&rackmond_config.rs485[0],
+                                rackmond_config.modbus_timeout, addr,
+                                REGISTER_PSU_STATUS, 1, &output, baudrate);
+        }
+>>>>>>> facebook/helium
         if (err != 0) {
           continue;
         }
@@ -1071,6 +1143,10 @@ static int rs485_device_init(const char* tty_dev, rs485_dev_t *dev) {
   int ret = 0;
 
   dbg("Opening %s\n", tty_dev);
+<<<<<<< HEAD
+=======
+  strcpy(rackmon_io->dev_path,tty_dev);
+>>>>>>> facebook/helium
   dev->tty_fd = rackmon_io->open(rackmon_io);
   if (dev->tty_fd < 0)
     return -1;
@@ -1109,6 +1185,10 @@ static int reset_psu_baudrate(void) {
   // set all connected PSUs back to the default baud rate
   OBMC_INFO("restoring PSUs to the default baud rate");
   for (pos = 0; pos < ARRAY_SIZE(rackmond_config.stored_data); pos++) {
+<<<<<<< HEAD
+=======
+    int rack=0,shelf=0,psu=0;
+>>>>>>> facebook/helium
     mdata = rackmond_config.stored_data[pos];
     if (mdata == NULL) {
       continue;
@@ -1116,6 +1196,7 @@ static int reset_psu_baudrate(void) {
     if (mdata->baudrate <= 0) {
       continue;
     }
+<<<<<<< HEAD
     if (mdata->baudrate != DEFAULT_BAUDRATE) {
       value = baudrate_to_value(DEFAULT_BAUDRATE);
       err = write_holding_reg(&rackmond_config.rs485,
@@ -1123,6 +1204,25 @@ static int reset_psu_baudrate(void) {
                               REGISTER_PSU_BAUDRATE, value,
                               NULL, mdata->baudrate);
 
+=======
+    if (psu_location(mdata->addr,&rack,&shelf,&psu)) {
+      continue;
+    }
+    if (mdata->baudrate != DEFAULT_BAUDRATE) {
+      value = baudrate_to_value(DEFAULT_BAUDRATE);
+      
+      if (rackmond_config.multi_port){
+        err = write_holding_reg(&rackmond_config.rs485[rack],
+                                BAUDRATE_CMD_TIMEOUT, mdata->addr,
+                                REGISTER_PSU_BAUDRATE, value,
+                                NULL, mdata->baudrate);
+      } else {
+        err = write_holding_reg(&rackmond_config.rs485[0],
+                                BAUDRATE_CMD_TIMEOUT, mdata->addr,
+                                REGISTER_PSU_BAUDRATE, value,
+                                NULL, mdata->baudrate);
+      }
+>>>>>>> facebook/helium
       if (err != 0) {
         OBMC_WARN("Unable to reset PSU %02x to the original baudrate",
                   mdata->addr);
@@ -1152,6 +1252,13 @@ static int reload_psu_registers(psu_datastore_t *mdata)
   int r, error;
   speed_t baudrate;
   uint8_t addr = mdata->addr;
+<<<<<<< HEAD
+=======
+  int rack=0,shelf=0,psu=0;
+  if (psu_location(addr,&rack,&shelf,&psu)) {
+    return -1;
+  }
+>>>>>>> facebook/helium
 
   if (global_lock() != 0) {
     return -1;
@@ -1171,9 +1278,21 @@ static int reload_psu_registers(psu_datastore_t *mdata)
     monitor_interval* iv = rd->i;
     uint16_t regs[iv->len];
 
+<<<<<<< HEAD
     err = read_holding_reg(&rackmond_config.rs485,
                            rackmond_config.modbus_timeout, addr,
                            iv->begin, iv->len, regs, baudrate);
+=======
+    if (rackmond_config.multi_port){
+      err = read_holding_reg(&rackmond_config.rs485[rack],
+                            rackmond_config.modbus_timeout, addr,
+                            iv->begin, iv->len, regs, baudrate);
+    } else {
+      err = read_holding_reg(&rackmond_config.rs485[0],
+                            rackmond_config.modbus_timeout, addr,
+                            iv->begin, iv->len, regs, baudrate);
+    }
+>>>>>>> facebook/helium
     sched_yield();
     if (err != 0) {
       if (err != READ_ERROR_RESPONSE && err != PSU_TIMEOUT_RESPONSE) {
@@ -1404,9 +1523,21 @@ static int run_cmd_raw_modbus(rackmond_command* cmd, write_buf_t *wb)
   }
 
   CHECK_LATENCY_START();
+<<<<<<< HEAD
   resp_len = modbus_command(&rackmond_config.rs485, timeout,
                             cmd->raw_modbus.data, cmd->raw_modbus.length,
                             resp_buf, exp_resp_len, exp_resp_len, baudrate, "raw_modbus");
+=======
+  if (rackmond_config.multi_port){
+    resp_len = modbus_command(&rackmond_config.rs485[cmd->rack], timeout,
+                              cmd->raw_modbus.data, cmd->raw_modbus.length,
+                              resp_buf, exp_resp_len, exp_resp_len, baudrate, "raw_modbus");
+  } else {
+    resp_len = modbus_command(&rackmond_config.rs485[0], timeout,
+                              cmd->raw_modbus.data, cmd->raw_modbus.length,
+                              resp_buf, exp_resp_len, exp_resp_len, baudrate, "raw_modbus");
+  }
+>>>>>>> facebook/helium
   CHECK_LATENCY_END("rackmond::raw_modbus::modbus_command cmd_len=%lu, resp_len=%lu status=%d",
       (unsigned long)MODBUS_FUN3_REQ_HDR_SIZE, (unsigned long)exp_resp_len, resp_len);
   if(resp_len < 0) {
@@ -1868,6 +1999,19 @@ int main(int argc, char** argv) {
   }
   verbose = getenv("RACKMOND_VERBOSE") != NULL ? 1 : 0;
 
+<<<<<<< HEAD
+=======
+  if (getenv("RACKMOND_MULTI_PORT") != NULL){
+    rackmond_config.multi_port = 1;
+    OBMC_INFO("set RACKMOND_MULTI_PORT to %d, for FT4232",
+                rackmond_config.multi_port);
+  } else {
+    rackmond_config.multi_port = 0;
+    OBMC_INFO("set RACKMOND_MULTI_PORT to %d, for FT232",
+                rackmond_config.multi_port);
+  }
+
+>>>>>>> facebook/helium
   if (getenv("RACKMOND_DESIRED_BAUDRATE") != NULL) {
     int parsed_baudrate_int = atoi(getenv("RACKMOND_DESIRED_BAUDRATE"));
     rackmond_config.desired_baudrate = int_to_baudrate(parsed_baudrate_int);
@@ -1884,7 +2028,11 @@ int main(int argc, char** argv) {
           psu_str = strtok(NULL, ",")) {
         unsigned int psu_addr = strtoul(psu_str, 0, 16);
         int rack, shelf, psu;
+<<<<<<< HEAD
         if (psu_location(psu_addr, &rack, &shelf, &psu)) {
+=======
+        if (!psu_location(psu_addr, &rack, &shelf, &psu)) {
+>>>>>>> facebook/helium
           rackmond_config.ignored_psus[rack][shelf][psu] = true;
           OBMC_INFO("Ignoring PSU: 0x%x\n", psu_addr);
         } else {
@@ -1900,9 +2048,30 @@ int main(int argc, char** argv) {
     return -1;
   }
 
+<<<<<<< HEAD
   if (rs485_device_init(DEFAULT_TTY, &rackmond_config.rs485) != 0) {
     error = -1;
     goto exit_rs485;
+=======
+  if (rackmond_config.multi_port) {
+    if (rs485_device_init(DEFAULT_TTY1, &rackmond_config.rs485[0]) != 0) {
+      error = -1;
+      goto exit_rs485;
+    }
+    if (rs485_device_init(DEFAULT_TTY2, &rackmond_config.rs485[1]) != 0) {
+      error = -1;
+      goto exit_rs485;
+    }
+    if (rs485_device_init(DEFAULT_TTY3, &rackmond_config.rs485[2]) != 0) {
+      error = -1;
+      goto exit_rs485;
+    }
+  } else {
+    if (rs485_device_init(DEFAULT_TTY, &rackmond_config.rs485[0]) != 0) {
+      error = -1;
+      goto exit_rs485;
+    }
+>>>>>>> facebook/helium
   }
 
   error = pthread_create(&monitoring_tid, NULL, monitoring_loop, NULL);
@@ -1956,7 +2125,17 @@ exit_sock:
   pthread_cancel(monitoring_tid);     /* ignore errors */
   pthread_join(monitoring_tid, NULL); /* ignore errors */
 exit_thread:
+<<<<<<< HEAD
   rs485_device_cleanup(&rackmond_config.rs485);
+=======
+  if (rackmond_config.multi_port) {
+    rs485_device_cleanup(&rackmond_config.rs485[0]);
+    rs485_device_cleanup(&rackmond_config.rs485[1]);
+    rs485_device_cleanup(&rackmond_config.rs485[2]);
+  } else {
+    rs485_device_cleanup(&rackmond_config.rs485[0]);
+  }
+>>>>>>> facebook/helium
 exit_rs485:
   rackmon_plat_cleanup();
   OBMC_INFO("rackmon is terminated, exit code: %d", error);

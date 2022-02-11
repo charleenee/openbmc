@@ -4,6 +4,12 @@ GPIOCLI_CMD=/usr/local/bin/gpiocli
 ASPEEDCHIP="aspeed-gpio"
 KV_CMD=/usr/bin/kv
 
+<<<<<<< HEAD
+=======
+readonly BMC_ID_CLASS1=7
+readonly BMC_ID_CLASS2=9
+
+>>>>>>> facebook/helium
 devmem_set_bit() {
     local addr
     local val

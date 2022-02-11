@@ -14,16 +14,26 @@ paths:
             type: object
             additionalProperties: false
             properties: 
+<<<<<<< HEAD
+=======
+              Resources: 
+                type: array
+                items: 
+                  type: string
+>>>>>>> facebook/helium
               Information: 
                 type: object
                 additionalProperties: false
                 properties: 
                   Description: 
                     type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
+=======
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

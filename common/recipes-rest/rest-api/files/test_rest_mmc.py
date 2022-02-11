@@ -3,6 +3,11 @@ import ctypes
 import unittest
 
 import aiohttp
+<<<<<<< HEAD
+=======
+
+unittest.mock.patch.object(ctypes, "CDLL", create=True).start()
+>>>>>>> facebook/helium
 import obmc_mmc
 import rest_mmc
 from aiohttp.test_utils import AioHTTPTestCase, unittest_run_loop

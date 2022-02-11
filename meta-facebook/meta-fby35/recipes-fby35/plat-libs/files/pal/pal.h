@@ -21,6 +21,10 @@
 #ifndef __PAL_H__
 #define __PAL_H__
 
+<<<<<<< HEAD
+=======
+#include <syslog.h>
+>>>>>>> facebook/helium
 #include <openbmc/obmc-pal.h>
 #include <facebook/fby35_common.h>
 #include <facebook/fby35_fruid.h>

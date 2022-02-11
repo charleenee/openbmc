@@ -35,6 +35,7 @@ SLOT_NUM=
 I2C_NUM=
 
 function show_usage() {
+<<<<<<< HEAD
   if [ -z $EXP_BOARD_TYPE ]; then
     val=$(get_m2_prsnt_sts "slot1")
     if [ $val = 0 ] || [ $val = 4 ]; then
@@ -53,6 +54,11 @@ function show_usage() {
   else
     echo "       sol-util [ slot1 | slot2 | slot3 | slot4 ] [1ou, 2ou] [dev0|dev1|...|devN|pesw] (baudrate)"
   fi
+=======
+  echo "Usage: sol-util [ slot1 | slot2 | slot3 | slot4 ]"
+  echo "       sol-util [ slot1 | slot2 | slot3 | slot4 | slot1-1U | slot2-1U | slot3-1U | slot4-1U | slot1-2U | slot3-2U | slot1-2U-exp | slot1-2U-top | slot1-2U-bot ] [bic|pesw]"
+  echo "       sol-util [ slot1 | slot2 | slot3 | slot4 | slot1-1U | slot2-1U | slot3-1U | slot4-1U | slot1-2U | slot3-2U | slot1-2U-exp | slot1-2U-top | slot1-2U-bot ] [dev0|dev1|...|devN] (baudrate)"
+>>>>>>> facebook/helium
   echo "       sol-util [ slot1 | slot2 | slot3 | slot4 ] --history"
 }
 
@@ -477,6 +483,25 @@ function get_bot_usb_dev() {
 # Only support slot[1|2|3|4]
 if [[ "$1" =~ ^(slot[1-4]{1})$ ]]; then
   SLOT=$1
+<<<<<<< HEAD
+=======
+
+  if [ "$2" == "bic" ]; then
+    COMP="sb"
+  fi
+elif [ "$1" == "slot1-1U" ] || [ "$1" == "slot2-1U" ] || [ "$1" == "slot3-1U" ] || [ "$1" == "slot4-1U" ]; then
+  SLOT=${1:0:5}
+  COMP="1ou"
+elif [ "$1" == "slot1-2U" ] || [ "$1" == "slot3-2U" ]; then 
+  SLOT=${1:0:5}
+  COMP="2ou"
+elif [ "$1" == "slot1-2U-exp" ]; then 
+  SLOT=${1:0:5}
+  COMP="2U-cwc"
+elif [ "$1" == "slot1-2U-top" ] || [ "$1" == "slot1-2U-bot" ]; then 
+  SLOT=${1:0:5}
+  COMP=${1:6:6}
+>>>>>>> facebook/helium
 else
   show_usage
   exit -1;
@@ -498,9 +523,15 @@ SLOT_NUM=$(get_slot_num $SLOT)
 I2C_NUM=$(get_bus_num $SLOT)
 SLED_TYPE=$(cat $SLED_TYPE)
 EXP_BOARD_TYPE=
+<<<<<<< HEAD
 COMP=$2
 DEV=$3
 BAUDRATE=$4
+=======
+#COMP=$2
+DEV=$2
+BAUDRATE=$3
+>>>>>>> facebook/helium
 CPLD_ADDR=
 EXP_CPLD_ADDR=
 CWC_CPLD_ADDR=
@@ -532,7 +563,11 @@ fi
 # check COMP and DEV
 if [ -n "$COMP" ]; then
   # block invalid command, e.g. sol-util 2ou bic xxx
+<<<<<<< HEAD
   if [ $# -gt 4 ]; then
+=======
+  if [ $# -gt 3 ]; then
+>>>>>>> facebook/helium
     show_usage
     exit -1;
   fi
@@ -597,6 +632,15 @@ if [ -n "$COMP" ]; then
       echo "$DEV is not supported!"
       exit -1;
     elif [ "$COMP" == "2ou" ]; then
+<<<<<<< HEAD
+=======
+
+      if [ "$DEV" == "pesw" ] && [ $# -ne 2 ]; then # not support baudrate option
+        show_usage
+        exit -1;
+      fi
+
+>>>>>>> facebook/helium
       if [[ $(is_gpv3_board $EXP_BOARD_TYPE) ]]; then
         #check enable RST_USB_HUB_N gpio or not
         VAL=$(/usr/bin/bic-util $SLOT --get_gpio | grep 16 | awk '{print $3;}') # get gpio value
@@ -657,7 +701,11 @@ if [ -n "$COMP" ]; then
     fi
   elif [ "$DEV" == "bic" ]; then
 
+<<<<<<< HEAD
     if [ $# -ne 3 ]; then # not support baudrate option
+=======
+    if [ $# -ne 2 ]; then # not support baudrate option
+>>>>>>> facebook/helium
       show_usage
       exit -1;
     fi

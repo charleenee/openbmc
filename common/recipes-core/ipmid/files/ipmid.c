@@ -627,6 +627,16 @@ app_get_device_id (unsigned char *request, unsigned char req_len,
   *res_len = data - &res->data[0];
 }
 
+<<<<<<< HEAD
+=======
+static void *
+wait_and_reboot() {
+  sleep(1);
+  pal_bmc_reboot(RB_AUTOBOOT);
+  return NULL;
+}
+
+>>>>>>> facebook/helium
 // Cold Reset (IPMI/Section 20.2)
 static void
 app_cold_reset(unsigned char *request, unsigned char req_len,
@@ -634,6 +644,10 @@ app_cold_reset(unsigned char *request, unsigned char req_len,
 {
   ipmi_res_t *res = (ipmi_res_t *) response;
   int i;
+<<<<<<< HEAD
+=======
+  pthread_t do_reboot;
+>>>>>>> facebook/helium
 
   *res_len = 0;
   res->cc = CC_SUCCESS;
@@ -655,8 +669,14 @@ app_cold_reset(unsigned char *request, unsigned char req_len,
   }
 
   syslog(LOG_CRIT, "BMC Cold Reset.");
+<<<<<<< HEAD
   sleep(1);
   pal_bmc_reboot(RB_AUTOBOOT);
+=======
+  if (pthread_create(&do_reboot, NULL, wait_and_reboot, NULL) < 0) {
+    syslog(LOG_WARNING, "pthread_create for doing reset failed\n");
+  }
+>>>>>>> facebook/helium
 }
 
 
@@ -3482,7 +3502,11 @@ oem_stor_add_string_sel(unsigned char *request, unsigned char req_len,
     return;
   }
 
+<<<<<<< HEAD
   snprintf(string_log, string_log_len+1, "%s", &req->data[5]);
+=======
+  memcpy(string_log, &req->data[5], string_log_len+1);
+>>>>>>> facebook/helium
 
   // To avoid repeat display when Expander executes reset test
   // will filter fan fru checksum SEL
@@ -4217,6 +4241,12 @@ ipmi_handle_oem_1s(unsigned char *request, unsigned char req_len,
       // payload_id, netfn, cmd, data[0] (device id), data[1] (action), data[2] (data)
       res->cc = pal_handle_oem_1s_dev_power(req->payload_id, &req->data[0], req_len-3, &res->data[0], res_len);
       break;
+<<<<<<< HEAD
+=======
+    case CMD_OEM_1S_UPDATE_SDR:
+      res->cc = pal_handle_oem_1s_update_sdr(req->payload_id);
+      break;
+>>>>>>> facebook/helium
     default:
       res->cc = CC_INVALID_CMD;
       memcpy(res->data, req->data, SIZE_IANA_ID); //IANA ID

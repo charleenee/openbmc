@@ -8,6 +8,11 @@ require recipes-core/images/fb-openbmc-image.bb
 # dev-spi-cmm.c. Rootfs starts from 4.5M
 FLASH_ROOTFS_OFFSET = "4608"
 
+<<<<<<< HEAD
+=======
+PROVIDES += "fby2-ubu-image"
+
+>>>>>>> facebook/helium
 # Include modules in rootfs
 IMAGE_INSTALL += " \
   healthd \

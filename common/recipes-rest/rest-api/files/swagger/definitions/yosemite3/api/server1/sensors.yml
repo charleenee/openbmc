@@ -16,7 +16,11 @@ paths:
             properties: 
               Information: 
                 type: object
+<<<<<<< HEAD
                 additionalProperties: false
+=======
+                additionalProperties: true
+>>>>>>> facebook/helium
                 properties: 
                   MB Inlet Temp: 
                     type: object
@@ -320,4 +324,8 @@ paths:
                 type: array
                 items: 
                   type: string
+<<<<<<< HEAD
             
+=======
+            
+>>>>>>> facebook/helium

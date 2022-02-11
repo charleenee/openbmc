@@ -28,7 +28,10 @@ import os.path
 import ssl
 import sys
 
+<<<<<<< HEAD
 from aiohttp import web
+=======
+>>>>>>> facebook/helium
 from aiohttp.log import access_logger
 from async_ratelimiter import AsyncRateLimiter
 from common_logging import ACCESS_LOG_FORMAT, get_logger_config
@@ -36,7 +39,10 @@ from common_webapp import WebApp
 from rest_config import load_acl_provider, parse_config
 from setup_plat_routes import setup_plat_routes
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> facebook/helium
 configpath = "/etc/rest.cfg"
 
 try:

@@ -20,6 +20,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
+<<<<<<< HEAD
+=======
+#define _GNU_SOURCE
+>>>>>>> facebook/helium
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
@@ -48,7 +52,16 @@
 
 #define LINE_DELIMITER '\x1F'
 
+<<<<<<< HEAD
 #define FRAME_BUFF_SIZE 4096
+=======
+#ifdef CONFIG_FBY3
+#define FRAME_BUFF_SIZE 5120
+#else
+#define FRAME_BUFF_SIZE 4096
+#endif
+
+>>>>>>> facebook/helium
 #define FRAME_PAGE_BUF_SIZE 256
 
 #define MAX_UART_SEL_NAME_SIZE    16
@@ -105,6 +118,22 @@ static int frame_init (struct frame *self, size_t size) {
     return -1;
 }
 
+<<<<<<< HEAD
+=======
+static const char *find_esc(const char *buf, int blen, const char *esc, size_t elen) {
+  const char *ptr;
+
+  // to find the last CSI-codes
+  if (!(ptr = memrchr(buf, esc[0], blen)))
+    return NULL;
+
+  if ((blen - (ptr - buf) >= elen) && !memcmp(ptr, esc, elen))
+    return ptr;
+
+  return NULL;
+}
+
+>>>>>>> facebook/helium
 // return 0 on seccuess
 static int frame_append (struct frame *self, char *string, int indent)
 {
@@ -128,10 +157,43 @@ static int frame_append (struct frame *self, char *string, int indent)
         return -1;
     }
 
+<<<<<<< HEAD
     self->buf[self->idx_tail] = *ptr;
     if (*ptr == LINE_DELIMITER)
       self->lines++;
 
+=======
+    if (*ptr == LINE_DELIMITER) {
+      self->lines++;
+      // workaround when Blink CSI-codes spread 2 pages,
+      // add ESC_RST to the end of previous page,
+      // add ESC_ALT to the start of next page
+      if (!(self->lines % self->line_per_page)) {
+        const char *esc = find_esc(buf, ptr - buf, ESC_ALT, strlen(ESC_ALT));
+        if (esc != NULL) {
+          esc += strlen(ESC_ALT);
+          if (!find_esc(esc, ptr - esc, ESC_RST, strlen(ESC_RST))) {
+            char tmp[16], *ptmp;
+            snprintf(tmp, sizeof(tmp), ESC_RST"%c"ESC_ALT, LINE_DELIMITER);
+            for (ptmp = tmp; *ptmp; ptmp++) {
+              if (self->isFull(self)) {
+                if (!self->overwrite) {
+                  return -1;
+                }
+                if (self->buf[self->idx_head] == LINE_DELIMITER)
+                  self->lines--;
+                self->idx_head = (self->idx_head + 1) % self->max_size;
+              }
+              self->buf[self->idx_tail] = *ptmp;
+              self->idx_tail = (self->idx_tail + 1) % self->max_size;
+            }
+            continue;
+          }
+        }
+      }
+    }
+    self->buf[self->idx_tail] = *ptr;
+>>>>>>> facebook/helium
     self->idx_tail = (self->idx_tail + 1) % self->max_size;
   }
 
@@ -199,7 +261,11 @@ static int frame_getPage (struct frame *self, int page, char *page_buf, size_t p
   if (page > self->pages || page < 1)
     return -1;
 
+<<<<<<< HEAD
   if (page_buf == NULL || page_buf_size < 0)
+=======
+  if (page_buf == NULL || page_buf_size < self->line_width)
+>>>>>>> facebook/helium
     return -1;
 
   ret = snprintf(page_buf, 17, "%-10s %02d/%02d", self->title, page, self->pages);
@@ -244,11 +310,19 @@ static int frame_isFull (struct frame *self)
 
 // return 1 for Escape Sequence
 static int frame_isEscSeq(struct frame *self, char chr) {
+<<<<<<< HEAD
   uint8_t curr_sts = self->esc_sts;
+=======
+  uint8_t curr_sts;
+>>>>>>> facebook/helium
 
   if (self == NULL)
     return -1;
 
+<<<<<<< HEAD
+=======
+  curr_sts = self->esc_sts;
+>>>>>>> facebook/helium
   if (self->esc_sts == 0 && (chr == 0x1b))
     self->esc_sts = 1; // Escape Sequence
   else if (self->esc_sts == 1 && (chr == 0x5b))
@@ -437,7 +511,10 @@ plat_udbg_get_frame_info(uint8_t *num)
 int
 plat_udbg_get_updated_frames(uint8_t *count, uint8_t *buffer) {
   uint8_t cri_sel_up = 0;
+<<<<<<< HEAD
   uint8_t info_page_up = 1;
+=======
+>>>>>>> facebook/helium
 
   if (!plat_supported()) {
     return -1;
@@ -446,10 +523,15 @@ plat_udbg_get_updated_frames(uint8_t *count, uint8_t *buffer) {
   *count = 0;
 
   // info page update
+<<<<<<< HEAD
   if (info_page_up == 1) {
     buffer[*count] = 1;
     *count += 1;
   }
+=======
+  buffer[*count] = 1;
+  *count += 1;
+>>>>>>> facebook/helium
 
   // cri sel update
   chk_cri_sel_update(&cri_sel_up);
@@ -742,7 +824,11 @@ plat_udbg_get_uart_sel_num(uint8_t *uart_sel_num) {
 }
 
 int __attribute__((weak))
+<<<<<<< HEAD
 plat_udbg_get_uart_sel_name(uint8_t uart_sel_num, char *uar_sel_name) {
+=======
+plat_udbg_get_uart_sel_name(uint8_t uart_sel_num, char *uart_sel_name) {
+>>>>>>> facebook/helium
   return -1;
 }
 
@@ -767,8 +853,19 @@ udbg_get_info_page (uint8_t frame, uint8_t page, uint8_t *next, uint8_t *count, 
     frame_info.init(&frame_info, FRAME_BUFF_SIZE);
     snprintf(frame_info.title, 32, "SYS_Info");
 
+<<<<<<< HEAD
     if (plat_get_extra_sysinfo(pos, line_buff) == 0) {
       frame_info.append(&frame_info, line_buff, 0);
+=======
+    pres_dev = line_buff;
+    if (plat_get_extra_sysinfo(pos, line_buff) == 0) {
+      pres_dev = strtok(pres_dev, delim);
+      if (pres_dev) {
+        do {
+          frame_info.append(&frame_info, pres_dev, 0);
+        } while ((pres_dev = strtok(NULL, delim)) != NULL);
+      }
+>>>>>>> facebook/helium
     }
 
     // FRU
@@ -798,9 +895,16 @@ udbg_get_info_page (uint8_t frame, uint8_t page, uint8_t *next, uint8_t *count, 
     fp = fopen("/etc/issue", "r");
     if (fp != NULL) {
       if (fgets(line_buff, sizeof(line_buff), fp)) {
+<<<<<<< HEAD
         if ((ret = sscanf(line_buff, "%*s %*s %s", line_buff)) == 1) {
           frame_info.append(&frame_info, "BMC_FW_ver:", 0);
           frame_info.append(&frame_info, line_buff, 1);
+=======
+        char fw_ver[64];
+        if ((ret = sscanf(line_buff, "%*s %*s %63s", fw_ver)) == 1) {
+          frame_info.append(&frame_info, "BMC_FW_ver:", 0);
+          frame_info.append(&frame_info, fw_ver, 1);
+>>>>>>> facebook/helium
         }
       }
       fclose(fp);

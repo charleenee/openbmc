@@ -72,4 +72,8 @@ IMAGE_INSTALL += " \
   usbutils \
   syseventgen-util \
   usbip \
+<<<<<<< HEAD
+=======
+  exar1420 \
+>>>>>>> facebook/helium
   "

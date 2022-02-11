@@ -21,7 +21,11 @@ SRC_URI += "file://pem-platform.h \
             file://pem-platform.c \
           "
 
+<<<<<<< HEAD
 do_install_append() {
+=======
+do_install:append() {
+>>>>>>> facebook/helium
   install -d ${D}${includedir}/facebook
   install -m 0644 pem-platform.h ${D}${includedir}/facebook/pem-platform.h
 }

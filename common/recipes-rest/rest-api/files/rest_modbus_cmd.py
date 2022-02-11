@@ -70,7 +70,11 @@ async def post_modbus_cmd(request: aiohttp.web.Request) -> aiohttp.web.Response:
     )
 
 
+<<<<<<< HEAD
 ## Utils
+=======
+# Utils
+>>>>>>> facebook/helium
 def to_bytes(cmd: t.List[int]) -> bytes:
     return b"".join(i.to_bytes(1, "little") for i in cmd)
 
@@ -141,7 +145,11 @@ class SolitonBeamFlock:
             return open(FLOCK_SOLITON_BEAM)
 
 
+<<<<<<< HEAD
 ## Validation logic
+=======
+# Validation logic
+>>>>>>> facebook/helium
 def _validate_payload_schema(payload, schema, path=""):
     if type(schema) == type(payload) == dict and schema.keys() == payload.keys():
         for key, subschema in schema.items():
@@ -186,7 +194,11 @@ def _validate_payload_commands(commands: List[str]) -> None:
                 )
             )
 
+<<<<<<< HEAD
         if not all(0 <= x <= 0xFF for x in cmd):
+=======
+        if not all(0 <= int(x) <= 0xFF for x in cmd):
+>>>>>>> facebook/helium
             raise ValueError(
                 "Byte value out of range in .commands[{i}] ({cmd})".format(
                     i=i, cmd=repr(cmd)
@@ -196,12 +208,20 @@ def _validate_payload_commands(commands: List[str]) -> None:
         if cmd[1] not in ALLOWED_OPCODES:
             raise ValueError(
                 "Command opcode 0x{cmd_1:02x} ({cmd_1}) is not allowed in .commands[{i}][1] ({cmd})".format(  # noqa: B950
+<<<<<<< HEAD
                     i=i, cmd_1=cmd[1], cmd=repr(cmd)
+=======
+                    i=i, cmd_1=int(cmd[1]), cmd=repr(cmd)
+>>>>>>> facebook/helium
                 )
             )
 
 
+<<<<<<< HEAD
 ## Schemas
+=======
+# Schemas
+>>>>>>> facebook/helium
 
 # Each command is a list of integers with modbus opcodes
 # e.g. [164, 3, 0, 128, 0, 1] == [0xa4, 0x03, 0x00, 0x80, 0x00, 0x01]

@@ -42,8 +42,11 @@ const uint8_t intf_size = 4;
 static const char *option_list[] = {
   "--get_gpio",
   "--set_gpio [gpio_num] [value]",
+<<<<<<< HEAD
   "--get_gpio_config",
   "--set_gpio_config $gpio_num $value",
+=======
+>>>>>>> facebook/helium
   "--check_status",
   "--get_dev_id",
   "--reset",
@@ -276,6 +279,7 @@ util_set_gpio(uint8_t slot_id, uint8_t gpio_num, uint8_t gpio_val) {
 }
 
 static int
+<<<<<<< HEAD
 util_get_gpio_config(uint8_t slot_id) {
   int ret = 0;
   uint8_t i;
@@ -333,6 +337,8 @@ util_set_gpio_config(uint8_t slot_id, uint8_t gpio_num, uint8_t config_val) {
 }
 
 static int
+=======
+>>>>>>> facebook/helium
 util_perf_test(uint8_t slot_id, int loopCount) {
 #define NUM_SLOTS FRU_SLOT4
   enum cmd_profile_type {
@@ -415,7 +421,11 @@ static int
 util_read_sensor(uint8_t slot_id) {
   int ret = 0;
   int i = 0;
+<<<<<<< HEAD
   ipmi_sensor_reading_t sensor = {0};
+=======
+  snr_reading_ret sensor = {0};
+>>>>>>> facebook/helium
   uint8_t intf_list[4] = {NONE_INTF};
   uint8_t intf_index = 0;
   uint8_t config_status = 0xff;
@@ -450,9 +460,19 @@ util_read_sensor(uint8_t slot_id) {
       if (ret < 0 ) {
         continue;
       }
+<<<<<<< HEAD
 
       printf("sensor num: 0x%02X: value: 0x%02X, flags: 0x%02X, status: 0x%02X, ext_status: 0x%02X\n",
               i, sensor.value, sensor.flags, sensor.status, sensor.ext_status);
+=======
+      if (sensor.read_type == STANDARD_CMD) {
+        printf("sensor num: 0x%02X: value: 0x%02X, flags: 0x%02X, status: 0x%02X, ext_status: 0x%02X\n",
+                i, sensor.value, sensor.flags, sensor.status, sensor.ext_status);
+      } else {
+        printf("sensor num: 0x%02X: value: 0x%04X, flags: 0x%02X\n", i, sensor.value, sensor.flags);
+      }
+      
+>>>>>>> facebook/helium
     }
     printf("\n");
   }
@@ -867,6 +887,7 @@ main(int argc, char **argv) {
       gpio_val = atoi(argv[4]);
       if ( gpio_num > 0xff || gpio_val > 1 ) goto err_exit;
       return util_set_gpio(slot_id, gpio_num, gpio_val);
+<<<<<<< HEAD
     } else if ( strcmp(argv[2], "--get_gpio_config") == 0 ) {
       return util_get_gpio_config(slot_id);
     } else if ( strcmp(argv[2], "--set_gpio_config") == 0 ) {
@@ -876,6 +897,8 @@ main(int argc, char **argv) {
       gpio_val = (uint8_t)strtol(argv[4], NULL, 0);
       if ( gpio_num > 0xff ) goto err_exit;
       else return util_set_gpio_config(slot_id, gpio_num, gpio_val);
+=======
+>>>>>>> facebook/helium
     } else if ( strcmp(argv[2], "--check_status") == 0 ) {
       return util_check_status(slot_id);
     } else if ( strcmp(argv[2], "--get_dev_id") == 0 ) {

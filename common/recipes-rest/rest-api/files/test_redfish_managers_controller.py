@@ -222,6 +222,11 @@ class TestManagerService(AioHTTPTestCase):
                 }
             ],
             "StaticNameServers": [],
+<<<<<<< HEAD
+=======
+            "NameServers": [],
+            "LinkStatus": "LinkUp",
+>>>>>>> facebook/helium
         }
         req = await self.client.request(
             "GET", "/redfish/v1/Managers/1/EthernetInterfaces/1"

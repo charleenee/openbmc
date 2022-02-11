@@ -19,6 +19,7 @@
 #
 
 import asyncio
+<<<<<<< HEAD
 import functools
 import json
 import os
@@ -36,6 +37,27 @@ import rest_mmc
 import rest_pal_legacy
 from boot_source import is_boot_from_secondary
 from common_utils import async_exec
+=======
+import datetime
+import functools
+import json
+import logging
+import mmap
+import os
+import os.path
+import re
+import subprocess
+import threading
+import typing as t
+from shlex import quote
+from uuid import getnode as get_mac
+
+import kv
+import psutil
+import rest_mmc
+import rest_pal_legacy
+from boot_source import is_boot_from_secondary
+>>>>>>> facebook/helium
 from node import node
 from vboot import get_vboot_status
 
@@ -53,6 +75,11 @@ percent_updater = threading.Thread(target=update_cpu_pct_counter)
 percent_updater.daemon = True
 percent_updater.start()
 
+<<<<<<< HEAD
+=======
+logger = logging.getLogger("restapi")
+
+>>>>>>> facebook/helium
 
 # Read all contents of file path specified
 def read_file_contents(path):
@@ -65,6 +92,49 @@ def read_file_contents(path):
     return content
 
 
+<<<<<<< HEAD
+=======
+def cache_uboot_version():
+    # Get U-boot Version
+    logger.info("Caching uboot version")
+    uboot_version = ""
+    uboot_ver_regex = r"^U-Boot\W+(?P<uboot_ver>20\d{2}\.\d{2})\W+.*$"
+    uboot_ver_re = re.compile(uboot_ver_regex)
+    mtd_meta = getMTD("meta")
+    if mtd_meta is None:
+        stdout = subprocess.check_output(["/usr/bin/strings", "/dev/mtd0"])
+        for line in stdout.splitlines():
+            matched = uboot_ver_re.fullmatch(line.decode().strip())
+            if matched:
+                uboot_version = matched.group("uboot_ver")
+                break
+    else:
+        try:
+            mtd_dev = "/dev/" + mtd_meta
+            with open(mtd_dev, "r") as f:
+                raw_data = f.readline()
+            uboot_version = json.loads(raw_data)["version_infos"]["uboot_ver"]
+        except Exception:
+            uboot_version = ""
+    UBOOT_VER_KV_KEY = "u-boot-ver"
+    kv.kv_set(UBOOT_VER_KV_KEY, uboot_version)
+    logger.info("Cached uboot version to kv-store")
+    logger.info("cached uboot version: %s" % (uboot_version))
+
+
+def get_wdt_counter() -> int:
+    addr = 0x1E785010
+    with open("/dev/mem", "rb") as f:
+        with mmap.mmap(
+            f.fileno(),
+            (addr // mmap.PAGESIZE + 1) * mmap.PAGESIZE,
+            mmap.MAP_SHARED,
+            mmap.PROT_READ,
+        ) as reg_map:
+            return reg_map[addr]
+
+
+>>>>>>> facebook/helium
 def SPIVendorID2Name(manufacturer_id):
     # Define Manufacturer ID
     MFID_WINBOND = "EF"  # Winbond
@@ -84,9 +154,16 @@ def SPIVendorID2Name(manufacturer_id):
 
 
 async def getSPIVendorLegacy(spi_id):
+<<<<<<< HEAD
     cmd = "cat /tmp/spi0.%d_vendor.dat | cut -c1-2" % (spi_id)
     _, stdout, _ = await async_exec(cmd, shell=True)
     manufacturer_id = stdout.strip("\n")
+=======
+    vendor_dat_path = "/tmp/spi0.%d_vendor.dat" % (spi_id)
+    manufacturer_id = ""
+    with open(vendor_dat_path, "r") as vendor_dat:
+        manufacturer_id = vendor_dat.read(2)
+>>>>>>> facebook/helium
     return SPIVendorID2Name(manufacturer_id)
 
 
@@ -136,7 +213,20 @@ def read_proc_mtd() -> t.List[str]:
     return mtd_list
 
 
+<<<<<<< HEAD
 class bmcNode(node):
+=======
+cache_uboot_version()
+
+
+class bmcNode(node):
+    # Reads from TPM device files (e.g. /sys/class/tpm/tpm0/device/caps)
+    # can hang the event loop on unhealthy systems. Cache version values
+    # here and use _fill_tpm_ver_info() to asynchronously fill these values
+    _TPM_VER_INFO = ("NA", "NA")  # (tpm_fw_version, tpm_tcg_version)
+    _TPM_VER_INFO_ATTEMPTED = False
+
+>>>>>>> facebook/helium
     def __init__(self, info=None, actions=None):
         if info is None:
             self.info = {}
@@ -147,6 +237,7 @@ class bmcNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def _getUbootVer(self):
         # Get U-boot Version
         uboot_version = None
@@ -184,6 +275,45 @@ class bmcNode(node):
         return uboot_version
 
     async def getTpmTcgVer(self):
+=======
+        asyncio.ensure_future(self._fill_tpm_ver_info_loop())
+
+    async def getUbootVer(self):
+        UBOOT_VER_KV_KEY = "u-boot-ver"
+        try:
+            uboot_version = kv.kv_get(UBOOT_VER_KV_KEY)
+        except kv.KeyOperationFailure:
+            uboot_version = None
+        return uboot_version
+
+    @classmethod
+    async def _fill_tpm_ver_info_loop(cls) -> None:
+        if cls._TPM_VER_INFO_ATTEMPTED:
+            # Fetch already attempted, doing nothing.
+            return
+        cls._TPM_VER_INFO_ATTEMPTED = True
+
+        # Try updating _TPM_VER_INFO until all TPM version info values
+        # are filled
+        while "NA" in cls._TPM_VER_INFO:
+            await cls._fill_tpm_ver_info()
+            await asyncio.sleep(30)
+
+    @classmethod
+    async def _fill_tpm_ver_info(cls) -> None:
+        # Fetch TPM version info in thread executors (to protect the event loop
+        # from e.g. /sys/class/tpm/tpm0/device/caps reads hanging forever)
+        loop = asyncio.get_event_loop()
+        if os.path.exists("/sys/class/tpm/tpm0"):
+            tpm_fw_version = await loop.run_in_executor(None, cls.getTpmFwVer)
+            tpm_tcg_version = await loop.run_in_executor(None, cls.getTpmTcgVer)
+
+            # Cache read values in _TPM_VER_INFO
+            cls._TPM_VER_INFO = (tpm_fw_version, tpm_tcg_version)
+
+    @staticmethod
+    def getTpmTcgVer():
+>>>>>>> facebook/helium
         out_str = "NA"
         tpm1_caps = "/sys/class/tpm/tpm0/device/caps"
         if os.path.isfile(tpm1_caps):
@@ -201,19 +331,28 @@ class bmcNode(node):
             )
             for cmd in cmd_list:
                 try:
+<<<<<<< HEAD
                     retcode, stdout, _ = await async_exec(cmd, shell=True)
                     if retcode != 0:
                         # non-async implementation was using raising check_output
                         raise Exception(
                             "Command {} returned non-0 exit code".format(cmd)
                         )
+=======
+                    stdout = subprocess.check_output(cmd, shell=True)  # noqa: P204
+>>>>>>> facebook/helium
                     out_str = stdout.splitlines()[2].rstrip().split('"')[1]
                     break
                 except Exception:
                     pass
         return out_str
 
+<<<<<<< HEAD
     async def getTpmFwVer(self):
+=======
+    @staticmethod
+    def getTpmFwVer():
+>>>>>>> facebook/helium
         out_str = "NA"
         tpm1_caps = "/sys/class/tpm/tpm0/device/caps"
         if os.path.isfile(tpm1_caps):
@@ -231,12 +370,16 @@ class bmcNode(node):
             )
             for cmd in cmd_list:
                 try:
+<<<<<<< HEAD
                     retcode, stdout, _ = await async_exec(cmd, shell=True)
                     if retcode != 0:
                         # non-async implementation was using raising check_output
                         raise Exception(
                             "Command {} returned non-0 exit code".format(cmd)
                         )
+=======
+                    stdout = subprocess.check_output(cmd, shell=True)  # noqa: P204
+>>>>>>> facebook/helium
                     value = int(stdout.rstrip().split(":")[1], 16)
                     out_str = "%d.%d" % (value >> 16, value & 0xFFFF)
                     break
@@ -282,10 +425,14 @@ class bmcNode(node):
             mac_addr = ":".join(("%012X" % mac)[i : i + 2] for i in range(0, 12, 2))
 
         # Get BMC Reset Reason
+<<<<<<< HEAD
         _, wdt_counter, _ = await async_exec(["devmem", "0x1e785010"])
         wdt_counter = int(wdt_counter, 0)
         wdt_counter &= 0xFF00
 
+=======
+        wdt_counter = get_wdt_counter()
+>>>>>>> facebook/helium
         if wdt_counter:
             por_flag = 0
         else:
@@ -296,10 +443,13 @@ class bmcNode(node):
         else:
             reset_reason = "User Initiated Reset or WDT Reset"
 
+<<<<<<< HEAD
         # Get BMC's Up Time
         _, stdout, _ = await async_exec("uptime", shell=True)
         uptime = stdout.strip()
 
+=======
+>>>>>>> facebook/helium
         # Use another method, ala /proc, but keep the old one for backwards
         # compat.
         # See http://man7.org/linux/man-pages/man5/proc.5.html for details
@@ -309,7 +459,26 @@ class bmcNode(node):
         # Pull load average directory from proc instead of processing it from
         # the contents of uptime command output later.
         load_avg = read_file_contents("/proc/loadavg")[0].split()[0:3]
+<<<<<<< HEAD
         cpu_usage = "CPU:  {usr_pct:.0f}% usr  {sys_pct:.0f}% sys   {nice_pct:.0f}% nic   {idle_pct:.0f}% idle   {iowait_pct:.0f}% io   {irq_pct:.0f}% irq   {sirq_pct:.0f}% sirq".format(  # noqa: B950
+=======
+
+        uptime_delta = datetime.timedelta(seconds=int(float(uptime_seconds)))
+        # '07:44:38 up 144 days, 13:12,  load average: 5.03, 5.22, 5.42'
+        # Construct uptime string for backaward compatibility reasons
+        uptime = "{now} up {uptime}, load average: {load1}, {load5}, {load15}".format(
+            now=datetime.datetime.now().strftime("%H:%M:%S"),
+            uptime=str(uptime_delta),
+            load1=load_avg[0],
+            load5=load_avg[1],
+            load15=load_avg[2],
+        )
+        cpu_usage = (
+            "CPU:  {usr_pct:.0f}% usr  {sys_pct:.0f}% sys   {nice_pct:.0f}% nic"
+            "   {idle_pct:.0f}% idle   {iowait_pct:.0f}% io   {irq_pct:.0f}% irq"
+            "   {sirq_pct:.0f}% sirq"
+        ).format(
+>>>>>>> facebook/helium
             usr_pct=CPU_PCT.user,
             sys_pct=CPU_PCT.system,
             nice_pct=CPU_PCT.nice,
@@ -321,7 +490,14 @@ class bmcNode(node):
         memory_info = self.getMemInfo()
 
         # Mem: 175404K used, 260324K free, 21436K shrd, 0K buff, 112420K cached
+<<<<<<< HEAD
         mem_usage = "Mem: {used_mem}K used, {free_mem}K free, {shared_mem}K shrd, {buffer_mem}K buff, {cached_mem}K cached".format(  # noqa: B950
+=======
+        mem_usage = (
+            "Mem: {used_mem}K used, {free_mem}K free, {shared_mem}K shrd,"
+            " {buffer_mem}K buff, {cached_mem}K cached"
+        ).format(
+>>>>>>> facebook/helium
             used_mem=memory_info["MemTotal"] - memory_info["MemFree"],
             free_mem=memory_info["MemFree"],
             shared_mem=memory_info["Shmem"],
@@ -344,6 +520,7 @@ class bmcNode(node):
             uboot_version = "NA"
 
         # Get kernel release and kernel version
+<<<<<<< HEAD
         kernel_release = ""
         _, stdout, _ = await async_exec(["uname", "-r"])
         kernel_release = stdout.strip("\n")
@@ -358,13 +535,31 @@ class bmcNode(node):
         if os.path.exists("/sys/class/tpm/tpm0"):
             tpm_tcg_version = await self.getTpmTcgVer()
             tpm_fw_version = await self.getTpmFwVer()
+=======
+        uname = os.uname()
+        kernel_release = uname.release
+        kernel_version = uname.version
+
+        # Get TPM version
+        tpm_fw_version, tpm_tcg_version = self._TPM_VER_INFO
+>>>>>>> facebook/helium
 
         spi0_vendor = await getSPIVendor(0)
         spi1_vendor = await getSPIVendor(1)
 
         # ASD status - check if ASD daemon/asd-test is currently running
+<<<<<<< HEAD
         _, asd_status, _ = await async_exec("ps | grep -ie [a]sd -ie [y]aapd", shell=True)
         asd_status = bool(asd_status)
+=======
+        asd_status = False
+        for proc in psutil.process_iter():
+            if re.match("[a]sd", proc.name().lower()) or re.match(
+                "[y]aapd", proc.name().lower()
+            ):
+                asd_status = True
+                break
+>>>>>>> facebook/helium
         boot_from_secondary = is_boot_from_secondary()
 
         vboot_info = await get_vboot_status()
@@ -405,7 +600,12 @@ class bmcNode(node):
         return info
 
     async def doAction(self, data, param=None):
+<<<<<<< HEAD
         await async_exec("sleep 1; /sbin/reboot", shell=True)
+=======
+        if not t.TYPE_CHECKING:
+            os.spawnvpe("sleep 5; /sbin/reboot", shell=True)
+>>>>>>> facebook/helium
         return {"result": "success"}
 
 

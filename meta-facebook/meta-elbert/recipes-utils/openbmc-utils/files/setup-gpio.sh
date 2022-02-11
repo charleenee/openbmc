@@ -47,6 +47,10 @@ setup_gpio_elbert_evt() {
     gpio_export_by_name  "${ASPEED_GPIO}" GPIOX2 SPI2CS2#_GPIO84
     gpio_export_by_name  "${ASPEED_GPIO}" GPIOX7 SPI_TPM_PIRQ_N
     gpio_export_by_name  "${ASPEED_GPIO}" GPIOY2 CPU_OVERTEMP
+<<<<<<< HEAD
+=======
+    gpio_export_by_name  "${ASPEED_GPIO}" GPIOY3 BMC_EMMC_RST_N
+>>>>>>> facebook/helium
 }
 
 setup_gpio_elbert_evt
@@ -74,3 +78,8 @@ gpio_set_value BMC_ALIVE 0 # Default
 gpio_set_value BMC_BOARD_EEPROM_WP_L 1 # Disabled
 gpio_set_value BMC_CHASSIS_EEPROM_WP_L 1 # Disabled
 gpio_set_value JTAG_TRST_L 1 # Disabled
+<<<<<<< HEAD
+=======
+# Set BMC_EMMC_RST_N High to prevent EMMC disable
+gpio_set BMC_EMMC_RST_N 1
+>>>>>>> facebook/helium

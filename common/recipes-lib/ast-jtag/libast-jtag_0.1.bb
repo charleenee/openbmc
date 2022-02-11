@@ -18,6 +18,10 @@ SRC_URI = "file://ast-jtag.c \
 S = "${WORKDIR}"
 
 DEPENDS += "libmisc-utils"
+<<<<<<< HEAD
 RDEPENDS_${PN} += "libmisc-utils"
+=======
+RDEPENDS:${PN} += "libmisc-utils"
+>>>>>>> facebook/helium
 
 inherit meson

@@ -20,6 +20,12 @@ paths:
                 properties: 
                   Power status: 
                     type: string
+<<<<<<< HEAD
+=======
+                  BIC_ok: 
+                    type: number
+                    format: int32
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

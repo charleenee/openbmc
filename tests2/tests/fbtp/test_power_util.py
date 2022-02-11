@@ -20,10 +20,18 @@
 import unittest
 
 from common.base_power_util_test import BasePowerUtilTest
+<<<<<<< HEAD
+=======
+from utils.test_utils import qemu_check
+>>>>>>> facebook/helium
 
 slots = ["mb"]
 
 
+<<<<<<< HEAD
+=======
+@unittest.skipIf(qemu_check(), "test env is QEMU, skipped")
+>>>>>>> facebook/helium
 class PowerUtilTest(BasePowerUtilTest):
     def set_slots(self):
         self.slots = slots

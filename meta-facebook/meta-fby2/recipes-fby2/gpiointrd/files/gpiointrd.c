@@ -279,7 +279,11 @@ static void *
 hsc_alert_handler(void *arg) {
   pthread_detach(pthread_self());
 
+<<<<<<< HEAD
   if (fby2_check_hsc_sts_iout(0x20) == 1) {  // bit5: IOUT_OC_WARN
+=======
+  if (fby2_check_hsc_sts_iout() == 1) {  // bit5: IOUT_OC_WARN
+>>>>>>> facebook/helium
     syslog(LOG_CRIT, "ASSERT: OC_warning triggered (falling edge detected for SMB_HOTSWAP_ALERT_N)");
     create_sensordump();
     sleep(1);

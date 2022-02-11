@@ -2,14 +2,22 @@ import asyncio
 import json
 import os
 from concurrent.futures import ThreadPoolExecutor
+<<<<<<< HEAD
 from typing import List, Union
+=======
+from typing import Dict, List, Optional, Set, Tuple, Union
+>>>>>>> facebook/helium
 
 from common_webapp import WebApp
 
 common_executor = ThreadPoolExecutor(5)
 
 # cache for endpoint_children
+<<<<<<< HEAD
 ENDPOINT_CHILDREN = {}
+=======
+ENDPOINT_CHILDREN = {}  # type: Dict[str, Set[str]]
+>>>>>>> facebook/helium
 
 
 def common_force_async(func):
@@ -50,19 +58,32 @@ def get_data_from_generator(data_generator):
 
 def get_endpoints(path: str):
     app = WebApp.instance()
+<<<<<<< HEAD
     endpoints = set()
     splitpaths = {}
     splitpaths = path.split("/")
     position = len(splitpaths)
     if path in ENDPOINT_CHILDREN:
         endpoints = ENDPOINT_CHILDREN[path]
+=======
+    endpoints = set()  # type: Set[str]
+    splitpaths = []  # type: List[str]
+    splitpaths = path.split("/")
+    position = len(splitpaths)
+    if path in ENDPOINT_CHILDREN:
+        endpoints = ENDPOINT_CHILDREN[path]  # type: ignore
+>>>>>>> facebook/helium
     else:
         for route in app.router.resources():
             string = str(route)
             rest_route_path = string[string.index("  ") :].split("/")
             if len(rest_route_path) > position and path in string:
                 endpoints.add(rest_route_path[position])
+<<<<<<< HEAD
         endpoints = sorted(endpoints)
+=======
+        endpoints = sorted(endpoints)  # type: ignore
+>>>>>>> facebook/helium
         ENDPOINT_CHILDREN[path] = endpoints
     return endpoints
 
@@ -98,10 +119,19 @@ def running_systemd():
 
 async def async_exec(
     cmd: Union[List[str], str], shell: bool = False
+<<<<<<< HEAD
 ) -> (int, str, str):
     if shell:
         proc = await asyncio.create_subprocess_shell(
             cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE
+=======
+) -> Tuple[Optional[int], str, str]:
+    if shell:
+        proc = await asyncio.create_subprocess_shell(
+            cmd,  # type: ignore
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+>>>>>>> facebook/helium
         )
     else:
         proc = await asyncio.create_subprocess_exec(

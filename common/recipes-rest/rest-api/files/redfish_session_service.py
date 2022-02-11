@@ -22,6 +22,10 @@ async def get_session_service(request: str) -> web.Response:
 
 
 async def get_session(request: str) -> web.Response:
+<<<<<<< HEAD
+=======
+    headers = {"Link": "</redfish/v1/schemas/SessionCollection.json>; rel=describedby"}
+>>>>>>> facebook/helium
     body = {
         "@odata.type": "#SessionCollection.SessionCollection",
         "Name": "Session Collection",
@@ -30,4 +34,8 @@ async def get_session(request: str) -> web.Response:
         "@odata.id": "/redfish/v1/SessionService/Sessions",
     }
     await validate_keys(body)
+<<<<<<< HEAD
     return web.json_response(body, dumps=dumps_bytestr)
+=======
+    return web.json_response(body, headers=headers, dumps=dumps_bytestr)
+>>>>>>> facebook/helium

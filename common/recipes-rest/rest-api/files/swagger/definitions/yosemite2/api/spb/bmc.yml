@@ -18,9 +18,19 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   uptime: 
                     type: string
                   CPU Usage: 
+=======
+                  Reset Reason: 
+                    type: string
+                  TPM FW version: 
+                    type: string
+                  TPM TCG version: 
+                    type: string
+                  Memory Usage: 
+>>>>>>> facebook/helium
                     type: string
                   u-boot version: 
                     type: string
@@ -28,6 +38,7 @@ paths:
                     type: object
                     additionalProperties: false
                     properties: 
+<<<<<<< HEAD
                       software_enforce: 
                         type: string
                       recovery_retried: 
@@ -66,11 +77,62 @@ paths:
                     type: string
                   load-15: 
                     type: string
+=======
+                      force_recovery: 
+                        type: string
+                      cert_time: 
+                        type: string
+                      cert_fallback_time: 
+                        type: string
+                      recovery_boot: 
+                        type: string
+                      uboot_time: 
+                        type: string
+                      status_crc: 
+                        type: string
+                      status_text: 
+                        type: string
+                      tpm_status: 
+                        type: string
+                      uboot_fallback_time: 
+                        type: string
+                      software_enforce: 
+                        type: string
+                      recovery_retried: 
+                        type: string
+                      hardware_enforce: 
+                        type: string
+                      status: 
+                        type: string
+                  CPU Usage: 
+                    type: string
+                  kernel version: 
+                    type: string
+                  Secondary Boot Triggered: 
+                    type: boolean
+                  At-Scale-Debug Running: 
+                    type: boolean
+                  Description: 
+                    type: string
+                  uptime: 
+                    type: string
+                  OpenBMC Version: 
+                    type: string
+                  open-fds: 
+                    type: string
+                  load-15: 
+                    type: string
+                  SPI0 Vendor: 
+                    type: string
+                  MAC Addr: 
+                    type: string
+>>>>>>> facebook/helium
                   memory: 
                     type: object
                     additionalProperties: false
                     properties: 
                       Shmem: 
+<<<<<<< HEAD
                         type: integer
                         format: int32
                       Cached: 
@@ -107,6 +169,39 @@ paths:
                   MAC Addr: 
                     type: string
                   SPI1 Vendor: 
+=======
+                        type: number
+                        format: int32
+                      MemFree: 
+                        type: number
+                        format: int32
+                      MemTotal: 
+                        type: number
+                        format: int32
+                      Cached: 
+                        type: number
+                        format: int32
+                      Buffers: 
+                        type: number
+                        format: int32
+                      MemAvailable: 
+                        type: number
+                        format: int32
+                  SPI1 Vendor: 
+                    type: string
+                  mmc-info: 
+                    type: object
+                    format: nullable
+                  MTD Parts: 
+                    type: array
+                    items: 
+                      type: string
+                  Uptime: 
+                    type: string
+                  load-1: 
+                    type: string
+                  load-5: 
+>>>>>>> facebook/helium
                     type: string
               Resources: 
                 type: array
@@ -116,4 +211,8 @@ paths:
                 type: array
                 items: 
                   type: string
+<<<<<<< HEAD
             
+=======
+            
+>>>>>>> facebook/helium

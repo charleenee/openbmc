@@ -25,6 +25,11 @@
 extern "C" {
 #endif
 
+<<<<<<< HEAD
+=======
+#define VR_GET_OV_OC_OT (1)
+
+>>>>>>> facebook/helium
 enum {
   VR_CPU0_VCCIN = 0x90,
   VR_CPU0_VSA = 0x90,
@@ -56,6 +61,14 @@ enum {
   VR_STATUS_NOT_AVAILABLE = -2,
 };
 
+<<<<<<< HEAD
+=======
+enum {
+  VR_CMD_PAGE        = 0x0,
+  VR_CMD_STATUS_BYTE = 0x78,
+};
+
+>>>>>>> facebook/helium
 int vr_fw_version(uint8_t vr, char *outvers_str);
 int vr_fw_update(uint8_t fru, uint8_t board_info, const char *file);
 
@@ -65,6 +78,10 @@ int vr_read_curr(uint8_t vr, uint8_t loop, float *value);
 int vr_read_power(uint8_t vr, uint8_t loop, float *value);
 int vr_read_temp(uint8_t vr, uint8_t loop, float *value);
 
+<<<<<<< HEAD
+=======
+int vr_read_ov_ot_status(uint8_t vr);
+>>>>>>> facebook/helium
 #ifdef __cplusplus
 } // extern "C"
 #endif

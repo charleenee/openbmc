@@ -4,6 +4,10 @@ import argparse
 import os
 import sys
 import time
+<<<<<<< HEAD
+=======
+from shutil import copy
+>>>>>>> facebook/helium
 from typing import Tuple
 
 import paramiko
@@ -11,13 +15,23 @@ import pexpect
 from paramiko.channel import ChannelFile, ChannelStderrFile
 from pexpect import EOF, TIMEOUT
 
+<<<<<<< HEAD
+=======
+PATH = "/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin"
+>>>>>>> facebook/helium
 DEFAULT_BMC_USER = "root"
 DEFAULT_OPENBMC_PASSWORD = "0penBmc"
 FLASH_SIZE = 128 * 1024 * 1024
 HOST = "localhost"
 HOST_SSH_FORWARD_PORT = 2222
 QEMU_PARAMETER = "  -machine {} -nographic  -drive file={},format=raw,if=mtd \
+<<<<<<< HEAD
     -net nic -net user,hostfwd=:127.0.0.1:{}-:22,hostname=qemu"
+=======
+    -drive file={},format=raw,if=mtd \
+    -netdev user,id=mlx,mfr-id=0x8119,ncsi-mac=aa:bb:cc:dd:ee:ff,hostfwd=:127.0.0.1:{}-:22,hostname=qemu \
+    -net nic,model=ftgmac100,netdev=mlx"
+>>>>>>> facebook/helium
 PLATFORM_2_MACHINE = {
     "fby2": "yosemitev2-bmc",
     "fbttn": "brycecanyon-bmc",
@@ -60,7 +74,12 @@ class TestWrapper(object):
         cmd = "/tmp/job/project/qemu-system-arm"
         cmd += QEMU_PARAMETER.format(
             PLATFORM_2_MACHINE[platform],
+<<<<<<< HEAD
             self._padded_image_file,
+=======
+            self._golden_image_file,
+            self._primary_image_file,
+>>>>>>> facebook/helium
             HOST_SSH_FORWARD_PORT,
         )
 
@@ -79,6 +98,7 @@ class TestWrapper(object):
                 return True
         return False
 
+<<<<<<< HEAD
     def wait_for_qemu_oob_sshd_running(self) -> bool:
         if self._qemu_instance is None or not self._qemu_instance.isalive():
             return False
@@ -87,11 +107,21 @@ class TestWrapper(object):
             self._qemu_instance.sendline("ps | grep ssh")
             try:
                 index = self._qemu_instance.expect("sshd", timeout=30)
+=======
+    def wait_for_qemu_oob_sshd_running(self) -> None:
+        if self._qemu_instance is None or not self._qemu_instance.isalive():
+            return
+        for _ in range(10):
+            self._qemu_instance.sendline("ps | grep ssh")
+            try:
+                self._qemu_instance.expect("sshd", timeout=30)
+>>>>>>> facebook/helium
                 break
             except TIMEOUT:
                 continue
             except EOF:
                 continue
+<<<<<<< HEAD
         if index == 0:
             # For testing, remove later
             self.run_cmd_on_oob(
@@ -122,6 +152,32 @@ class TestWrapper(object):
                 print("exhaust retry, giving up..")
                 raise paramiko.ssh_exception.SSHException
         stdin, stdout, stderr = self.ssh.exec_command(cmd)
+=======
+
+    def init_ssh(self) -> None:
+        count = 10
+        while count != 0:
+            try:
+                self.ssh = paramiko.SSHClient()
+                self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                self.ssh.connect(
+                    HOST,
+                    HOST_SSH_FORWARD_PORT,
+                    DEFAULT_BMC_USER,
+                    DEFAULT_OPENBMC_PASSWORD,
+                )
+                break
+            except paramiko.ssh_exception.SSHException:
+                print("unable to connect to bmc via SSH, wait 30s to retry..")
+                time.sleep(30)
+                count -= 1
+        if count == 0:
+            print("exhaust retry, giving up..")
+            raise paramiko.ssh_exception.SSHException
+
+    def run_cmd_on_oob(self, cmd: str) -> Tuple[int, ChannelFile, ChannelStderrFile]:
+        stdin, stdout, stderr = self.ssh.exec_command(f"PATH={PATH} {cmd}")
+>>>>>>> facebook/helium
         exit_status = stdout.channel.recv_exit_status()
         return exit_status, stdout, stderr
 
@@ -135,9 +191,13 @@ class TestWrapper(object):
     def scp_oob_all(self, localpath: str, remotepath: str):
         if not self.sftp:
             self.sftp = paramiko.SFTPClient.from_transport(self.ssh.get_transport())
+<<<<<<< HEAD
         os.chdir(os.path.split(localpath)[0])
         parent = os.path.split(localpath)[1]
         for walker in os.walk(parent):
+=======
+        for walker in os.walk(localpath):
+>>>>>>> facebook/helium
             try:
                 self.sftp.mkdir(os.path.join(remotepath, walker[0]))
             except Exception:
@@ -167,6 +227,14 @@ class TestWrapper(object):
             print(f"fail to pad the flash file: {str(e)}")
             sys.exit(1)
 
+<<<<<<< HEAD
+=======
+        self._golden_image_file = "/tmp/golden.mtd"
+        self._primary_image_file = "/tmp/primary.mtd"
+        copy(self._padded_image_file, self._golden_image_file)
+        copy(self._padded_image_file, self._primary_image_file)
+
+>>>>>>> facebook/helium
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -179,10 +247,19 @@ if __name__ == "__main__":
         type=str,
         help="specify the test to run, e.g. tests.fby2.test_slot_util.SlotUtilTest.test_show_slot_by_name",
     )
+<<<<<<< HEAD
+=======
+    parser.add_argument(
+        "--skip-qemu-setup",
+        action="store_true",
+        help="Skip QEMU setup if it's already running with port 22 forwarded to localhost:2222",
+    )
+>>>>>>> facebook/helium
     args = parser.parse_args()
     platform = args.platform
     print(f"start qemu cit test on platform: {platform}")
     testWrapper = TestWrapper()
+<<<<<<< HEAD
     testWrapper.qemu_prepare_bootable_image(platform=platform)
     print("bootable image ready..")
     testWrapper.start_qemu(platform=platform)
@@ -190,6 +267,20 @@ if __name__ == "__main__":
     testWrapper.wait_for_qemu_oob_sshd_running()
     print("SSH connection ok, continue..")
     testWrapper.scp_oob_all("/tmp/job/project/tests2", "/usr/local/bin/")
+=======
+
+    if not args.skip_qemu_setup:
+        testWrapper.qemu_prepare_bootable_image(platform=platform)
+        print("bootable image ready..")
+        testWrapper.start_qemu(platform=platform)
+        testWrapper.wait_for_qemu_oob_sshd_running()
+
+    print("qemu started, checking SSH connection..")
+    testWrapper.init_ssh()
+    print("SSH connection ok, continue..")
+
+    testWrapper.scp_oob_all("tests2", "/usr/local/bin/")
+>>>>>>> facebook/helium
     print("scp tests to BMC complete..")
     testWrapper.run_cmd_on_oob("touch /usr/local/bin/tests2/dummy_qemu")
     print("qemu flag set..")

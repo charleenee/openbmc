@@ -18,252 +18,417 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   DPB_Inlet_Temp_2: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_28_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  DPB_Inlet_Temp_1: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  INA230 Voltage: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_14_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P5V_STBY_MB: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_19_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_8_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCIN VR Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_24_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  M2_Ambient_Temp_2: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   FAN1_FRONT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_12_TEMP: 
+<<<<<<< HEAD
+                  HDD_28_TEMP: 
+=======
+                  HDD_21_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  FAN4_FRONT: 
+<<<<<<< HEAD
+                  DPB_Inlet_Temp_1: 
+=======
+                  HDD_18_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  1V05PCH VR Curr: 
+<<<<<<< HEAD
+                  INA230 Voltage: 
+=======
+                  FAN2_FRONT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  HDD_14_TEMP: 
+=======
+                  FAN3_REAR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P5V_STBY_MB: 
+=======
+                  DPB_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_19_TEMP: 
+=======
+                  HDD_26_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_8_TEMP: 
+=======
+                  HDD_2_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCIN VR Temp: 
+=======
+                  ADC_P5V_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_24_TEMP: 
+=======
                   VDDR VR Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  PV_BAT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P1V2_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P5V_1_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCGBE VR Vol: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  FAN1_REAR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P2V5_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_35_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ML_SENSOR_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  EXPANDER_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_25_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCSCSUS VR Curr: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  M2_Ambient_Temp_2: 
+=======
                   SOC Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  P1V8_C_SENSE: 
+<<<<<<< HEAD
+                  FAN1_FRONT: 
+=======
+                  VDDR VR Vol: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SCC_HSC_CURR: 
+<<<<<<< HEAD
+                  HDD_12_TEMP: 
+=======
+                  DPB_12V_CURR_CLIP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  DPB_P12V_CLIP: 
+<<<<<<< HEAD
+                  FAN4_FRONT: 
+=======
+                  EXPANDER_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  VCCSCSUS VR Temp: 
+<<<<<<< HEAD
+                  1V05PCH VR Curr: 
+=======
+                  P5V_2_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SOC DIMMB1 Temp: 
+<<<<<<< HEAD
+                  VDDR VR Temp: 
+=======
+                  M2_SMART_Temp_1: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_22_TEMP: 
+<<<<<<< HEAD
+                  PV_BAT: 
+=======
+                  P0V9_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SOC Tjmax: 
+<<<<<<< HEAD
+                  ADC_P1V2_STBY: 
+=======
+                  M2_SMART_Temp_2: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  IOM_HSC_CURR: 
+<<<<<<< HEAD
+                  P5V_1_SENSE: 
+=======
+                  SOC Therm Margin: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  P5V_3_SENSE: 
+<<<<<<< HEAD
+                  VCCGBE VR Vol: 
+=======
+                  SOC DIMMA1 Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  VCCSCSUS VR Pout: 
+<<<<<<< HEAD
+                  FAN1_REAR: 
+=======
+                  HDD_9_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  ADC_P2V5_STBY: 
+=======
+                  PVCCGBE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_35_TEMP: 
+=======
                   MB Inlet Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_VOLT: 
+=======
+                  MB Outlet Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  EXPANDER_TEMP: 
+=======
+                  FAN1_REAR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_25_TEMP: 
+=======
+                  HDD_16_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCSCSUS VR Curr: 
+=======
+                  ADC_P3V3: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC Temp: 
+=======
+                  Airflow: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P1V8_C_SENSE: 
+=======
+                  FAN2_REAR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SCC_HSC_CURR: 
+=======
+                  HDD_34_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  DPB_P12V_CLIP: 
+=======
+                  VDDR VR Curr: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCSCSUS VR Temp: 
+=======
+                  P1V5_C_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC DIMMB1 Temp: 
+=======
+                  DPB_HSC_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_22_TEMP: 
+=======
+                  HDD_25_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC Tjmax: 
+=======
+                  DPB_12V_POWER_CLIP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOM_HSC_CURR: 
+=======
+                  VCCSCSUS VR Pout: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P5V_3_SENSE: 
+=======
+                  VCCIN VR Pout: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCSCSUS VR Pout: 
+=======
+                  HDD_23_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MB Inlet Temp: 
+=======
+                  SCC_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
                   P1V05_PCH: 
+=======
+                  ML_SENSOR_HSC_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   VCCGBE VR Temp: 
+=======
+                  VCCIN VR Curr: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   P3V3_SENSE: 
                     type: array
                     items: 
@@ -273,222 +438,369 @@ paths:
                         value: 
                           type: string
                   1V05PCH VR Temp: 
+=======
+                  HDD_27_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   VCCIN VR Curr: 
+=======
+                  HDD_24_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   VCCIN VR Pout: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_17_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCIN VR Vol: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ML_SENSOR_HSC_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  DPB_HSC_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_13_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  FAN3_REAR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   FAN3_FRONT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_1_TEMP: 
+<<<<<<< HEAD
+                  HDD_17_TEMP: 
+=======
+                  PV_BAT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  PVDDR: 
+<<<<<<< HEAD
+                  VCCIN VR Vol: 
+=======
+                  SCC_HSC_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  P1V8_E_SENSE: 
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_CURR: 
+=======
+                  IOM_HSC_CURR: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_32_TEMP: 
+<<<<<<< HEAD
+                  DPB_HSC_POWER: 
+=======
+                  HDD_28_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_26_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_16_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SOC DIMMA0 Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SCC_HSC_POWER: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_3_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  M2_Ambient_Temp_1: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_10_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SOC Package Pwr: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SCC_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  HDD_13_TEMP: 
+=======
                   ADC_P1V15_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  P3V3_STBY_MB: 
+<<<<<<< HEAD
+                  FAN3_REAR: 
+=======
+                  VDDR VR Pout: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_18_TEMP: 
+<<<<<<< HEAD
+                  FAN3_FRONT: 
+=======
+                  HDD_4_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  HDD_9_TEMP: 
+<<<<<<< HEAD
+                  HDD_1_TEMP: 
+=======
+                  HDD_17_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SOC DIMMB0 Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  DPB_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  INA230 Power: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_6_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_15_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P5V_2_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_21_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  PVDDR: 
+=======
                   P0V975_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  P1V8_E_SENSE: 
+=======
+                  ADC_P2V5_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_32_TEMP: 
+=======
+                  HDD_6_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_26_TEMP: 
+=======
+                  HDD_30_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_16_TEMP: 
+=======
+                  VCCSCSUS VR Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC DIMMA0 Temp: 
+=======
+                  VCCIN VR Vol: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SCC_HSC_POWER: 
+=======
+                  P5V_4_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_3_TEMP: 
+=======
+                  HDD_22_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  M2_Ambient_Temp_1: 
+=======
+                  SOC DIMMA0 Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_10_TEMP: 
+=======
+                  P1V8_C_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC Package Pwr: 
+=======
+                  HDD_15_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SCC_HSC_VOLT: 
+=======
+                  HDD_10_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P1V15_STBY: 
+=======
+                  HDD_14_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P3V3_STBY_MB: 
+=======
+                  HDD_5_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_18_TEMP: 
+=======
+                  HDD_19_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_9_TEMP: 
+=======
+                  FAN4_FRONT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC DIMMB0 Temp: 
+=======
+                  HDD_33_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  DPB_HSC_VOLT: 
+=======
+                  DPB_Inlet_Temp_1: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  INA230 Power: 
+=======
+                  ML_SENSOR_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_6_TEMP: 
+=======
+                  HDD_3_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_15_TEMP: 
+=======
+                  DPB_Inlet_Temp_2: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P5V_2_SENSE: 
+=======
+                  1V05PCH VR Vol: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_21_TEMP: 
+=======
+                  SCC_HSC_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P0V975_SENSE: 
+=======
+                  ADC_P1V2_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
                   M2_SMART_Temp_1: 
+=======
+                  1V05PCH VR Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   M2_SMART_Temp_2: 
+=======
+                  HDD_12_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -500,317 +812,537 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   DPB_HSC_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  DPB_12V_CURR_CLIP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_29_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  FAN2_FRONT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VDDR VR Pout: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  MB Outlet Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  IOM_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P1V5_C_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  Airflow: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P1V8_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_7_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_5_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCSCSUS VR Vol: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P3V3_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ML_SENSOR_HSC_PWR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P3V3: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P5V_4_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_23_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_27_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VDDR VR Vol: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_4_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P3V3_MB: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VDDR VR Curr: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P12V_MB: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  VCCGBE VR Curr: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_30_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  1V05PCH VR Pout: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  PCH Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_11_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_34_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   IOM_HSC_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  ADC_12V: 
+<<<<<<< HEAD
+                  DPB_12V_CURR_CLIP: 
+=======
+                  P3V3_MB: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  MEZZ_SENSOR_TEMP: 
+<<<<<<< HEAD
+                  HDD_29_TEMP: 
+=======
+                  PCH Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  SOC Therm Margin: 
+<<<<<<< HEAD
+                  FAN2_FRONT: 
+=======
+                  P1V8_E_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  FAN4_REAR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P1V5_E_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_2_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  VDDR VR Pout: 
+=======
                   ADC_P3V3_M2: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  PVCCGBE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  FAN2_REAR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  SOC DIMMA1 Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  IOC_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_33_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_0_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P0V9_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  DPB_12V_POWER_CLIP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  IOM_NIC_Ambient_Temp: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  HDD_20_TEMP: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P5V_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  MB Outlet Temp: 
+=======
                   HDD_31_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  IOM_HSC_VOLT: 
+=======
+                  SOC DIMMB0 Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P1V5_C_SENSE: 
+=======
+                  VCCSCSUS VR Curr: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  Airflow: 
+=======
+                  M2_Ambient_Temp_2: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P1V8_STBY: 
+=======
+                  M2_Ambient_Temp_1: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_7_TEMP: 
+=======
+                  FAN4_REAR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_5_TEMP: 
+=======
+                  HDD_20_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCSCSUS VR Vol: 
+=======
+                  HDD_13_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P3V3_STBY: 
+=======
+                  IOM_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_PWR: 
+=======
+                  P12V_MB: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P3V3: 
+=======
+                  VCCGBE VR Vol: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P5V_4_SENSE: 
+=======
+                  HDD_0_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_23_TEMP: 
+=======
+                  INA230 Power: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_27_TEMP: 
+=======
+                  VCCSCSUS VR Vol: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VDDR VR Vol: 
+=======
+                  1V05PCH VR Curr: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_4_TEMP: 
+=======
+                  HDD_1_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P3V3_MB: 
+=======
+                  IOC_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VDDR VR Curr: 
+=======
+                  P5V_3_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P12V_MB: 
+=======
+                  1V05PCH VR Pout: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  VCCGBE VR Curr: 
+=======
+                  IOM_NIC_Ambient_Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_30_TEMP: 
+=======
+                  VCCGBE VR Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  1V05PCH VR Pout: 
+=======
+                  SOC DIMMB1 Temp: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  PCH Temp: 
+=======
+                  ML_SENSOR_HSC_PWR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_11_TEMP: 
+=======
+                  P3V3_SENSE: 
+                    type: array
+                    items: 
+                      type: object
+                      additionalProperties: false
+                      properties: 
+                        value: 
+                          type: string
+                  P5V_STBY_MB: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_34_TEMP: 
+=======
+                  SOC Tjmax: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOM_HSC_POWER: 
+=======
+                  P1V05_PCH: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_12V: 
+=======
+                  VCCGBE VR Curr: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  MEZZ_SENSOR_TEMP: 
+=======
+                  HDD_11_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC Therm Margin: 
+=======
+                  DPB_HSC_POWER: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  FAN4_REAR: 
+=======
+                  HDD_8_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P1V5_E_SENSE: 
+=======
+                  HDD_7_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_2_TEMP: 
+=======
+                  HDD_29_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P3V3_M2: 
+=======
+                  INA230 Voltage: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  PVCCGBE: 
+=======
+                  HDD_35_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  FAN2_REAR: 
+=======
+                  MEZZ_SENSOR_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SOC DIMMA1 Temp: 
+=======
+                  DPB_P12V_CLIP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOC_TEMP: 
+=======
+                  ADC_P1V8_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_33_TEMP: 
+=======
+                  P5V_1_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_0_TEMP: 
+=======
+                  ADC_12V: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  P0V9_SENSE: 
+=======
+                  P3V3_STBY_MB: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  DPB_12V_POWER_CLIP: 
+=======
+                  HDD_32_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOM_NIC_Ambient_Temp: 
+=======
+                  SOC Package Pwr: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_20_TEMP: 
+=======
+                  PVDDR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P5V_STBY: 
+=======
+                  P1V5_E_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  HDD_31_TEMP: 
+=======
+                  ADC_P3V3_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
                   1V05PCH VR Vol: 
+=======
+                  VCCIN VR Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
               Actions: 
+=======
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

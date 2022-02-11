@@ -20,6 +20,7 @@
 
 . /usr/local/fbpackages/utils/ast-functions
 
+<<<<<<< HEAD
 UIC_LOCATION_A_STR="01 "
 UIC_LOCATION_B_STR="02 "
 
@@ -64,6 +65,11 @@ get_sku()
     get_uic_location_by_gpio
   fi
 
+=======
+get_sku()
+{
+  get_uic_location
+>>>>>>> facebook/helium
   uic_id=$?
   get_chassis_type
   uic_type=$?

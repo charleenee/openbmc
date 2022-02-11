@@ -54,7 +54,11 @@ else
         pwm_value=90
     elif [ "$sku_type" == "0" ] && [ "$server_type" == "17476" ] ; then
         # onle for FBND case
+<<<<<<< HEAD
         pwm_value=100
+=======
+        pwm_value=95
+>>>>>>> facebook/helium
     else
         pwm_value=100
     fi

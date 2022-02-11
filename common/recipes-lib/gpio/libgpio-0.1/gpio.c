@@ -118,7 +118,11 @@ int gpio_change_direction(gpio_st *g, gpio_direction_en dir)
   }
 
   val = (dir == GPIO_DIRECTION_IN) ? "in" : "out";
+<<<<<<< HEAD
   if (write(fd, val, strlen(val)) != strlen(val)) {
+=======
+  if (write(fd, val, strlen(val)) != (ssize_t)(strlen(val))) {
+>>>>>>> facebook/helium
     return -1;
   }
 
@@ -192,7 +196,11 @@ int gpio_change_edge(gpio_st *g, gpio_edge_en edge)
     goto edge_exit;
   }
 
+<<<<<<< HEAD
   if (write(fd, str, strlen(str) + 1) != (strlen(str) + 1)) {
+=======
+  if (write(fd, str, strlen(str) + 1) != (ssize_t)(strlen(str) + 1)) {
+>>>>>>> facebook/helium
     return -1;
   }
 
@@ -371,7 +379,11 @@ static void *gpio_poll_pin(void *arg)
   pthread_exit(&rc);
 }
 
+<<<<<<< HEAD
 int gpio_poll_legacy(gpio_poll_st *gpios, int count, int timeout)
+=======
+int gpio_poll_legacy(gpio_poll_st *gpios, int count, __attribute__ ((unused)) int timeout)
+>>>>>>> facebook/helium
 {
   pthread_t thread_ids[count];
   int ret;

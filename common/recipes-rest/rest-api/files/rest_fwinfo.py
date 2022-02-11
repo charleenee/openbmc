@@ -29,7 +29,11 @@ FruidUtilInfo = namedtuple(
 )
 FwUtilInfo = namedtuple("FwUtilInfo", ["bmc_ver", "bmc_cpld_ver", "bic_version"])
 
+<<<<<<< HEAD
 FWINFO_RESPONSE_CACHE = None
+=======
+FWINFO_RESPONSE_CACHE = ""
+>>>>>>> facebook/helium
 
 
 async def get_fwinfo_response():
@@ -64,7 +68,11 @@ async def rest_fwinfo_handler(request):
 
 async def _get_fruid_util_for_target(target: str) -> FruidUtilInfo:
     fruid_util_response = FruidUtilInfo(
+<<<<<<< HEAD
         vendor=None, model=None, serial_number=None, part_number=None
+=======
+        vendor="", model="", serial_number="", part_number=""
+>>>>>>> facebook/helium
     )
     cmd = "/usr/local/bin/fruid-util"
     retcode, data, _ = await common_utils.async_exec([cmd, target, "--json"])
@@ -92,7 +100,11 @@ async def _get_fruid_util_for_target(target: str) -> FruidUtilInfo:
 
 
 async def _get_fwutil_info_all() -> FwUtilInfo:
+<<<<<<< HEAD
     fwutil_response = FwUtilInfo(bmc_ver=None, bmc_cpld_ver=None, bic_version=None)
+=======
+    fwutil_response = FwUtilInfo(bmc_ver="", bmc_cpld_ver="", bic_version="")
+>>>>>>> facebook/helium
     cmd = "/usr/bin/fw-util"
     retcode, process_stdout, _ = await common_utils.async_exec(
         [cmd, "all", "--version"]

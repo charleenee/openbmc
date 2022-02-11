@@ -20,6 +20,7 @@ paths:
                 properties: 
                   Abnormal Drives: 
                     type: string
+<<<<<<< HEAD
                   Normal Drives: 
                     type: string
                   Missing Drives: 
@@ -29,6 +30,17 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  Missing Drives: 
+                    type: string
+                  Normal Drives: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

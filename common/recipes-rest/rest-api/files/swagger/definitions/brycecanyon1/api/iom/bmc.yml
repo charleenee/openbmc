@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Reset Reason: 
                     type: string
                   TPM TCG version: 
@@ -31,11 +32,17 @@ paths:
                   CPU Usage: 
                     type: string
                   Memory Usage: 
+=======
+                  OpenBMC Version: 
+                    type: string
+                  u-boot version: 
+>>>>>>> facebook/helium
                     type: string
                   memory: 
                     type: object
                     additionalProperties: false
                     properties: 
+<<<<<<< HEAD
                       Shmem: 
                         type: integer
                         format: int32
@@ -77,21 +84,84 @@ paths:
                   SPI1 Vendor: 
                     type: string
                   load-15: 
+=======
+                      MemFree: 
+                        type: number
+                        format: int32
+                      Shmem: 
+                        type: number
+                        format: int32
+                      Buffers: 
+                        type: number
+                        format: int32
+                      Cached: 
+                        type: number
+                        format: int32
+                      MemTotal: 
+                        type: number
+                        format: int32
+                      MemAvailable: 
+                        type: number
+                        format: int32
+                  TPM TCG version: 
+                    type: string
+                  load-5: 
+                    type: string
+                  Secondary Boot Triggered: 
+                    type: boolean
+                  Uptime: 
+                    type: string
+                  load-15: 
+                    type: string
+                  Memory Usage: 
+                    type: string
+                  MTD Parts: 
+                    type: array
+                    items: 
+                      type: string
+                  SPI1 Vendor: 
+                    type: string
+                  kernel version: 
+                    type: string
+                  mmc-info: 
+                    type: object
+                    format: nullable
+                  Reset Reason: 
+                    type: string
+                  Description: 
+                    type: string
+                  CPU Usage: 
+                    type: string
+                  load-1: 
+>>>>>>> facebook/helium
                     type: string
                   vboot: 
                     type: object
                     additionalProperties: false
                     properties: 
+<<<<<<< HEAD
                       recovery_retried: 
                         type: string
                       cert_fallback_time: 
                         type: string
                       hardware_enforce: 
+=======
+                      uboot_fallback_time: 
+                        type: string
+                      cert_time: 
+                        type: string
+                      force_recovery: 
+                        type: string
+                      cert_fallback_time: 
+                        type: string
+                      recovery_retried: 
+>>>>>>> facebook/helium
                         type: string
                       status: 
                         type: string
                       uboot_time: 
                         type: string
+<<<<<<< HEAD
                       status_crc: 
                         type: string
                       uboot_fallback_time: 
@@ -117,3 +187,38 @@ paths:
                 items: 
                   type: string
             
+=======
+                      tpm_status: 
+                        type: string
+                      status_text: 
+                        type: string
+                      status_crc: 
+                        type: string
+                      recovery_boot: 
+                        type: string
+                      software_enforce: 
+                        type: string
+                      hardware_enforce: 
+                        type: string
+                  MAC Addr: 
+                    type: string
+                  At-Scale-Debug Running: 
+                    type: boolean
+                  uptime: 
+                    type: string
+                  SPI0 Vendor: 
+                    type: string
+                  TPM FW version: 
+                    type: string
+                  open-fds: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+                type: array
+                items: 
+                  type: string
+            
+>>>>>>> facebook/helium

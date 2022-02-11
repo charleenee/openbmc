@@ -20,7 +20,11 @@ lib: libobmc-sensors.so
 C_SRCS := $(wildcard *.cpp)
 C_OBJS := ${C_SRCS:.cpp=.o}
 
+<<<<<<< HEAD
 CXXFLAGS += -Wall -Werror -fPIC
+=======
+CXXFLAGS += -std=c++17 -Wall -Werror -fPIC
+>>>>>>> facebook/helium
 
 libobmc-sensors.so: $(C_OBJS)
 	$(CXX) -shared -o libobmc-sensors.so $^ -lc $(LDFLAGS)

@@ -24,31 +24,51 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   P1V8_C_SENSE: 
+=======
+                  P1V8_E_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   SCC_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P1V5_E_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   IOC_TEMP: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  P1V5_E_SENSE: 
+=======
+                  P0V9_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOC_TEMP: 
+=======
+                  P1V8_C_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
                   P1V5_C_SENSE: 
+=======
+                  P3V3_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -60,41 +80,69 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   P0V9_SENSE: 
+=======
+                  SCC_HSC_VOLT: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   EXPANDER_TEMP: 
+=======
+                  P1V5_C_SENSE: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   P1V8_E_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  P3V3_SENSE: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   SCC_HSC_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  P3V3_SENSE: 
+=======
+                  EXPANDER_TEMP: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  SCC_HSC_POWER: 
+=======
+                  P1V5_E_SENSE: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
               Actions: 
+=======
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

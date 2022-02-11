@@ -96,4 +96,7 @@ def setup_common_routes(app: Application, write_enabled: bool):
     server_logger.info("Adding Redfish common routes")
     redfish = Redfish()
     redfish.setup_redfish_common_routes(app)
+<<<<<<< HEAD
     redfish.setup_multisled_routes(app)
+=======
+>>>>>>> facebook/helium

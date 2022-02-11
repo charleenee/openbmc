@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Product Custom Data 3: 
                     type: string
                   Product Asset Tag: 
@@ -57,6 +58,37 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  Product Name: 
+                    type: string
+                  Board Mfg: 
+                    type: string
+                  Board Product: 
+                    type: string
+                  Product Version: 
+                    type: string
+                  Board Mfg Date: 
+                    type: string
+                  Product Part Number: 
+                    type: string
+                  Product Asset Tag: 
+                    type: string
+                  Board Serial: 
+                    type: string
+                  Board Part Number: 
+                    type: string
+                  Product Serial: 
+                    type: string
+                  Product Custom Data 1: 
+                    type: string
+                  Product Manufacturer: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

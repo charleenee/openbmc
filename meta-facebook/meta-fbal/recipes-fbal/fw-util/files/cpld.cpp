@@ -139,7 +139,11 @@ int CpldComponent::_update(const char *path, uint8_t is_signed) {
       comp = _component;
       transform(comp.begin(), comp.end(),comp.begin(), ::toupper);
       ret = cpld_program((char *)path, (char *)comp.substr(0, 4).c_str(), is_signed);
+<<<<<<< HEAD
       cpld_intf_close(INTF_I2C);
+=======
+      cpld_intf_close();
+>>>>>>> facebook/helium
       if (ret) {
         printf("Error Occur at updating CPLD FW!\n");
         break;
@@ -179,7 +183,11 @@ int CpldComponent::print_version() {
 
     if (ret && !cpld_intf_open(pld_type, INTF_I2C, &attr)) {
       ret = cpld_get_ver((uint32_t *)ver);
+<<<<<<< HEAD
       cpld_intf_close(INTF_I2C);
+=======
+      cpld_intf_close();
+>>>>>>> facebook/helium
     }
 
     if (ret) {

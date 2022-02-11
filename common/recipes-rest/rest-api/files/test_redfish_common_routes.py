@@ -1,5 +1,8 @@
 import unittest
+<<<<<<< HEAD
 from unittest import mock
+=======
+>>>>>>> facebook/helium
 
 from aiohttp import web
 
@@ -30,11 +33,17 @@ class TestCommonRoutes(unittest.TestCase):
             "/redfish/v1/AccountService/Accounts",
             "/redfish/v1/AccountService/Roles",
             "/redfish/v1/Chassis",
+<<<<<<< HEAD
             "/redfish/v1/Chassis/1",
             "/redfish/v1/Chassis/{fru_name}/Sensors",
             "/redfish/v1/Chassis/{fru_name}/Sensors/{sensor_id}",
             "/redfish/v1/Chassis/1/Power",
             "/redfish/v1/Chassis/1/Thermal",
+=======
+            "/redfish/v1/Chassis/{fru_name}",
+            "/redfish/v1/Chassis/{fru_name}/Sensors",
+            "/redfish/v1/Chassis/{fru_name}/Sensors/{sensor_id}",
+>>>>>>> facebook/helium
             "/redfish/v1/Managers",
             "/redfish/v1/Managers/1",
             "/redfish/v1/Managers/1/EthernetInterfaces",
@@ -44,11 +53,27 @@ class TestCommonRoutes(unittest.TestCase):
             "/redfish/v1/SessionService",
             "/redfish/v1/SessionService/Sessions",
             "/redfish/v1/Systems",
+<<<<<<< HEAD
             "/redfish/v1/Systems/{fru_name}/Actions/ComputerSystem.Reset",
+=======
+            "/redfish/v1/Systems/{server_name}",
+            "/redfish/v1/Systems/{server_name}/Bios",
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps",
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/",
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}",
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}/Actions/BIOSFirmwareDump.ReadContent",
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareInventory",
+            "/redfish/v1/Systems/{fru_name}/Actions/ComputerSystem.Reset",
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}",
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}/Entries",
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}"
+            + "/Entries/{EntryID}",
+>>>>>>> facebook/helium
             "/redfish/v1/Managers/1/Actions/Manager.Reset",
         ]
         self.maxDiff = None
         self.assertEqual(sorted(routes_expected), sorted(registered_routes))
+<<<<<<< HEAD
 
     def test_multisled_routes(self):
         values = {
@@ -100,3 +125,5 @@ class TestCommonRoutes(unittest.TestCase):
                         registered_routes.add(str(route.url_for()))
                 self.maxDiff = None
                 self.assertEqual(sorted(routes_expected), sorted(registered_routes))
+=======
+>>>>>>> facebook/helium

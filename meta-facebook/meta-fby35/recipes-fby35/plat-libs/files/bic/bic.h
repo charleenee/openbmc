@@ -34,7 +34,12 @@ extern "C" {
 #define PRESENT_2OU 2
 #define RETRY_3_TIME 3
 #define RETRY_TIME 10
+<<<<<<< HEAD
 #define IPMB_RETRY_DELAY_TIME 500
+=======
+#define IPMB_RETRY_TIME 3
+#define IPMB_RETRY_DELAY 100
+>>>>>>> facebook/helium
 
 #define MAX_CHECK_DEVICE_TIME 8
 #define GPIO_RST_USB_HUB 0x10
@@ -44,6 +49,7 @@ extern "C" {
 
 #define MAX_VER_STR_LEN 80
 
+<<<<<<< HEAD
 /*IFX VR pages*/
 #define VR_PAGE   0x00
 #define VR_PAGE32 0x32
@@ -56,6 +62,25 @@ extern "C" {
 
 #define REVISION_ID(x) ((x >> 4) & 0x0f)
 #define COMPONENT_ID(x) (x & 0x0f)
+=======
+/* IFX VR */
+enum {
+  PMBUS_STS_CML       = 0x7E,
+  IFX_MFR_AHB_ADDR    = 0xCE,
+  IFX_MFR_REG_WRITE   = 0xDE,
+  IFX_MFR_REG_READ    = 0xDF,
+  IFX_MFR_FW_CMD_DATA = 0xFD,
+  IFX_MFR_FW_CMD      = 0xFE,
+
+  OTP_PTN_RMNG  = 0x10,
+  OTP_CONF_STO  = 0x11,
+  OTP_FILE_INVD = 0x12,
+  GET_CRC       = 0x2D,
+};
+
+#define BIT_VALUE(list, index) \
+           ((((uint8_t*)&list)[index/8]) >> (index % 8)) & 0x1\
+>>>>>>> facebook/helium
 
 #define NIC_CPLD_BUS 9
 #define BB_CPLD_BUS 12
@@ -96,6 +121,7 @@ typedef struct
   uint8_t path[8];
 } usb_dev;
 
+<<<<<<< HEAD
 enum {
   FW_CPLD = 1,
   FW_BIC,
@@ -136,6 +162,8 @@ enum {
   // last id
   FW_COMPONENT_LAST_ID
 };
+=======
+>>>>>>> facebook/helium
 
 enum {
   VR_ISL = 0x0,
@@ -150,7 +178,10 @@ enum {
   VCCIN_ADDR = 0xC0,
   VCCD_ADDR = 0xC4,
   VCCINFAON_ADDR = 0xEC,
+<<<<<<< HEAD
   VDDQ_DEF_ADDR = 0xCC,
+=======
+>>>>>>> facebook/helium
   VR_PESW_ADDR = 0xC8,
   VR_2OU_P3V3_STBY1 = 0x28,
   VR_2OU_P3V3_STBY2 = 0x2E,
@@ -175,13 +206,22 @@ enum {
 
 enum {
   //BIC to BMC
+<<<<<<< HEAD
   USB_INPUT_PORT = 0x2,
   USB_OUTPUT_PORT = 0x81,
+=======
+  USB_INPUT_PORT = 0x3,
+  USB_OUTPUT_PORT = 0x82,
+>>>>>>> facebook/helium
 };
 
 /* Generic GPIO configuration */
 typedef struct _bic_gpio_t {
+<<<<<<< HEAD
   uint32_t gpio[3]; 
+=======
+  uint32_t gpio[3];
+>>>>>>> facebook/helium
 } bic_gpio_t;
 
 typedef struct _bic_gpio_config_t {

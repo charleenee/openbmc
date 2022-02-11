@@ -22,7 +22,11 @@ do_lint_py() {
 
 do_lint_sh() {
   echo "SH: $1"
+<<<<<<< HEAD
   shellcheck "$1"
+=======
+  shellcheck -x "$1"
+>>>>>>> facebook/helium
 }
 
 do_lint_cppcheck() {

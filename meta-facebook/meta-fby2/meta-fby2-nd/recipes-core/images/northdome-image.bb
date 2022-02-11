@@ -47,8 +47,11 @@ IMAGE_INSTALL += " \
   openbmc-utils \
   ipmi-util \
   guid-util \
+<<<<<<< HEAD
   asd \
   asd-test \
+=======
+>>>>>>> facebook/helium
   bios-util \
   threshold-util \
   ncsid-v2 \

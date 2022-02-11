@@ -21,6 +21,7 @@ paths:
                   Power status: 
                     type: string
                   BIC_ok: 
+<<<<<<< HEAD
                     type: integer
                     format: int32
               Resources: 
@@ -28,6 +29,15 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                    type: number
+                    format: int32
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

@@ -13,6 +13,10 @@
 
 echo "Setup Caching for SCC Expander info.."
 
+<<<<<<< HEAD
 /usr/bin/exp-cached > /dev/null 2>&1 &
+=======
+/usr/bin/exp-cached --booting > /dev/null 2>&1 &
+>>>>>>> facebook/helium
 
 echo "done."

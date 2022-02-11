@@ -58,10 +58,13 @@ const char *pwr_option_list = PWR_OPTION_LIST;
 const char *force_pwr_option_list = "on, 12V-on";
 #endif
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 static uint8_t expFru = 0;  //id of cwc and gpv3
 #endif
 
+=======
+>>>>>>> facebook/helium
 enum {
   PWR_STATUS = 1,
   PWR_GRACEFUL_SHUTDOWN,
@@ -92,6 +95,7 @@ static const char *option_list[] = {
 
 static void
 print_usage() {
+<<<<<<< HEAD
   printf("Usage: power-util [ %s ] [ %s ]\nUsage: power-util sled-cycle\n",
       pal_server_list, pwr_option_list);
 #ifdef CONFIG_FBY3_CWC
@@ -99,12 +103,21 @@ print_usage() {
     printf("Usage: power-util [ %s ] [ 2U-cwc, 2U-top, 2U-bot ] [ status, 12V-on, 12V-off, 12V-cycle ]\n", pal_server_list);
   }
 #endif
+=======
+  const char *fru_list = pal_server_list;
+  if (pal_get_print_fru_name(&fru_list) != PAL_EOK) {
+    fru_list = pal_server_list;
+  }
+  printf("Usage: power-util [ %s ] [ %s ]\nUsage: power-util sled-cycle\n",
+      fru_list, pwr_option_list);
+>>>>>>> facebook/helium
 
   if (pal_dev_list_power != NULL && dev_pwr_option_list != NULL) {
     if (!strncmp(pal_dev_list_power, "all, ", strlen("all, "))) {
       pal_dev_list_power = pal_dev_list_power + strlen("all, ");
     }
     printf("Usage: power-util [ %s ] [ %s ] [ %s ]\n",
+<<<<<<< HEAD
       pal_server_list, pal_dev_list_power, dev_pwr_option_list);
 #ifdef CONFIG_FBY3_CWC
     if (pal_is_cwc() == PAL_EOK) {
@@ -116,6 +129,13 @@ print_usage() {
   #ifdef ENABLE_FORCE_POWER_CMD
     printf("Usage: power-util [ %s ] --force [ %s ]\n",
       pal_server_list, force_pwr_option_list);
+=======
+      fru_list, pal_dev_list_power, dev_pwr_option_list);
+  }
+  #ifdef ENABLE_FORCE_POWER_CMD
+    printf("Usage: power-util [ %s ] --force [ %s ]\n",
+      fru_list, force_pwr_option_list);
+>>>>>>> facebook/helium
   #endif
 }
 
@@ -223,9 +243,16 @@ dev_power_util(uint8_t fru, char *dev_name, uint8_t dev_id ,uint8_t opt) {
   int ret = 0;
   uint8_t status, type;
   int retries;
+<<<<<<< HEAD
 
   if (opt != PWR_STATUS) {
     if (!pal_can_change_power(fru)) {
+=======
+  uint8_t root = 0;
+
+  if (opt != PWR_STATUS) {
+    if (!pal_can_change_power(pal_get_root_fru(fru, &root) == PAL_EOK ? root : fru)) {
+>>>>>>> facebook/helium
       return -1;
     }
   }
@@ -313,15 +340,27 @@ power_util(uint8_t fru, uint8_t opt, bool force) {
   uint8_t status;
   int retries;
   char pwr_state[MAX_VALUE_LEN] = {0};
+<<<<<<< HEAD
 
   if (opt == PWR_SLED_CYCLE) {
     for(fru = 1; fru <= MAX_NUM_FRUS; fru++) {
       if (!pal_can_change_power(fru)) {
+=======
+  uint8_t root = 0;
+
+  if (opt == PWR_SLED_CYCLE) {
+    for(fru = 1; fru <= MAX_NUM_FRUS; fru++) {
+      if (!pal_can_change_power(pal_get_root_fru(fru, &root) == PAL_EOK ? root : fru)) {
+>>>>>>> facebook/helium
         return -1;
       }
     }
   } else if (opt != PWR_STATUS) {
+<<<<<<< HEAD
     if (!pal_can_change_power(fru)) {
+=======
+    if (!pal_can_change_power(pal_get_root_fru(fru, &root) == PAL_EOK ? root : fru)) {
+>>>>>>> facebook/helium
       return -1;
     }
   }
@@ -559,7 +598,11 @@ power_util(uint8_t fru, uint8_t opt, bool force) {
       syslog(LOG_CRIT, "SLED_CYCLE starting...");
       pal_update_ts_sled();
       sync();
+<<<<<<< HEAD
       sleep(1);
+=======
+      sleep(2);
+>>>>>>> facebook/helium
       ret = pal_sled_cycle();
       break;
 
@@ -571,6 +614,7 @@ power_util(uint8_t fru, uint8_t opt, bool force) {
   return ret;
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 static int
 exp_power_util(uint8_t fru, uint8_t opt, bool force) {
@@ -644,6 +688,8 @@ exp_power_util(uint8_t fru, uint8_t opt, bool force) {
 }
 #endif
 
+=======
+>>>>>>> facebook/helium
 static int
 add_process_running_flag(uint8_t slot_id, uint8_t opt) {
   int pid_file;
@@ -708,6 +754,7 @@ main(int argc, char **argv) {
   bool force;
   uint8_t num_devs = 0;
   uint8_t dev_id = DEV_NONE;
+<<<<<<< HEAD
 
 #ifdef CONFIG_FBY3_CWC
   int i = 0;
@@ -721,6 +768,9 @@ main(int argc, char **argv) {
     }
   }
 #endif
+=======
+  uint8_t root = 0;
+>>>>>>> facebook/helium
 
   if (parse_args(argc, argv, &force)) {
     print_usage();
@@ -785,13 +835,18 @@ main(int argc, char **argv) {
   }
 
   // Check if another instance is running
+<<<<<<< HEAD
   if (add_process_running_flag(fru, opt) < 0) {
+=======
+  if (add_process_running_flag(pal_get_root_fru(fru, &root) == PAL_EOK ? root : fru, opt) < 0) {
+>>>>>>> facebook/helium
     printf("power_util: another instance is running for FRU:%d...\n",fru);
     //Make power-util exit code to "-2" when another instance is running
     exit(-2);
   }
 
   if (dev_id == DEV_NONE) {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     if (expFru != 0) {
       ret = exp_power_util(expFru, opt, force);
@@ -801,10 +856,14 @@ main(int argc, char **argv) {
 #ifdef CONFIG_FBY3_CWC
     }
 #endif
+=======
+    ret = power_util(fru, opt, force);
+>>>>>>> facebook/helium
     if (ret < 0) {
       printf("ERROR: power-util fru[%d] [%s] failed\n", fru, option_list[opt]);
     }
   } else if (dev_id != DEV_ALL) {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     if (expFru != 0) {
       ret = dev_power_util(expFru, argv[optind+1], dev_id, opt);
@@ -814,11 +873,18 @@ main(int argc, char **argv) {
 #ifdef CONFIG_FBY3_CWC
     }
 #endif
+=======
+    ret = dev_power_util(fru, argv[optind+1], dev_id, opt);
+>>>>>>> facebook/helium
     if (ret < 0) {
       printf("ERROR: power-util fru[%d] dev %s [%s] failed\n", fru, argv[optind+1], option_list[opt]);
     }
   }
 
+<<<<<<< HEAD
   rm_process_running_flag(fru, opt);
+=======
+  rm_process_running_flag(pal_get_root_fru(fru, &root) == PAL_EOK ? root : fru, opt);
+>>>>>>> facebook/helium
   return ret;
 }

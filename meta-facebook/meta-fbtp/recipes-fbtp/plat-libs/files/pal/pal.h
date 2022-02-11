@@ -240,6 +240,10 @@ enum {
   MB_SENSOR_MEMORY_LOOP_FAIL = 0x9D,
   MB_SENSOR_PROCESSOR_FAIL = 0x65,
   MB_SENSOR_HSC_VDELTA     = 0x66,
+<<<<<<< HEAD
+=======
+  MB_SENSOR_VR_STATUS      = 0x67,
+>>>>>>> facebook/helium
 };
 
 enum{
@@ -319,6 +323,10 @@ int pal_control_mux_to_target_ch(uint8_t channel, uint8_t bus, uint8_t mux_addr)
 int pal_uart_switch_for_led_ctrl (void);
 int pal_riser_mux_switch (uint8_t riser_slot);
 int pal_riser_mux_release (void);
+<<<<<<< HEAD
+=======
+void turn_off_p12v_stby(char* cause);
+>>>>>>> facebook/helium
 
 #ifdef __cplusplus
 } // extern "C"

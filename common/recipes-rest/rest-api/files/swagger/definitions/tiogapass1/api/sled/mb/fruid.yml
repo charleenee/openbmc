@@ -14,10 +14,18 @@ paths:
             type: object
             additionalProperties: false
             properties: 
+<<<<<<< HEAD
+=======
+              Resources: 
+                type: array
+                items: 
+                  type: string
+>>>>>>> facebook/helium
               Information: 
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Product Name: 
                     type: string
                   Chassis Serial Number: 
@@ -67,8 +75,56 @@ paths:
                 type: array
                 items: 
                   type: string
+=======
+                  Product Part Number: 
+                    type: string
+                  Chassis Type: 
+                    type: string
+                  Product Serial: 
+                    type: string
+                  Board Product: 
+                    type: string
+                  Product Manufacturer: 
+                    type: string
+                  Board Custom Data 1: 
+                    type: string
+                  Board Custom Data 2: 
+                    type: string
+                  Board Custom Data 3: 
+                    type: string
+                  Board Mfg: 
+                    type: string
+                  Chassis Custom Data 1: 
+                    type: string
+                  Chassis Custom Data 2: 
+                    type: string
+                  Product Name: 
+                    type: string
+                  Product Version: 
+                    type: string
+                  Product Asset Tag: 
+                    type: string
+                  Board Mfg Date: 
+                    type: string
+                  Chassis Serial Number: 
+                    type: string
+                  Board Part Number: 
+                    type: string
+                  Product Custom Data 2: 
+                    type: string
+                  Chassis Part Number: 
+                    type: string
+                  Product Custom Data 1: 
+                    type: string
+                  Board Serial: 
+                    type: string
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 
                   type: string
+<<<<<<< HEAD
             
+=======
+            
+>>>>>>> facebook/helium

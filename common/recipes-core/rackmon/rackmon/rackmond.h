@@ -64,6 +64,10 @@ enum {
 
 typedef struct rackmond_command {
   uint16_t type;
+<<<<<<< HEAD
+=======
+  uint16_t rack;
+>>>>>>> facebook/helium
   union {
     raw_modbus_command raw_modbus;
     set_config_command set_config;

@@ -116,6 +116,10 @@ enum {
   PIM_TYPE_UNPLUG = 0,
   PIM_TYPE_16Q = 1,
   PIM_TYPE_8DDM = 2,
+<<<<<<< HEAD
+=======
+  PIM_TYPE_16Q2 = 3,
+>>>>>>> facebook/helium
   PIM_TYPE_NONE = 4,
 };
 

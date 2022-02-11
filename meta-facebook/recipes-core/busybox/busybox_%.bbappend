@@ -1,7 +1,11 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/${PN}:"
 
 SRC_URI:append:openbmc-fb = " \
+<<<<<<< HEAD
             file://busybox.cfg \
+=======
+            file://fb-busybox.cfg \
+>>>>>>> facebook/helium
             file://setup_crond.sh \
             file://cron.daily/biosfwimages-cleanup.sh \
            "

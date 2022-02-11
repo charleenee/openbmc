@@ -27,3 +27,9 @@ unreadVariable
 
 // We have some scanf macros that cppcheck won't expand correctly.
 wrongPrintfScanfArgNum
+<<<<<<< HEAD
+=======
+
+// This output confuses CI, get rid of it.
+unmatchedSuppression
+>>>>>>> facebook/helium

@@ -58,7 +58,11 @@ typedef struct _sdr_rec_hdr_t {
 
 #define MIN(x,y) (((x) < (y)) ? (x) : (y))
 
+<<<<<<< HEAD
 #define BIC_SENSOR_SYSTEM_STATUS  0x46
+=======
+#define BIC_SENSOR_SYSTEM_STATUS  0x10
+>>>>>>> facebook/helium
 
 #define BB_FW_UPDATE_STAT_FILE "/tmp/cache_store/bb_fw_update"
 
@@ -78,6 +82,13 @@ enum {
   M2_ROOT_PORT5 = 0x5,
 };
 
+<<<<<<< HEAD
+=======
+enum {
+  SNR_READ_CACHE = 0,
+  SNR_READ_FORCE = 1,
+};
+>>>>>>> facebook/helium
 
 uint8_t mapping_m2_prsnt[2][6] = { {M2_ROOT_PORT0, M2_ROOT_PORT1, M2_ROOT_PORT5, M2_ROOT_PORT4, M2_ROOT_PORT2, M2_ROOT_PORT3},
                                    {M2_ROOT_PORT4, M2_ROOT_PORT3, M2_ROOT_PORT2, M2_ROOT_PORT1}};
@@ -86,12 +97,77 @@ uint8_t mapping_e1s_prsnt[2][6] = { {M2_ROOT_PORT4, M2_ROOT_PORT5, M2_ROOT_PORT3
 uint8_t mapping_e1s_pwr[2][6] = { {M2_ROOT_PORT3, M2_ROOT_PORT2, M2_ROOT_PORT5, M2_ROOT_PORT4, M2_ROOT_PORT1, M2_ROOT_PORT0},
                                   {M2_ROOT_PORT4, M2_ROOT_PORT3, M2_ROOT_PORT2, M2_ROOT_PORT1} };
 
+<<<<<<< HEAD
 // S/E - Get Sensor reading
 // Netfn: 0x04, Cmd: 0x2d
 int
 bic_get_sensor_reading(uint8_t slot_id, uint8_t sensor_num, ipmi_sensor_reading_t *sensor, uint8_t intf) {
   uint8_t rlen = 0;
   return bic_ipmb_send(slot_id, NETFN_SENSOR_REQ, CMD_SENSOR_GET_SENSOR_READING, &sensor_num, 1, (uint8_t *)sensor, &rlen, intf);
+=======
+static int snr_read_support[4] = {UNKNOWN_CMD, UNKNOWN_CMD, UNKNOWN_CMD, UNKNOWN_CMD};
+
+int
+bic_get_std_sensor(uint8_t slot_id, uint8_t sensor_num, snr_reading_ret *sensor, uint8_t intf) {
+  uint8_t rlen = 0;
+  int ret = 0;
+  ipmi_sensor_reading_t std_sensor = {0};
+
+  ret = bic_ipmb_send(slot_id, NETFN_SENSOR_REQ, CMD_SENSOR_GET_SENSOR_READING, &sensor_num, 1, (uint8_t *)&std_sensor, &rlen, intf);
+  if (ret != 0) {
+    return ret;
+  }
+  sensor->value = std_sensor.value;
+  sensor->flags = std_sensor.flags;
+  sensor->status = std_sensor.status;
+  sensor->ext_status = std_sensor.ext_status;
+  sensor->read_type = STANDARD_CMD;
+  snr_read_support[slot_id-1] = STANDARD_CMD;
+
+  return ret;
+}
+
+int
+bic_get_accur_sensor(uint8_t slot_id, uint8_t sensor_num, snr_reading_ret *sensor, uint8_t intf) {
+  uint8_t rlen = 0;
+  int ret = 0;
+  uint8_t tbuf[5] = {0x9c, 0x9c, 0x0, sensor_num, SNR_READ_CACHE};
+  ipmi_accurate_sensor_reading_t acur_sensor = {0};
+
+  ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, CMD_OEM_1S_ACCURACY_SENSOR_READING, tbuf, 5, (uint8_t *)&acur_sensor, &rlen, intf);
+  if (ret != 0) {
+    return ret;
+  }
+  sensor->value = (acur_sensor.val_msb << 8) + acur_sensor.val_lsb;
+  sensor->flags = acur_sensor.flags;
+  sensor->read_type = ACCURATE_CMD;
+  snr_read_support[slot_id-1] = ACCURATE_CMD;
+
+  return ret;
+}
+
+
+// S/E - Get Sensor reading
+// Netfn: 0x04, Cmd: 0x2d
+// S/E - Get Accuracy Sensor reading
+// Netfn: 0x38, Cmd: 0x23
+int
+bic_get_sensor_reading(uint8_t slot_id, uint8_t sensor_num, snr_reading_ret *sensor, uint8_t intf) {
+  int ret = 0;
+
+  if (snr_read_support[slot_id-1] == STANDARD_CMD) {
+    ret = bic_get_std_sensor(slot_id, sensor_num, sensor, intf);
+  } else if (snr_read_support[slot_id-1] == ACCURATE_CMD) {
+    ret = bic_get_accur_sensor(slot_id, sensor_num, sensor, intf);
+  } else { // first read, try accurate command
+    if (bic_get_accur_sensor(slot_id, sensor_num, sensor, intf) == BIC_STATUS_NOT_SUPP_IN_CURR_STATE) {
+      // not support accurate reading, switch to standard command
+      ret = bic_get_std_sensor(slot_id, sensor_num, sensor, intf);
+    }
+  }
+
+  return ret;
+>>>>>>> facebook/helium
 }
 
 // APP - Get Device ID
@@ -381,6 +457,20 @@ _bic_get_fw_ver(uint8_t slot_id, uint8_t fw_comp, uint8_t *ver, uint8_t intf) {
     memcpy(ver, &rbuf[3], rlen-3);
     ret = BIC_STATUS_SUCCESS;
   }
+<<<<<<< HEAD
+=======
+  switch (fw_comp) {
+    case FW_BIC:
+    case FW_1OU_BIC:
+    case FW_2OU_BIC:
+    case FW_BB_BIC:
+      ver[rlen - 2] = '\0';
+      break;
+    default:
+      // do nothing
+      break;
+  }
+>>>>>>> facebook/helium
 
   return ret;
 }
@@ -489,7 +579,11 @@ get_gpv3_bus_number(uint8_t dev_id) {
     case FW_2OU_M2_DEV0:
     case FW_2OU_M2_DEV1:
     case DEV_ID0_2OU:
+<<<<<<< HEAD
     case DEV_ID1_2OU:    
+=======
+    case DEV_ID1_2OU:
+>>>>>>> facebook/helium
       return 0x2;
     case FW_2OU_M2_DEV2:
     case FW_2OU_M2_DEV3:
@@ -568,10 +662,17 @@ bic_enable_ssd_sensor_monitor(uint8_t slot_id, bool enable, uint8_t intf) {
   uint8_t tlen = 4;
   uint8_t rbuf[16] = {0};
   uint8_t rlen = 0;
+<<<<<<< HEAD
   return bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_BIC_SNR_MONITOR, tbuf, tlen, rbuf, &rlen, intf); 
 }
 
 int 
+=======
+  return bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_BIC_SNR_MONITOR, tbuf, tlen, rbuf, &rlen, intf);
+}
+
+int
+>>>>>>> facebook/helium
 bic_get_1ou_type(uint8_t slot_id, uint8_t *type) {
   uint8_t tbuf[3] = {0x9c, 0x9c, 0x00};
   uint8_t rbuf[16] = {0};
@@ -583,13 +684,21 @@ bic_get_1ou_type(uint8_t slot_id, uint8_t *type) {
   int val = 0;
 
   snprintf(key, sizeof(key), KV_SLOT_GET_1OU_TYPE, slot_id);
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   while (retry < 3) {
     ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_GET_BOARD_ID, tbuf, 3, rbuf, &rlen, FEXP_BIC_INTF);
     if (ret == 0) break;
     retry++;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   if (ret == 0) {
     *type = rbuf[3];
     val = *type;
@@ -597,7 +706,11 @@ bic_get_1ou_type(uint8_t slot_id, uint8_t *type) {
     syslog(LOG_WARNING, "[%s] fail at slot%d", __func__, slot_id);
     val = ret;
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   snprintf(tmp_str, sizeof(tmp_str), "%d", val);
   kv_set(key, tmp_str, 0, 0);
   return ret;
@@ -628,7 +741,11 @@ bic_set_amber_led(uint8_t slot_id, uint8_t dev_id, uint8_t status) {
   uint8_t rlen = 0;
   int ret = 0;
   int retry = 0;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   tbuf[3] = dev_id; // 0'base
   tbuf[4] = status; // 0->off, 1->on
   while (retry < 3) {
@@ -636,11 +753,19 @@ bic_set_amber_led(uint8_t slot_id, uint8_t dev_id, uint8_t status) {
     if (ret == 0) break;
     retry++;
   }
+<<<<<<< HEAD
   
   if (ret != 0) {
     syslog(LOG_WARNING, "[%s] fail at slot%u dev%u", __func__, slot_id, dev_id);
   }
   
+=======
+
+  if (ret != 0) {
+    syslog(LOG_WARNING, "[%s] fail at slot%u dev%u", __func__, slot_id, dev_id);
+  }
+
+>>>>>>> facebook/helium
   return ret;
 }
 
@@ -690,13 +815,22 @@ bic_get_cpld_ver(uint8_t slot_id, uint8_t comp, uint8_t *ver, uint8_t bus, uint8
 
 // Custom Command for getting vr version/device id
 int
+<<<<<<< HEAD
 bic_get_vr_device_id(uint8_t slot_id, uint8_t comp, uint8_t *rbuf, uint8_t *rlen, uint8_t bus, uint8_t addr, uint8_t intf) {
   uint8_t tbuf[32] = {0};
   uint8_t tlen = 0;
+=======
+bic_get_vr_device_id(uint8_t slot_id, uint8_t *devid, uint8_t *id_len, uint8_t bus, uint8_t addr, uint8_t intf) {
+  uint8_t tbuf[16] = {0};
+  uint8_t rbuf[16] = {0};
+  uint8_t tlen = 0;
+  uint8_t rlen = sizeof(rbuf);
+>>>>>>> facebook/helium
   int ret = 0;
 
   tbuf[0] = (bus << 1) + 1;
   tbuf[1] = addr;
+<<<<<<< HEAD
   tbuf[2] = 0x07; //read back 7 bytes
   tbuf[3] = 0xAD; //get device id command
   tlen = 4;
@@ -706,22 +840,44 @@ bic_get_vr_device_id(uint8_t slot_id, uint8_t comp, uint8_t *rbuf, uint8_t *rlen
   } else {
     *rlen = rbuf[0];//read cnt
     memmove(rbuf, &rbuf[1], *rlen);
+=======
+  tbuf[2] = 0x07; // read back 7 bytes
+  tbuf[3] = 0xAD; // get device id command
+  tlen = 4;
+  ret = bic_ipmb_send(slot_id, NETFN_APP_REQ, CMD_APP_MASTER_WRITE_READ, tbuf, tlen, rbuf, &rlen, intf);
+  if ( ret < 0 ) {
+    syslog(LOG_WARNING, "%s() Failed to get vr device id, ret=%d", __func__, ret);
+  } else {
+    rlen = (*id_len > rbuf[0]) ? rbuf[0] : *id_len;
+    *id_len = rbuf[0];
+    memmove(devid, &rbuf[1], rlen);
+>>>>>>> facebook/helium
   }
 
   return ret;
 }
 
 int
+<<<<<<< HEAD
 bic_get_ifx_vr_remaining_writes(uint8_t slot_id, uint8_t bus, uint8_t addr, uint8_t *writes, uint8_t intf) {
 #define REMAINING_TIMES(x) (((x[1] << 8) + x[0]) & 0xFC0) >> 6
   uint8_t tbuf[16] = {0};
   uint8_t rbuf[16] = {0};
   uint8_t tlen = 0;
   uint8_t rlen = 0;
+=======
+bic_ifx_vr_mfr_fw(uint8_t slot_id, uint8_t bus, uint8_t addr, uint8_t code,
+                  uint8_t *data, uint8_t *resp, uint8_t intf) {
+  uint8_t tbuf[16] = {0};
+  uint8_t rbuf[16] = {0};
+  uint8_t tlen = 0;
+  uint8_t rlen = sizeof(rbuf);
+>>>>>>> facebook/helium
   int ret = 0;
 
   tbuf[0] = (bus << 1) + 1;
   tbuf[1] = addr;
+<<<<<<< HEAD
   tbuf[2] = 0x00; //read cnt
   tbuf[3] = VR_PAGE;
   tbuf[4] = VR_PAGE50;
@@ -744,6 +900,66 @@ bic_get_ifx_vr_remaining_writes(uint8_t slot_id, uint8_t bus, uint8_t addr, uint
   *writes = REMAINING_TIMES(rbuf);
 
 error_exit:
+=======
+  tbuf[2] = 0x00;  // read count
+
+  if ( data != NULL ) {
+    tbuf[3] = IFX_MFR_FW_CMD_DATA;
+    tbuf[4] = 4;  // block write 4 bytes
+    memcpy(&tbuf[5], data, 4);
+    tlen = 9;
+    ret = bic_ipmb_send(slot_id, NETFN_APP_REQ, CMD_APP_MASTER_WRITE_READ, tbuf, tlen, rbuf, &rlen, intf);
+    if ( ret < 0 ) {
+      syslog(LOG_WARNING, "%s() Block write 0x%02X failed", __func__, tbuf[3]);
+      return ret;
+    }
+  }
+
+  tbuf[3] = IFX_MFR_FW_CMD;
+  tbuf[4] = code;
+  tlen = 5;
+  ret = bic_ipmb_send(slot_id, NETFN_APP_REQ, CMD_APP_MASTER_WRITE_READ, tbuf, tlen, rbuf, &rlen, intf);
+  if ( ret < 0 ) {
+    syslog(LOG_WARNING, "%s() Write code 0x%02X failed", __func__, tbuf[4]);
+    return ret;
+  }
+
+  if ( resp != NULL ) {
+    tbuf[2] = 0x06;  // read count
+    tbuf[3] = IFX_MFR_FW_CMD_DATA;
+    tlen = 4;
+    ret = bic_ipmb_send(slot_id, NETFN_APP_REQ, CMD_APP_MASTER_WRITE_READ, tbuf, tlen, rbuf, &rlen, intf);
+    if ( ret < 0 ) {
+      syslog(LOG_WARNING, "%s() Block read 0x%02X failed", __func__, tbuf[3]);
+      return ret;
+    }
+
+    if ( (rlen > 4) && (rbuf[0] == 4) ) {
+      memcpy(resp, rbuf, 5);
+    } else {
+      syslog(LOG_WARNING, "%s() Unexpected data, rlen = %u", __func__, rlen);
+      return -1;
+    }
+  }
+
+  return ret;
+}
+
+int
+bic_get_ifx_vr_remaining_writes(uint8_t slot_id, uint8_t bus, uint8_t addr, uint8_t *writes, uint8_t intf) {
+#define IFX_CONF_SIZE 1344  // Config(604) + PMBus(504) + SVID(156) + PMBusPartial(80)
+#define REMAINING_TIMES(x) (((x[2] << 8) | x[1]) / IFX_CONF_SIZE)
+  uint8_t tbuf[16] = {0};
+  uint8_t rbuf[16] = {0};
+  int ret = 0;
+
+  ret = bic_ifx_vr_mfr_fw(slot_id, bus, addr, OTP_PTN_RMNG, tbuf, rbuf, intf);
+  if ( ret < 0 ) {
+    return ret;
+  }
+
+  *writes = REMAINING_TIMES(rbuf);
+>>>>>>> facebook/helium
   return ret;
 }
 
@@ -786,6 +1002,7 @@ error_exit:
 int
 bic_get_vr_ver(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, char *key, char *ver_str) {
   uint8_t tbuf[32] = {0};
+<<<<<<< HEAD
   uint8_t tlen = 0;
   uint8_t rbuf[32] = {0};
   uint8_t rlen = 0;
@@ -869,6 +1086,46 @@ bic_get_vr_ver(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, char *k
     
   } else if ( rlen > 4 ) {
     //TI
+=======
+  uint8_t rbuf[32] = {0};
+  uint8_t tlen = 0;
+  uint8_t rlen = sizeof(rbuf);
+  uint8_t remaining_writes = 0;
+  int ret = 0;
+
+  ret = bic_get_vr_device_id(slot_id, rbuf, &rlen, bus, addr, intf);
+  if ( ret < 0 ) {
+    return ret;
+  }
+
+  //The length of GET_DEVICE_ID is different.
+  if ( rlen == 2 ) {
+    //Infineon
+    //get the remaining size
+    ret = bic_get_ifx_vr_remaining_writes(slot_id, bus, addr, &remaining_writes, intf);
+    if ( ret < 0 ) {
+      syslog(LOG_WARNING, "%s():%d Failed to send command code to get vr remaining writes. ret=%d", __func__, __LINE__, ret);
+      return ret;
+    }
+
+    memset(tbuf, 0, 4);
+    ret = bic_ifx_vr_mfr_fw(slot_id, bus, addr, GET_CRC, tbuf, rbuf, intf);
+    if ( ret < 0 ) {
+      syslog(LOG_WARNING, "%s():%d Failed to send command code to get vr ver. ret=%d", __func__, __LINE__, ret);
+      return ret;
+    }
+    if ( rbuf[0] != 4 ) {
+      syslog(LOG_WARNING, "%s():%d Unexpected data 0x%02X", __func__, __LINE__, rbuf[0]);
+      return -1;
+    }
+
+    snprintf(ver_str, MAX_VALUE_LEN, "Infineon %02X%02X%02X%02X, Remaining Writes: %d", rbuf[4], rbuf[3], rbuf[2], rbuf[1], remaining_writes);
+    kv_set(key, ver_str, 0, 0);
+  } else if ( rlen > 4 ) {
+    //TI
+    tbuf[0] = (bus << 1) + 1;
+    tbuf[1] = addr;
+>>>>>>> facebook/helium
     tbuf[2] = 0x02; //read cnt
     tbuf[3] = 0xF0; //command code
     tlen = 4;
@@ -877,7 +1134,11 @@ bic_get_vr_ver(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, char *k
       syslog(LOG_WARNING, "%s():%d Failed to send command code to get vr ver. ret=%d", __func__,__LINE__, ret);
       return ret;
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> facebook/helium
     snprintf(ver_str, MAX_VALUE_LEN, "Texas Instruments %02X%02X", rbuf[1], rbuf[0]);
     kv_set(key, ver_str, 0, 0);
   } else {
@@ -886,10 +1147,19 @@ bic_get_vr_ver(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, char *k
     ret = bic_get_isl_vr_remaining_writes(slot_id, bus, addr, &remaining_writes, intf);
     if ( ret < 0 ) {
       syslog(LOG_WARNING, "%s():%d Failed to send command code to get vr remaining writes. ret=%d", __func__,__LINE__, ret);
+<<<<<<< HEAD
       goto error_exit;
     }
 
     //get the CRC32 of the VR
+=======
+      return ret;
+    }
+
+    //get the CRC32 of the VR
+    tbuf[0] = (bus << 1) + 1;
+    tbuf[1] = addr;
+>>>>>>> facebook/helium
     tbuf[2] = 0x00; //read cnt
     tbuf[3] = 0xC7; //command code
     tbuf[4] = 0x94; //reg
@@ -909,7 +1179,11 @@ bic_get_vr_ver(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, char *k
       syslog(LOG_WARNING, "%s():%d Failed to send command code to get vr ver. ret=%d", __func__,__LINE__, ret);
       return ret;
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> facebook/helium
     snprintf(ver_str, MAX_VALUE_LEN, "Renesas %02X%02X%02X%02X, Remaining Writes: %d", rbuf[3], rbuf[2], rbuf[1], rbuf[0], remaining_writes);
     kv_set(key, ver_str, 0, 0);
   }
@@ -923,7 +1197,10 @@ bic_get_vr_ver_cache(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, c
 
   snprintf(key, sizeof(key), "slot%x_vr_%02xh_crc", slot_id, addr);
   if (kv_get(key, tmp_str, NULL, 0)) {
+<<<<<<< HEAD
     
+=======
+>>>>>>> facebook/helium
     if (bic_get_vr_ver(slot_id, intf, bus, addr, key, tmp_str))
       return -1;
   }
@@ -931,7 +1208,11 @@ bic_get_vr_ver_cache(uint8_t slot_id, uint8_t intf, uint8_t bus, uint8_t addr, c
   if (snprintf(ver_str, MAX_VER_STR_LEN, "%s", tmp_str) > (MAX_VER_STR_LEN-1))
     return -1;
 
+<<<<<<< HEAD
   return 0;  
+=======
+  return 0;
+>>>>>>> facebook/helium
 }
 
 int
@@ -1186,7 +1467,11 @@ bic_get_gpio_config(uint8_t slot_id, uint8_t gpio, uint8_t *data) {
   index = (gpio / 8) + 3; //3 is the size of IANA ID
   pin = 1 << (gpio % 8);
   tbuf[index] = pin;
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   ret = bic_ipmb_wrapper(slot_id, NETFN_OEM_1S_REQ, CMD_OEM_1S_GET_GPIO_CONFIG, tbuf, tlen, rbuf, &rlen);
   *data = rbuf[3];
   return ret;
@@ -1353,7 +1638,11 @@ bic_set_fan_auto_mode(uint8_t crtl, uint8_t *status) {
 
   while (retry < 3) {
     ret = bic_ipmb_send(FRU_SLOT1, NETFN_OEM_REQ, BIC_CMD_OEM_FAN_CTRL_STAT, tbuf, tlen, rbuf, &rlen, BB_BIC_INTF);
+<<<<<<< HEAD
     if (ret == 0) break; 
+=======
+    if (ret == 0) break;
+>>>>>>> facebook/helium
     retry++;
   }
   if (ret != 0) {
@@ -1505,7 +1794,11 @@ bic_notify_fan_mode(int mode) {
     fan_event.slot = UNKNOWN_SLOT;
     syslog(LOG_WARNING, "%s(): wrong response while getting MB index", __func__);
   }
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   memcpy(req.iana_id, iana_id, MIN(sizeof(req.iana_id), sizeof(iana_id)));
   req.bypass_intf = BMC_INTF;
   fan_event.mode = mode;
@@ -1522,7 +1815,11 @@ bic_notify_fan_mode(int mode) {
   return 0;
 }
 
+<<<<<<< HEAD
 int 
+=======
+int
+>>>>>>> facebook/helium
 bic_get_dev_info(uint8_t slot_id, uint8_t dev_id, uint8_t *nvme_ready, uint8_t *status, uint8_t *type) {
   int ret = 0;
   uint8_t retry = MAX_READ_RETRY;
@@ -1616,7 +1913,11 @@ bic_get_dev_power_status(uint8_t slot_id, uint8_t dev_id, uint8_t *nvme_ready, u
     tbuf[3] = mapping_e1s_pwr[table][dev_id - 1];
   } else if (board_type == E1S_BOARD) {
     // case 2OU E1S
+<<<<<<< HEAD
     tbuf[3] = mapping_e1s_pwr[table][dev_id - 1] + 1; // device ID 1 based in power control 
+=======
+    tbuf[3] = mapping_e1s_pwr[table][dev_id - 1] + 1; // device ID 1 based in power control
+>>>>>>> facebook/helium
   } else {
     // case 1/2OU M.2
     tbuf[3] = dev_id;
@@ -1721,7 +2022,11 @@ bic_set_dev_power_status(uint8_t slot_id, uint8_t dev_id, uint8_t status, uint8_
     tbuf[3] = mapping_e1s_pwr[table][dev_id - 1];
   } else if (board_type == E1S_BOARD) {
     // case 2OU E1S
+<<<<<<< HEAD
     tbuf[3] = mapping_e1s_pwr[table][dev_id - 1] + 1; // device ID 1 based in power control 
+=======
+    tbuf[3] = mapping_e1s_pwr[table][dev_id - 1] + 1; // device ID 1 based in power control
+>>>>>>> facebook/helium
   } else {
     // case 1/2OU M.2
     tbuf[3] = dev_id;
@@ -1738,6 +2043,19 @@ error_exit:
 }
 
 int
+<<<<<<< HEAD
+=======
+bic_disable_sensor_monitor(uint8_t slot_id, uint8_t dis, uint8_t intf) {
+  uint8_t tbuf[8] = {0x9c, 0x9c, 0x00}; // IANA ID
+  uint8_t rbuf[8] = {0x00};
+  uint8_t rlen = sizeof(rbuf);
+
+  tbuf[3] = dis;  // 1: disable sensor monitor; 0: enable sensor monitor
+  return bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, CMD_OEM_1S_DISABLE_SEN_MON, tbuf, 4, rbuf, &rlen, intf);
+}
+
+int
+>>>>>>> facebook/helium
 bic_master_write_read(uint8_t slot_id, uint8_t bus, uint8_t addr, uint8_t *wbuf, uint8_t wcnt, uint8_t *rbuf, uint8_t rcnt) {
   uint8_t tbuf[256];
   uint8_t tlen = 3, rlen = 0;
@@ -1767,6 +2085,7 @@ bic_reset(uint8_t slot_id) {
   return ret;
 }
 
+<<<<<<< HEAD
 int
 bic_clear_cmos(uint8_t slot_id) {
   uint8_t tbuf[3] = {0x9c, 0x9c, 0x00}; // IANA ID
@@ -1776,6 +2095,8 @@ bic_clear_cmos(uint8_t slot_id) {
   return bic_ipmb_wrapper(slot_id, NETFN_OEM_1S_REQ, CMD_OEM_1S_CLEAR_CMOS, tbuf, 3, rbuf, &rlen);
 }
 
+=======
+>>>>>>> facebook/helium
 // Only For Class 2
 int
 bic_inform_sled_cycle(void) {
@@ -1841,7 +2162,11 @@ bic_get_mb_index(uint8_t *index) {
   if (rlen == sizeof(GET_MB_INDEX_RESP)) {
     *index = resp.index;
   } else {
+<<<<<<< HEAD
     syslog(LOG_WARNING, "%s(): wrong response length (%d), while getting MB index, expected = %d", 
+=======
+    syslog(LOG_WARNING, "%s(): wrong response length (%d), while getting MB index, expected = %d",
+>>>>>>> facebook/helium
           __func__, rlen, sizeof(GET_MB_INDEX_RESP));
     return -1;
   }
@@ -1914,13 +2239,21 @@ bic_check_bb_fw_update_ongoing() {
   uint8_t mb_index = 0;
   int ret = 0;
   char update_stat[MAX_VALUE_LEN] = {0};
+<<<<<<< HEAD
   
+=======
+
+>>>>>>> facebook/helium
   // if key exist, BB fw is updating by another slot
   if (access(BB_FW_UPDATE_STAT_FILE, F_OK) == 0) {
     if (kv_get("bb_fw_update", update_stat, NULL, 0) != 0) {
       printf("Fail to get BB firmware update status\n");
       strncpy(update_stat, "unknown", sizeof(update_stat));
+<<<<<<< HEAD
     }    
+=======
+    }
+>>>>>>> facebook/helium
     printf("BB firmware: %s update is ongoing\n", update_stat);
     return -1;
   }
@@ -1938,7 +2271,11 @@ bic_check_bb_fw_update_ongoing() {
     if (kv_get("bb_fw_update", update_stat, NULL, 0) != 0) {
       printf("Fail to get BB firmware update status\n");
       strncpy(update_stat, "unknown", sizeof(update_stat));
+<<<<<<< HEAD
     }    
+=======
+    }
+>>>>>>> facebook/helium
     printf("BB firmware: %s update is ongoing\n", update_stat);
     return -1;
   }

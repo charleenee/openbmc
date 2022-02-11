@@ -260,6 +260,7 @@ set_nic_power_mode(nic_power_control_mode nic_mode) {
 
 int
 pal_host_power_off_pre_actions() {
+<<<<<<< HEAD
   if (gpio_set_init_value_by_shadow(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_LOW) < 0) {
     syslog(LOG_ERR, "%s() Failed to disable E1S0/IOCM I2C\n", __func__);
     return -1;
@@ -269,6 +270,8 @@ pal_host_power_off_pre_actions() {
     return -1;
   }
 
+=======
+>>>>>>> facebook/helium
   return 0;
 }
 
@@ -310,6 +313,7 @@ pal_restore_host_power_on_pre_actions() {
 
 int
 pal_host_power_on_post_actions() {
+<<<<<<< HEAD
   char path[MAX_PATH_LEN] = {0};
   int ret = 0;
   uint8_t chassis_type = 0;
@@ -354,6 +358,8 @@ pal_host_power_on_post_actions() {
       }
     }
   }
+=======
+>>>>>>> facebook/helium
 
   return 0;
 }

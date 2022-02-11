@@ -16,8 +16,12 @@ paths:
             properties: 
               Information: 
                 type: object
+<<<<<<< HEAD
                 additionalProperties: false
                 properties:  
+=======
+                format: nullable
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

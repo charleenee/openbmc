@@ -4,6 +4,11 @@ inherit kernel_fitimage
 
 require recipes-core/images/fb-openbmc-image.bb
 
+<<<<<<< HEAD
+=======
+PROVIDES += "fbtp-next-image"
+
+>>>>>>> facebook/helium
 # The offset must match with the offsets defined in
 # dev-spi-cmm.c. Rootfs starts from 4.5M
 FLASH_ROOTFS_OFFSET = "4608"

@@ -31,6 +31,10 @@
 #include <syslog.h>
 #include <atomic>
 #include <openbmc/pal.h>
+<<<<<<< HEAD
+=======
+#include <openbmc/misc-utils.h>
+>>>>>>> facebook/helium
 #ifdef __TEST__
 #include <gtest/gtest.h>
 #endif
@@ -43,12 +47,15 @@ std::atomic<bool> quit_process(false);
 string exec_name = "Unknown";
 map<string, map<string, Component *, partialLexCompare>, partialLexCompare> * Component::fru_list = NULL;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 static bool fruExt = false; //if cwc option in the argument
 static bool cwcPlat = false;//cwc platform
 static uint8_t expFru = 0;  //cwc id
 #endif
 
+=======
+>>>>>>> facebook/helium
 Component::Component(string fru, string component)
   : _fru(fru), _component(component), _sys(), update_initiated(false)
 {
@@ -148,6 +155,7 @@ void fw_util_sig_handler(int signo)
   syslog(LOG_DEBUG, "fw_util_sig_handler signo=%d requesting exit", signo);
 }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 void remove_unused_comp()
 {
@@ -197,6 +205,8 @@ bool if_skip_cwc_comp(string &comp_name, string fru_name)
 }
 #endif
 
+=======
+>>>>>>> facebook/helium
 void usage()
 {
   cout << "USAGE: " << exec_name << " all|FRU --version [all|COMPONENT]" << endl;
@@ -206,9 +216,12 @@ void usage()
   cout << "       " << exec_name << " FRU --update COMPONENT IMAGE_PATH --schedule now" << endl;
   cout << "       " << exec_name << " all --show-schedule" << endl;
   cout << "       " << exec_name << " all --delete-schedule TASK_ID" << endl;
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   print_cwc_usage();
 #endif
+=======
+>>>>>>> facebook/helium
   cout << endl;
   cout << left << setw(10) << "FRU" << " : Components" << endl;
   cout << "---------- : ----------" << endl;
@@ -219,12 +232,15 @@ void usage()
       string comp_name = ckv.first;
       Component *c = ckv.second;
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
       if (if_skip_cwc_comp(comp_name, fru_name)) {
         continue;
       }
 #endif
 
+=======
+>>>>>>> facebook/helium
       if (comp_name.find(" ") == comp_name.npos) {
         // No spaces in the component name, print as-is.
         cout << comp_name;
@@ -240,6 +256,7 @@ void usage()
     }
     cout << endl;
   }
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   print_cwc_fru();
 #endif
@@ -319,19 +336,30 @@ bool if_cwc_option_skipped(string fru2, string component, string comp_name)
 }
 #endif
 
+=======
+}
+
+>>>>>>> facebook/helium
 int main(int argc, char *argv[])
 {
   int ret = 0;
   int find_comp = 0;
+<<<<<<< HEAD
+=======
+  int lfd;
+>>>>>>> facebook/helium
   struct sigaction sa;
 
   System system;
   Component::fru_list_setup();
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   init_cwc_env();
 #endif
 
+=======
+>>>>>>> facebook/helium
 #ifdef __TEST__
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
@@ -352,6 +380,7 @@ int main(int argc, char *argv[])
   json json_array(nullptr);
   bool add_task = false;
   Scheduler tasker;
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   string fru2("");
 #endif
@@ -360,6 +389,10 @@ int main(int argc, char *argv[])
 #ifdef CONFIG_FBY3_CWC
     extract_cwc_option_force(&argc, argv, fru, fru2);
 #endif
+=======
+
+  if (action == "--force") {
+>>>>>>> facebook/helium
     if (argc < 4) {
       usage();
       return -1;
@@ -378,9 +411,12 @@ int main(int argc, char *argv[])
       }
     }
   } else {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     extract_cwc_option(&argc, argv, fru, fru2);
 #endif
+=======
+>>>>>>> facebook/helium
     if (argc >= 4) {
       component.assign(argv[3]);
       if (component.compare(0, 2, "--") == 0) {
@@ -403,10 +439,13 @@ int main(int argc, char *argv[])
     }
   }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   cwc_option_normalize(fru2, component);
 #endif
 
+=======
+>>>>>>> facebook/helium
   if ((action == "--update") || (action == "--dump")) {
     if (argc != 5 && argc != 7 ) {
       usage();
@@ -502,12 +541,15 @@ int main(int argc, char *argv[])
               continue;
           }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
           if (if_cwc_option_skipped(fru2, component, comp_name)) {
             continue;
           }
 #endif
 
+=======
+>>>>>>> facebook/helium
           // We are going to add a task but print fw version
           // or do fw update.
           if ( add_task == true ) {
@@ -518,10 +560,28 @@ int main(int argc, char *argv[])
             cerr << "Upgrade aborted due to fw update preparing" << endl;
             return -1;
           }
+<<<<<<< HEAD
           if (c->is_update_ongoing()) {
             cerr << "Upgrade aborted due to ongoing upgrade on FRU: " << c->fru() << endl;
             return -1;
           }
+=======
+
+          lfd = single_instance_lock_blocked(string("fw-util_"+c->fru()).c_str());
+          if (lfd < 0) {
+            syslog(LOG_WARNING, "Error getting single_instance_lock");
+          }
+          if (c->is_update_ongoing()) {
+            cerr << "Upgrade aborted due to ongoing upgrade on FRU: " << c->fru() << endl;
+            single_instance_unlock(lfd);
+            return -1;
+          }
+          if (action.rfind("--version", 0) == string::npos && fru != "all") {
+            // update or dump
+            c->set_update_ongoing(60 * 10);
+          }
+          single_instance_unlock(lfd);
+>>>>>>> facebook/helium
 
           if (action == "--version") {
             ret = c->print_version();
@@ -540,7 +600,10 @@ int main(int argc, char *argv[])
             }
 
             string str_act("");
+<<<<<<< HEAD
             c->set_update_ongoing(60 * 10);
+=======
+>>>>>>> facebook/helium
 
             // ensure the shutdown (reboot) will not be execute during update
             if (system.wait_shutdown_non_executable(2)) {

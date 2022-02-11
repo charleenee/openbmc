@@ -6,6 +6,15 @@
 
 using namespace std;
 
+<<<<<<< HEAD
+=======
+typedef struct img_check {
+  std::string new_path;
+  bool result;
+  bool sign;
+} img_info;
+
+>>>>>>> facebook/helium
 class CpldExtComponent : public Component {
   uint8_t slot_id = 0;
   uint8_t fw_comp = 0;
@@ -21,6 +30,12 @@ class CpldExtComponent : public Component {
     int fupdate(string image);
     int print_version();
     void get_version(json& j);
+<<<<<<< HEAD
+=======
+    bool is_valid_image(string image);
+    img_info check_image(string image, bool force);
+    int update_cpld(string image, bool force);
+>>>>>>> facebook/helium
 };
 
 #endif

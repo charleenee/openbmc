@@ -137,6 +137,16 @@ GPIOS = {
         "uevent": "",
         "value": "1",
     },
+<<<<<<< HEAD
+=======
+    "BMC_EMMC_RST_N": {
+        "active_low": "0",
+        "direction": "out",
+        "edge": "none",
+        "uevent": "",
+        "value": "1",
+    },
+>>>>>>> facebook/helium
 }
 
 

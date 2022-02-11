@@ -18,9 +18,14 @@
 # Boston, MA 02110-1301 USA
 #
 import json
+<<<<<<< HEAD
 import re
 from shlex import quote
 from subprocess import *
+=======
+from shlex import quote
+from typing import Any, Dict, Optional
+>>>>>>> facebook/helium
 
 from common_utils import async_exec
 from node import node
@@ -39,13 +44,21 @@ class logsNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
         linfo = []
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/log-util " + quote(self.name) + " --print --json"
         _, stdout, _ = await async_exec(cmd, shell=True)
         return json.loads(stdout)
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
+=======
+    async def doAction(self, data, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         if data["action"] != "clear":
             res = "failure"
         else:

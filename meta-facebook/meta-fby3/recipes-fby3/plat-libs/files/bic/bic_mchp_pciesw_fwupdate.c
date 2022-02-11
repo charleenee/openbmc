@@ -37,6 +37,7 @@
 #include "bic_mchp_pciesw_fwupdate.h"
 #include <openbmc/kv.h>
 enum {
+<<<<<<< HEAD
   PESW_BOOTLOADER_RCVRY = 0x00,
   PESW_PARTMAP          = 0x01,
   PESW_BOOTLOADER2      = 0x02,
@@ -46,10 +47,48 @@ enum {
   PESW_INIT_BL          = 0x06,
   PESW_TYPE_OFFSET      = 0x1C,
 
+=======
+  // update flow
+  PESW_BOOTLOADER_RCVRY = 0x00,
+  PESW_PARTMAP          = 0x01,
+  PESW_KEYM             = 0x02,
+  PESW_BOOTLOADER2      = 0x03,
+  PESW_CFG              = 0x04,
+  PESW_MAIN             = 0x05,
+  PESW_IMG_CNT          = 0x06,
+  PESW_INIT_BL          = 0x07,
+
+  // image signed offset 0x274
+  PESW_SIGNED_OFFSET    = 0x274,
+
+  // image type(offset 1Ch)
+  PESW_TYPE_OFFSET      = 0x1C,
+  PESW_TYPE_PARTMAP     = 0x00,
+  PESW_TYPE_KEYM        = 0x01,
+  PESW_TYPE_BOOTLOADER2 = 0x02,
+  PESW_TYPE_CFG         = 0x03,
+  PESW_TYPE_PSX         = 0x04,
+
+  // Mask
+  PESW_MASK_RCVRY       = 0x3B, // recovery
+  PESW_MASK_S_RCVRY     = 0x3F, // secure recovery
+  PESW_MASK_N_UPD       = 0x38, // normal update
+  PESW_MASK_N_NOT_SUP   = 0x07, // normal update, bit0~2 are not supported
+
+  // status
+>>>>>>> facebook/helium
   PESW_PHASE1           = 0x01,
   PESW_PHASE2           = 0x02,
   PESW_ACT_STS          = 0x01,
   PESW_VALID_STS        = 0x01,
+<<<<<<< HEAD
+=======
+
+  // PCIe state
+  PESW_DEFAULT_STATE    = 0x00,
+  PESW_INIT_UNSECURED   = 0x01,
+  PESW_INIT_SECURED     = 0x02,
+>>>>>>> facebook/helium
 };
 
 static int cwc_usb_depth = 3;
@@ -59,15 +98,37 @@ static int bot_gpv3_usb_depth = 5;
 static uint8_t top_gpv3_usb_ports[] = {1, 3, 1, 2, 3};
 static uint8_t bot_gpv3_usb_ports[] = {1, 3, 4, 2, 3};
 
+<<<<<<< HEAD
 char pesw_image_path[5][PATH_MAX+1] = {{"\0"}, {"\0"}, {"\0"}, {"\0"}, {"\0"}};
+=======
+char pesw_image_path[PESW_IMG_CNT][PATH_MAX+1] = {};
+
+>>>>>>> facebook/helium
 static int
 _process_mchp_images(uint8_t slot_id, uint8_t idx, uint8_t intf, usb_dev* udev, bool is_usb, bool is_rcvry);
 
 static int
+<<<<<<< HEAD
 _check_image(char *image, uint8_t *type) {
   int ret = BIC_STATUS_FAILURE;
   int file_size = 0;
   int fd = open_and_get_size(image, &file_size);
+=======
+_check_image(char *image, uint8_t *type, uint8_t *file_s_info) {
+  int ret = BIC_STATUS_FAILURE;
+  int fd = 0;
+  size_t str_len = strlen(image);
+
+  // xxxx.fwimg, str_len should be > 5
+  if ( str_len <= 5 || (strncmp(&image[str_len-5], "fwimg", 5) != 0) ) {
+    goto error_exit;
+  }
+
+  int file_size = 0;
+  int index = 0;
+
+  fd = open_and_get_size(image, &file_size);
+>>>>>>> facebook/helium
 
   // check file size
   if ( file_size < 1024 ) {
@@ -75,14 +136,22 @@ _check_image(char *image, uint8_t *type) {
     goto error_exit;
   }
 
+<<<<<<< HEAD
   // read its tyoe
   lseek(fd, PESW_TYPE_OFFSET, SEEK_SET);
   uint8_t temp = 0;
   if ( read(fd, &temp, 1) != 1 ) {
+=======
+  // read its type
+  lseek(fd, PESW_TYPE_OFFSET, SEEK_SET);
+  uint8_t temp[4] = {0};
+  if ( read(fd, &temp[0], 1) != 1 ) {
+>>>>>>> facebook/helium
     printf("%s() Couldn't read its type!\n", __func__);
     goto error_exit;
   }
 
+<<<<<<< HEAD
   // set flag
   switch(temp) {
     case (PESW_PARTMAP-1):
@@ -101,6 +170,44 @@ _check_image(char *image, uint8_t *type) {
   // store path
   strcpy(pesw_image_path[temp], image);
   ret = BIC_STATUS_SUCCESS;
+=======
+  // set the index
+  switch(temp[0]) {
+    case PESW_TYPE_PARTMAP:     index = PESW_PARTMAP;     break;
+    case PESW_TYPE_KEYM:        index = PESW_KEYM;        break;
+    case PESW_TYPE_BOOTLOADER2: index = PESW_BOOTLOADER2; break;
+    case PESW_TYPE_CFG:         index = PESW_CFG;         break;
+    case PESW_TYPE_PSX:         index = PESW_MAIN;        break;
+    default: goto error_exit;
+  }
+
+  // check if it's the recovery bootloader?
+  // we can only check the file name because its type is the same as PESW_TYPE_BOOTLOADER2
+  if ( temp[0] == PESW_TYPE_BOOTLOADER2 && strstr(image, "rcvry") != NULL ) {
+    index = PESW_BOOTLOADER_RCVRY;
+  }
+
+  // set the flag
+  *type |= 0x1 << index;
+
+  // store path
+  strcpy(pesw_image_path[index], image);
+
+  // check if it's singed image
+  lseek(fd, PESW_SIGNED_OFFSET, SEEK_SET);
+  if ( read(fd, temp, 4) != 4 ) {
+    printf("%s() Couldn't read its signed data!\n", __func__);
+    goto error_exit;
+  }
+
+  // it would not be zero if it's a signed image
+  for (int i = 1; i < 4; i++ ) temp[0] += temp[i];
+
+  if ( temp[0] > 0 ) *file_s_info |= 0x1 << index;
+
+  ret = BIC_STATUS_SUCCESS;
+
+>>>>>>> facebook/helium
 error_exit:
   if ( fd > 0 ) close(fd);
 
@@ -114,9 +221,14 @@ _is_dir(char *image) {
 }
 
 static int
+<<<<<<< HEAD
 _check_dirs(char *image, uint8_t *type) {
   int ret = BIC_STATUS_FAILURE;
   bool is_valid_folder = false;
+=======
+_check_dirs(char *image, uint8_t *type, uint8_t *file_s_info) {
+  int ret = BIC_STATUS_FAILURE;
+>>>>>>> facebook/helium
   // open and check it
   DIR *dir = opendir(image);
   if ( dir == NULL ) {
@@ -143,6 +255,7 @@ _check_dirs(char *image, uint8_t *type) {
       goto error_exit;
     }
 
+<<<<<<< HEAD
     if ( _check_image(abs_path, type) == BIC_STATUS_SUCCESS ) {
       printf("Find: %s\n", entry->d_name);
       is_valid_folder = true;
@@ -150,12 +263,23 @@ _check_dirs(char *image, uint8_t *type) {
   }
 
   ret = (is_valid_folder == true)?BIC_STATUS_SUCCESS:BIC_STATUS_FAILURE;
+=======
+    // check the files in the dir
+    if ( _check_image(abs_path, type, file_s_info) == BIC_STATUS_SUCCESS ) {
+      printf("Find: %s\n", entry->d_name);
+    }
+  }
+
+  // return the result
+  ret = BIC_STATUS_SUCCESS;
+>>>>>>> facebook/helium
 error_exit:
   if ( dir != NULL ) closedir(dir);
   return ret;
 }
 
 static int
+<<<<<<< HEAD
 _is_valid_files(char *image, uint8_t *type) {
   int ret = BIC_STATUS_FAILURE;
 
@@ -164,6 +288,20 @@ _is_valid_files(char *image, uint8_t *type) {
     if ( _check_dirs(image, type) < 0 ) goto error_exit;
   } else {
     if ( _check_image(image, type) < 0 ) goto error_exit;
+=======
+_is_valid_files(char *image, uint8_t *type, uint8_t *file_s_info) {
+  int ret = BIC_STATUS_FAILURE;
+
+  for ( int i = 0; i < PESW_IMG_CNT; i++ ) {
+    pesw_image_path[i][0] = '\n';
+  }
+
+  // set type according to files
+  if ( _is_dir(image) == true ) {
+    if ( _check_dirs(image, type, file_s_info) < 0 ) goto error_exit;
+  } else {
+    if ( _check_image(image, type, file_s_info) < 0 ) goto error_exit;
+>>>>>>> facebook/helium
   }
 
   ret = BIC_STATUS_SUCCESS;
@@ -179,10 +317,17 @@ _switch_pesw_to_recovery(uint8_t slot_id, uint8_t intf, bool is_low) {
   uint8_t tlen = 6;
   uint8_t rlen = 0;
 
+<<<<<<< HEAD
   printf("Pulling %s FM_BIC_PESW_RECOVERY_0...\n", (is_low == true)?"donw":"high");
   ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_GET_SET_GPIO, tbuf, tlen, rbuf, &rlen, intf);
   if ( ret < 0 ) {
     printf("Failed to pull %s FM_BIC_PESW_RECOVERY_0\n", (is_low == true)?"donw":"high");
+=======
+  printf("Pulling %s FM_BIC_PESW_RECOVERY_0...\n", (is_low == true)?"down":"high");
+  ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_GET_SET_GPIO, tbuf, tlen, rbuf, &rlen, intf);
+  if ( ret < 0 ) {
+    printf("Failed to pull %s FM_BIC_PESW_RECOVERY_0\n", (is_low == true)?"down":"high");
+>>>>>>> facebook/helium
   }
   return ret;
 }
@@ -195,10 +340,17 @@ _switch_cwc_pesw_to_recovery(uint8_t slot_id, uint8_t intf, bool is_low) {
   uint8_t tlen = 6;
   uint8_t rlen = 0;
 
+<<<<<<< HEAD
   printf("Pulling %s FM_BIC_PESW_RECOVERY_0...\n", (is_low == true)?"donw":"high");
   ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_GET_SET_GPIO, tbuf, tlen, rbuf, &rlen, intf);
   if ( ret < 0 ) {
     printf("Failed to pull %s FM_BIC_PESW_RECOVERY_0\n", (is_low == true)?"donw":"high");
+=======
+  printf("Pulling %s FM_BIC_PESW_RECOVERY_0...\n", (is_low == true)?"down":"high");
+  ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, BIC_CMD_OEM_GET_SET_GPIO, tbuf, tlen, rbuf, &rlen, intf);
+  if ( ret < 0 ) {
+    printf("Failed to pull %s FM_BIC_PESW_RECOVERY_0\n", (is_low == true)?"down":"high");
+>>>>>>> facebook/helium
   }
   return ret;
 }
@@ -239,6 +391,12 @@ _check_pesw_status(uint8_t slot_id, uint8_t intf, uint8_t sel_sts, bool run_rcvr
     case PESW_INIT_BL:
       tbuf[3] = 0x00;
       break;
+<<<<<<< HEAD
+=======
+    case PESW_KEYM:
+      tbuf[3] = 0x19;
+      break;
+>>>>>>> facebook/helium
   }
 
   printf("Send: ");
@@ -281,6 +439,13 @@ _toggle_pesw(uint8_t slot_id, uint8_t intf, uint8_t type, bool is_rcvry) {
   if ( (type >> PESW_MAIN) & 0x1 ) tbuf[4] = 0x1;
   if ( (type >> PESW_CFG)  & 0x1 ) tbuf[5] = 0x1;
   if ( (type >> PESW_BOOTLOADER2) & 0x1 ) tbuf[6] = 0x1;
+<<<<<<< HEAD
+=======
+  if ( (type >> PESW_KEYM) & 0x1 ) {
+    if ( tbuf[6] == 0x1 ) tbuf[6] = 0x3; /*BL2 and KEYM*/
+    else tbuf[6] = 0x2; /*only KEYM*/
+  }
+>>>>>>> facebook/helium
 
   printf("Send the toggle command ");
   for (int i = 0; i < 7; i++) printf("%02X ", tbuf[i]);
@@ -289,6 +454,30 @@ _toggle_pesw(uint8_t slot_id, uint8_t intf, uint8_t type, bool is_rcvry) {
 }
 
 static int
+<<<<<<< HEAD
+=======
+_get_pcie_sw_config_info(uint8_t slot_id, uint8_t *config, uint8_t intf) {
+  uint8_t tbuf[] = {0x9c, 0x9c, 0x00, 0x08};  // IANA ID + data
+  uint8_t rbuf[32] = {0};
+  uint8_t rlen = 0;
+  int ret = 0;
+
+  printf("PESW firmware state: ");
+  ret = bic_ipmb_send(slot_id, NETFN_OEM_1S_REQ, CMD_OEM_1S_GET_PCIE_SWITCH_STATUS, tbuf, 4, rbuf, &rlen, intf);
+  if ( ret < 0 ) {
+    printf("Unrecognized, get: %02X\n", *config);
+  } else {
+    *config = (rbuf[11] >> 2) & 0x3; //bit7~6
+    if ( *config == PESW_DEFAULT_STATE ) printf("Uninitialized/Unsecured\n");
+    else if ( *config == PESW_INIT_UNSECURED ) printf("Initialized Unsecure\n");
+    else if ( *config == PESW_INIT_SECURED ) printf("Initialized Secure\n");
+    else { printf("Unrecognized but ret = 0(Get: %02X), aborted\n", *config); ret = BIC_STATUS_FAILURE; }
+  }
+  return ret;
+}
+
+static int
+>>>>>>> facebook/helium
 _get_pcie_sw_update_status(uint8_t slot_id, uint8_t *status, uint8_t intf) {
   uint8_t tbuf[4] = {0x9c, 0x9c, 0x00, 0x01};  // IANA ID + data
   uint8_t rbuf[16] = {0x00};
@@ -378,6 +567,7 @@ _poll_pcie_sw_update_status(uint8_t slot_id, uint8_t intf) {
 
 #define MAX_FW_PCIE_SWITCH_BLOCK_SIZE 1008
 #define PCIE_FW_IDX 0x05
+<<<<<<< HEAD
 int update_bic_mchp_pcie_fw(uint8_t slot_id, uint8_t comp, char *image, uint8_t intf, uint8_t force) {
 #define LAST_FW_PCIE_SWITCH_TRUNK_SIZE (MAX_FW_PCIE_SWITCH_BLOCK_SIZE%224)
   int fd = 0;
@@ -468,6 +658,41 @@ error_exit:
 /*******************************************************************************************************/
 #include "bic_bios_fwupdate.h"
 
+=======
+
+/*******************************************************************************************************/
+#include "bic_bios_fwupdate.h"
+
+static int
+_init_usb_intf(uint8_t slot_id, uint8_t board_type, uint8_t intf, usb_dev* udev) {
+  uint8_t *sel_ports = NULL;
+  int sel_depth = 0;
+
+  udev->ci = 1;
+  udev->epaddr = 0x1;
+
+  // enable USB HUB
+  bic_set_gpio(slot_id, GPIO_RST_USB_HUB, VALUE_HIGH);
+
+  // check board type
+  if ( board_type == CWC_MCHP_BOARD ) {
+    if ( intf == RREXP_BIC_INTF1 ) {
+      sel_depth = top_gpv3_usb_depth;
+      sel_ports = top_gpv3_usb_ports;
+    } else if (intf == RREXP_BIC_INTF2) {
+      sel_depth = bot_gpv3_usb_depth;
+      sel_ports = bot_gpv3_usb_ports;
+    } else {
+      sel_depth = cwc_usb_depth;
+      sel_ports = cwc_usb_ports;
+    }
+  }
+
+  // if board_type is not CWC_MCHP_BOARD, it means the USB dev can be found by default value. e.g, port = NULL, depth = 0.
+  return bic_init_usb_dev_ports(slot_id, udev, EXP2_TI_PRODUCT_ID, EXP2_TI_VENDOR_ID, sel_depth, sel_ports);
+}
+
+>>>>>>> facebook/helium
 static int
 _send_bic_usb_packet(usb_dev* udev, bic_usb_ext_packet *pkt) {
   const int transferlen = pkt->length + USB_PKT_EXT_HDR_SIZE;
@@ -547,7 +772,11 @@ bic_update_pesw_fw_usb(uint8_t slot_id, char *image_file, usb_dev* udev, char *c
     // update offset
     write_offset += read_bytes;
     if ((last_offset + dsize) <= write_offset ) {
+<<<<<<< HEAD
       printf("updated 2OU PESW %s: %d %%\n", comp_name, (write_offset/dsize)*5);
+=======
+      printf("updated PESW %s: %d %%\n", comp_name, (write_offset/dsize)*5);
+>>>>>>> facebook/helium
       fflush(stdout);
       _set_fw_update_ongoing(slot_id, 1800);
       last_offset += dsize;
@@ -564,8 +793,16 @@ error_exit:
 
 static int
 _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bool is_rcvry, uint8_t board_type) {
+<<<<<<< HEAD
   int ret = _toggle_pesw(slot_id, intf, type, is_rcvry);
   if ( is_rcvry == false ) return ret;
+=======
+  int ret = _toggle_pesw(slot_id, intf, (type & PESW_MASK_N_UPD), is_rcvry);
+
+  if ( is_rcvry == false ) {
+    return ret;
+  }
+>>>>>>> facebook/helium
 
   printf("Checking the new image status...\n");
 
@@ -594,7 +831,15 @@ _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bo
   }
   if ( ret < 0 ) {
     goto error_exit;
+<<<<<<< HEAD
   }
+=======
+  } else sleep(8);
+
+  // unlock
+  _set_fw_update_ongoing(slot_id, 0);
+  sleep(2);
+>>>>>>> facebook/helium
 
   printf("Doing power cycle to trigger the new images...\n");
   ret = bic_server_power_cycle(slot_id);
@@ -603,7 +848,58 @@ _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bo
     goto error_exit;
   }
 
+<<<<<<< HEAD
   sleep(8);
+=======
+  // wait for the host becomes ready
+  char key[MAX_KEY_LEN] = {0};
+  char value[MAX_VALUE_LEN] = {0};
+  uint8_t slp_cnt = 0;
+  const uint8_t slp_cnt_max = 100;
+  snprintf(key, MAX_KEY_LEN, "fru%d_host_ready", slot_id);
+  printf("Wait for the host ");
+  while ( slp_cnt < slp_cnt_max ) {
+    ret = kv_get(key, value, NULL, 0);
+    if ( ret == BIC_STATUS_SUCCESS && (strncmp(value, "1", 1) == 0) ) {
+      printf("READY\n");
+      break;
+    }
+
+    printf(".");
+    fflush(stdout);
+    sleep(5);
+    slp_cnt++;
+  }
+
+  if ( slp_cnt == slp_cnt_max ) {
+    printf("TIMEOUT but still try to flash it\n");
+  }
+
+  // lock again
+  _set_fw_update_ongoing(slot_id, 1800);
+  sleep(2);
+
+  ret = _init_usb_intf(slot_id, board_type, intf, udev);
+  if ( ret < 0 ) {
+    goto error_exit;
+  }
+
+  // update KEYM again if needed
+  if ( (type >> PESW_KEYM) & 0x1 ) {
+    printf("Updating the keym...\n");
+    ret = _process_mchp_images(slot_id, PESW_KEYM, intf, udev, true, false);
+    if ( ret < 0 ) {
+      printf("Failed to update it\n");
+      if ( udev->handle != NULL ) bic_close_usb_dev(udev);
+      goto error_exit;
+    }
+    type = (0x1 << PESW_KEYM);
+  } else {
+    type = 0;
+  }
+
+  type |= (0x1 << PESW_BOOTLOADER2);
+>>>>>>> facebook/helium
 
   // update bl2
   printf("Updating the bootloader...\n");
@@ -611,6 +907,7 @@ _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bo
   ret = _process_mchp_images(slot_id, PESW_BOOTLOADER2, intf, udev, true, false);
   if ( ret < 0 ) {
     printf("Failed to update it\n");
+<<<<<<< HEAD
     goto error_exit;
   }
 
@@ -618,11 +915,26 @@ _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bo
   ret = bic_server_power_cycle(slot_id);
   if ( ret < 0 ) {
     printf("Failed to do power cycle\n");
+=======
+    if ( udev->handle != NULL ) bic_close_usb_dev(udev);
+    goto error_exit;
+  }
+
+  // close USB HUB if needed
+  if ( udev->handle != NULL ) bic_close_usb_dev(udev);
+
+  // only toggle the BL2 and KEYM(optional)
+  printf("Toggle the images...\n");
+  ret = _toggle_pesw(slot_id, intf, type, false);
+  if ( ret < 0 ) {
+    printf("Failed to toggle the images...\n");
+>>>>>>> facebook/helium
     goto error_exit;
   }
 
   sleep(2);
 
+<<<<<<< HEAD
   printf("Starting monitoring SSD...\n");
   ret = bic_enable_ssd_sensor_monitor(slot_id, true, intf);
   if ( ret < 0 ) {
@@ -630,6 +942,18 @@ _quit_pesw_update(uint8_t slot_id, uint8_t type, usb_dev* udev, uint8_t intf, bo
     goto error_exit;
   }
 
+=======
+  printf("Doing power cycle to trigger the bootloader...\n");
+  ret = bic_server_power_cycle(slot_id);
+  if ( ret < 0 ) {
+    printf("Failed to do power cycle\n");
+    goto error_exit;
+  }
+
+  // need to wait for BIC not to be busy.
+  sleep(8);
+
+>>>>>>> facebook/helium
 error_exit:
   return ret;
 }
@@ -642,6 +966,10 @@ _enter_pesw_rcvry_mode(uint8_t slot_id, uint8_t intf, bool is_rcvry, uint8_t boa
   uint8_t tlen = 6;
   uint8_t rlen = 0;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> facebook/helium
   if ( is_rcvry == false ) return BIC_STATUS_SUCCESS;
 
   printf("Starting running PESW recovery\n");
@@ -726,7 +1054,11 @@ error_exit:
 static int
 _process_mchp_images(uint8_t slot_id, uint8_t idx, uint8_t intf, usb_dev* udev, bool is_usb, bool is_rcvry) {
   int ret = BIC_STATUS_FAILURE;
+<<<<<<< HEAD
   char comp_name[5][15] = {{"RCVRY"}, {"PARTMAP"}, {"BOOTLOADER2"}, {"CFG"}, {"MAIN FW"}};
+=======
+  char comp_name[][15] = {{"RCVRY"}, {"PARTMAP"}, {"KEYM"},{"BOOTLOADER2"}, {"CFG"}, {"MAIN FW"}};
+>>>>>>> facebook/helium
 
   printf("******Start sending %s******\n", comp_name[idx]);
   printf("File: %s\n", pesw_image_path[idx]);
@@ -757,8 +1089,21 @@ _process_mchp_images(uint8_t slot_id, uint8_t idx, uint8_t intf, usb_dev* udev, 
 
   uint8_t expected_sts[2] = {PESW_PHASE2};
   uint8_t cmp_len = 1;
+<<<<<<< HEAD
   if ( idx == PESW_BOOTLOADER_RCVRY ) {
     printf("Checking the current phase of PESW...\n");
+=======
+  // make sure PESW executes RCVRY image
+  if ( idx == PESW_BOOTLOADER_RCVRY ) {
+    printf("Checking the current phase of PESW...\n");
+  } else if ( idx == PESW_KEYM ) {
+    printf("Toggle KEYM image...\n");
+    ret = _toggle_pesw(slot_id, intf, (0x1 << PESW_KEYM), is_rcvry);
+    if ( ret < 0 ) {
+      printf("Failed to toggle KEYM\n");
+      goto error_exit;
+    }
+>>>>>>> facebook/helium
   } else {
     expected_sts[0] = PESW_ACT_STS;
     expected_sts[1] = PESW_VALID_STS;
@@ -766,7 +1111,12 @@ _process_mchp_images(uint8_t slot_id, uint8_t idx, uint8_t intf, usb_dev* udev, 
     if ( idx != PESW_PARTMAP ) expected_sts[0] = !PESW_ACT_STS;
   }
 
+<<<<<<< HEAD
   ret = _check_pesw_status(slot_id, intf, idx, false, &expected_sts[0], cmp_len); // check status
+=======
+  // no need to check the phase if idx is PESW_KEYM
+  ret = (idx == PESW_KEYM)?ret:_check_pesw_status(slot_id, intf, idx, false, &expected_sts[0], cmp_len); // check status
+>>>>>>> facebook/helium
   if ( ret < 0 ) {
     printf("Failed to get the phase status\n");
     goto error_exit;
@@ -791,12 +1141,18 @@ _update_mchp(uint8_t slot_id, uint8_t type, uint8_t intf, bool is_usb, bool is_r
   }
 
   if (bmc_location == NIC_BMC) { 
+<<<<<<< HEAD
     if (fby3_common_get_2ou_board_type(slot_id, &board_type) < 0) {
+=======
+    ret = fby3_common_get_2ou_board_type(slot_id, &board_type);
+    if (ret < 0) {
+>>>>>>> facebook/helium
       syslog(LOG_ERR, "%s() Fails to get 2ou board type", __func__);
       goto error_exit;
     }
   }
 
+<<<<<<< HEAD
   // USB is the default path for PESW update, we just make sure USB can be initialized,
   // If users choose to send data via IPMB, skip it
   if ( is_usb == true ) {
@@ -827,47 +1183,148 @@ _update_mchp(uint8_t slot_id, uint8_t type, uint8_t intf, bool is_usb, bool is_r
     goto error_exit;
   }
 
+=======
+  // start
+  gettimeofday(&start, NULL);
+
+  // should it run into rcvry?
+  ret = _enter_pesw_rcvry_mode(slot_id, intf, is_rcvry, board_type);
+  if ( ret < 0 ) {
+    goto error_exit;
+  }
+
+  // enable USB port
+  if ( is_usb == true ) {
+    ret = _init_usb_intf(slot_id, board_type, intf, udev);
+    if ( ret < 0 ) {
+      goto error_exit;
+    }
+  }
+
+>>>>>>> facebook/helium
   // try to send the images
   for (int i = PESW_BOOTLOADER_RCVRY; i < PESW_IMG_CNT; i++) {
     if ( ((type >> i) & 0x1) == 0 ) continue;
 
     ret = _process_mchp_images(slot_id, i, intf, udev, is_usb, is_rcvry);
     if ( ret < 0 ) {
+<<<<<<< HEAD
+=======
+      // the USB HUB will lost during PESW recovery update
+      // make sure udev can be released gracefully
+      if ( udev->handle != NULL ) bic_close_usb_dev(udev);
+>>>>>>> facebook/helium
       goto error_exit;
     }
   }
 
+<<<<<<< HEAD
   // quit
   if ( _quit_pesw_update(slot_id, type, udev, intf, is_rcvry, board_type) < 0 ) {
+=======
+  // disable USB port because all firmware images are sent
+  if ( is_usb == true ) {
+    // only close it when it's claimed successfully
+    if ( udev->handle != NULL ) bic_close_usb_dev(udev);
+  }
+
+  syslog(LOG_ERR, "%s() quit\n", __func__);
+  // quit
+  ret = _quit_pesw_update(slot_id, type, udev, intf, is_rcvry, board_type);
+  if ( ret < 0 ) {
+>>>>>>> facebook/helium
     goto error_exit;
   }
 
   gettimeofday(&end, NULL);
   printf("Elapsed time:  %d   sec.\n", (int)(end.tv_sec - start.tv_sec));
+<<<<<<< HEAD
 error_exit:
   if ( is_usb == true ) {
     bic_close_usb_dev(udev);
   }
 
+=======
+
+error_exit:
+>>>>>>> facebook/helium
   return ret;
 }
 
 int update_bic_mchp(uint8_t slot_id, uint8_t comp, char *image, uint8_t intf, uint8_t force, bool is_usb) {
   int ret = BIC_STATUS_FAILURE;
+<<<<<<< HEAD
   uint8_t type = 0;
 
   // check files
   ret = _is_valid_files(image, &type);
+=======
+  bool is_rcvry = false;
+  uint8_t type = 0;
+  uint8_t file_s_info = 0;
+  uint8_t sys_conf = 0;
+
+  // check files - image path, image type, image secure information
+  ret = _is_valid_files(image, &type, &file_s_info);
+>>>>>>> facebook/helium
   if ( ret < 0 ) {
     printf("Invalid inputs: %s\n", image);
     goto error_exit;
   }
 
+<<<<<<< HEAD
   // is it going to run rcvry?
   bool is_rcvry = (type >> PESW_BOOTLOADER_RCVRY) & 0x1;
 
   // start updating PESW
   ret = _update_mchp(slot_id, type, intf, is_usb, is_rcvry);
+=======
+  if ( force == false ) {
+    // get the current PCIe switch fw info
+    ret = _get_pcie_sw_config_info(slot_id, &sys_conf, intf);
+    if ( ret < 0 ) {
+      printf("Failed to get PCIe config info\n");
+      goto error_exit;
+    }
+  }
+
+  switch (type) {
+    case PESW_MASK_S_RCVRY:
+      is_rcvry = true;
+      break;
+    case PESW_MASK_RCVRY:
+      // if file_s_info > 0, it means KEYM is missing or mixed files(signed and unsigned files are put together)
+      if ( file_s_info > 0 || sys_conf == PESW_INIT_SECURED ) ret = BIC_STATUS_FAILURE;
+      is_rcvry = true;
+      break;
+    default:
+      // if input files dont meet the condition above, check it further
+      if ( (type & PESW_MASK_N_NOT_SUP) > 0 ) {
+        printf("Err: Want to update but recovery images(rcvry, partmap, or keym) are detected\n");
+        ret = BIC_STATUS_FAILURE;
+      } else {
+        // check the PESW firmware state and image information
+        if ( sys_conf == PESW_INIT_SECURED ) {
+          // type and file_s_info should be the same
+          if ( type != file_s_info ) ret = BIC_STATUS_FAILURE;
+        }
+      }
+      break;
+  }
+
+  if ( ret == BIC_STATUS_FAILURE ) {
+    printf("You are trying to update the PESW firmware with the unexpected package\n");
+    printf("type: %02X, file_s:%02X\n", type, file_s_info);
+    if ( force == false ) goto error_exit;
+    else {
+      printf("force update is set, keep running...\n");
+    }
+  }
+
+  // start updating PESW
+  ret = _update_mchp(slot_id, type, intf, is_usb, is_rcvry);
+
+>>>>>>> facebook/helium
 error_exit:
   return ret;
 }

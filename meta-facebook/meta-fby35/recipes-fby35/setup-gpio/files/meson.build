@@ -10,6 +10,10 @@ dep_libs = [
     cc.find_library('gpio-ctrl'),
     cc.find_library('fby35_gpio'),
     cc.find_library('phymem'),
+<<<<<<< HEAD
+=======
+    cc.find_library('kv'),
+>>>>>>> facebook/helium
 ]
 
 executable('setup-gpio', 'setup-gpio.c', dependencies : dep_libs)

@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+>>>>>>> facebook/helium
 
 from common_utils import async_exec
 from node import node
@@ -17,7 +21,13 @@ class fansNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(  # noqa: C901
+        self, param: Optional[Dict[Any, Any]] = None
+    ):
+>>>>>>> facebook/helium
         result = []
         skip_flag = False
         cmd = "/usr/local/bin/fan-util --get"

@@ -12,6 +12,10 @@ class SpdmMessage {
   // These are the current input parameters for sending SPDM messages.
   struct SubcommandOptions {
     uint8_t device;
+<<<<<<< HEAD
+=======
+    uint8_t benchmarkCount = 0;
+>>>>>>> facebook/helium
     std::string inputFileName = "";
     std::string inputString = "";
     std::string outputType;

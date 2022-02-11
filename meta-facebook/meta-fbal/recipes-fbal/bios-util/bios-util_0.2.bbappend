@@ -15,7 +15,11 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 
+<<<<<<< HEAD
 FILESEXTRAPATHS_prepend := "${THISDIR}/files:"
+=======
+FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
+>>>>>>> facebook/helium
 
 SRC_URI += "file://bios_force_clear_cmos.py \
             file://BIOS_UTIL_AL.json \
@@ -23,6 +27,10 @@ SRC_URI += "file://bios_force_clear_cmos.py \
 
 binfiles += "bios_plat_info.py"
 
+<<<<<<< HEAD
 do_install_append() {
+=======
+do_install:append() {
+>>>>>>> facebook/helium
   cp BIOS_UTIL_AL.json ${dst}/bios_support.json
 }

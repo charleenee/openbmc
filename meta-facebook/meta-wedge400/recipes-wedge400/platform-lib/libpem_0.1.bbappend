@@ -15,15 +15,27 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 
+<<<<<<< HEAD
 FILESEXTRAPATHS_prepend := "${THISDIR}/files/pem:"
+=======
+FILESEXTRAPATHS:prepend := "${THISDIR}/files/pem:"
+>>>>>>> facebook/helium
 
 SRC_URI += "file://pem-platform.h \
             file://pem-platform.c \
           "
 
+<<<<<<< HEAD
 do_install_append() {
+=======
+do_install:append() {
+>>>>>>> facebook/helium
   install -d ${D}${includedir}/facebook
   install -m 0644 pem-platform.h ${D}${includedir}/facebook/pem-platform.h
 }
 
+<<<<<<< HEAD
 FILES_${PN}-dev += "${includedir}/facebook/pem-platform.h"
+=======
+FILES:${PN}-dev += "${includedir}/facebook/pem-platform.h"
+>>>>>>> facebook/helium

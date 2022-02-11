@@ -18,7 +18,11 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   ADC_12V: 
+=======
+                  ADC_P3V3_M2: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
@@ -30,119 +34,199 @@ paths:
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
                   ADC_P3V3_M2: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ML_SENSOR_HSC_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P1V15_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P2V5_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  IOM_HSC_CURR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  IOM_HSC_VOLT: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+=======
                   IOM_HSC_POWER: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  ML_SENSOR_HSC_VOLT: 
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_CURR: 
+=======
+                  ADC_P1V15_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  ADC_P1V15_STBY: 
+=======
+                  ADC_P2V5_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P2V5_STBY: 
+=======
                   ADC_P1V2_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  M2_Ambient_Temp_2: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  M2_SMART_Temp_1: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  IOM_HSC_CURR: 
+=======
                   M2_SMART_Temp_2: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  IOM_HSC_VOLT: 
+=======
                   IOM_NIC_Ambient_Temp: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  IOM_HSC_POWER: 
+=======
                   M2_Ambient_Temp_1: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
-                  ADC_P3V3_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ADC_P5V_STBY: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
-                  ML_SENSOR_HSC_PWR: 
-                    type: object
-                    additionalProperties: false
-                    properties: 
-                      value: 
-                        type: string
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_VOLT: 
+=======
                   ADC_P1V8_STBY: 
+>>>>>>> facebook/helium
                     type: object
                     additionalProperties: false
                     properties: 
                       value: 
                         type: string
+<<<<<<< HEAD
+                  ADC_P1V2_STBY: 
+=======
+                  ADC_P5V_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  M2_Ambient_Temp_2: 
+=======
+                  IOM_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  M2_SMART_Temp_1: 
+=======
+                  ML_SENSOR_HSC_VOLT: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  M2_SMART_Temp_2: 
+=======
+                  ADC_P3V3_STBY: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  IOM_NIC_Ambient_Temp: 
+=======
+                  ML_SENSOR_HSC_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  M2_Ambient_Temp_1: 
+=======
+                  ML_SENSOR_HSC_PWR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P3V3_STBY: 
+=======
+                  M2_Ambient_Temp_2: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P5V_STBY: 
+=======
+                  IOM_HSC_CURR: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ML_SENSOR_HSC_PWR: 
+=======
+                  M2_SMART_Temp_1: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
+                  ADC_P1V8_STBY: 
+=======
+                  ADC_12V: 
+>>>>>>> facebook/helium
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      value: 
+                        type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
               Actions: 
+=======
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

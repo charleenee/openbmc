@@ -1,6 +1,11 @@
 #ifndef __PAL_POWER_H__
 #define __PAL_POWER_H__
 
+<<<<<<< HEAD
+=======
+#define DELAY_12V_CYCLE 2
+
+>>>>>>> facebook/helium
 enum {
   DEVICE_POWER_OFF = 0x0,
   DEVICE_POWER_ON = 0x1,

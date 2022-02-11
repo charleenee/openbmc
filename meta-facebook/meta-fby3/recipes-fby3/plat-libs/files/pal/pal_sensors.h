@@ -14,10 +14,32 @@
 #define ADM1278_PEAK_IOUT  (0xD0)
 #define ADM1278_PEAK_PIN   (0xDA)
 
+<<<<<<< HEAD
+=======
+//MP5990
+#define MP5990_SLAVE_ADDR (0x80)
+#define MP5990_PEAK_IOUT  (0xA6)
+#define MP5990_PEAK_PIN   (0xA3)
+
+//AMD1276 CMD INFO
+#define ADM1276_SLAVE_ADDR (0x40)
+#define ADM1276_RSENSE     (0.5)
+#define ADM1276_EIN_EXT    (0xDC)
+#define ADM1276_PEAK_IOUT  (0xD0)
+#define ADM1276_PEAK_PIN   (0xDA)
+
+//LTC4282
+#define LTC4282_SLAVE_ADDR (0x80)
+
+>>>>>>> facebook/helium
 //PMBus
 #define PMBUS_PAGE         (0x00)
 #define PMBUS_VOUT_MODE    (0x20)
 #define PMBUS_VOUT_COMMAND (0x21)
+<<<<<<< HEAD
+=======
+#define PMBUS_READ_EIN     (0x86)
+>>>>>>> facebook/helium
 #define PMBUS_READ_VIN     (0x88)
 #define PMBUS_READ_IIN     (0x89)
 #define PMBUS_READ_VOUT    (0x8B)
@@ -68,11 +90,19 @@ typedef struct {
 enum {
   UNSET_UNIT = 0,
   TEMP = 1,
+<<<<<<< HEAD
   CURR,
   VOLT,
   FAN,
   PERCENT,
   POWER,
+=======
+  VOLT = 4,
+  CURR = 5,
+  POWER = 6,
+  FAN = 18,
+  PERCENT = 93, // Do not have % in IPMI spec
+>>>>>>> facebook/helium
 };
 
 //Sensor Table
@@ -137,6 +167,12 @@ enum {
 
   //BIC - DP riser sensors
   BIC_SENSOR_DP_MARVELL_HSM_TEMP = 0x43,
+<<<<<<< HEAD
+=======
+  BIC_SENSOR_DP_NC_HSM_TEMP = 0x4D,
+  BIC_SENSOR_DP_NC_HSM_FAN = 0x4E,
+  BIC_SENSOR_DP_NC_HSM_BAT = 0x4F,
+>>>>>>> facebook/helium
 
   //BIC 1OU EXP Sensors
   BIC_1OU_EXP_SENSOR_OUTLET_TEMP = 0x50,
@@ -447,6 +483,11 @@ enum {
   TEMP_OUTLET,
   TEMP_NIC,
   TEMP_NICEXP_OUTLET,
+<<<<<<< HEAD
+=======
+  TEMP_431_OUTLET,
+  TEMP_431_HSC,
+>>>>>>> facebook/helium
 };
 
 //ADM1278 INFO
@@ -474,8 +515,15 @@ typedef struct {
 
 //HSC INFO
 enum {
+<<<<<<< HEAD
   HSC_ID0 = 0,
   HSC_ID1,
+=======
+  HSC_ADM1278 = 0,
+  HSC_LTC4282,
+  HSC_MP5990,
+  HSC_ADM1276,
+>>>>>>> facebook/helium
 };
 
 typedef struct {

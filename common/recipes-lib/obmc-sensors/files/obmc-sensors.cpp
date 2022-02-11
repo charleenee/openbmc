@@ -24,7 +24,11 @@
 #endif
 SensorList sensors(SENSOR_CONF);
 
+<<<<<<< HEAD
 extern "C" int sensors_read(const char *chip, const char *label, float *value)
+=======
+static int sensors_read_locked(const char *chip, const char *label, float *value)
+>>>>>>> facebook/helium
 {
   int ret = -1;
   if (!chip || !label || !value) {
@@ -42,16 +46,34 @@ extern "C" int sensors_read(const char *chip, const char *label, float *value)
   } catch (...) {
     syslog(LOG_CRIT, "Read(%s:%s) Unknown error", chip, label);
   }
+<<<<<<< HEAD
   return ret;
 }
 
 extern "C" int sensors_write(const char *chip, const char *label, float value)
+=======
+
+  return ret;
+}
+
+extern "C" int sensors_read(const char *chip, const char *label, float *value)
+{
+  std::shared_lock shrlock(sensors.listSharedMutex);
+  return sensors_read_locked(chip, label, value);
+}
+
+static int sensors_write_locked(const char *chip, const char *label, float value)
+>>>>>>> facebook/helium
 {
   int ret = -1;
   if (!chip || !label) {
     errno = EINVAL;
     return -1;
   }
+<<<<<<< HEAD
+=======
+
+>>>>>>> facebook/helium
   try {
     sensors.at(chip)->at(label)->write(value);
     ret = 0;
@@ -62,6 +84,7 @@ extern "C" int sensors_write(const char *chip, const char *label, float value)
   } catch (...) {
     syslog(LOG_CRIT, "Write(%s:%s) Unknown error", chip, label);
   }
+<<<<<<< HEAD
   return ret;
 }
 
@@ -77,10 +100,48 @@ extern "C" int sensors_read_fan(const char *label, float *value)
     return sensors_read("aspeed_tach-isa-0000", label, value);
   }
   return sensors_read("ast_pwm-isa-0000", label, value);
+=======
+
+  return ret;
+}
+
+extern "C" int sensors_write(const char *chip, const char *label, float value)
+{
+  std::shared_lock shrlock(sensors.listSharedMutex);
+  return sensors_write_locked(chip, label, value);
+}
+
+
+extern "C" int sensors_read_fan(const char *label, float *value)
+{
+  std::shared_lock shrlock(sensors.listSharedMutex);
+  if (sensors.find("aspeed_pwm_tacho-isa-0000") != sensors.end()) {
+    return sensors_read_locked("aspeed_pwm_tacho-isa-0000", label, value);
+  }
+  if (sensors.find("aspeed_pwm_tachometer-isa-0000") != sensors.end()) {
+    return sensors_read_locked("aspeed_pwm_tachometer-isa-0000", label, value);
+  }
+  if (sensors.find("aspeed_tach-isa-0000") != sensors.end()) {
+    return sensors_read_locked("aspeed_tach-isa-0000", label, value);
+  }
+  return sensors_read_locked("ast_pwm-isa-0000", label, value);
+}
+
+extern "C" int sensors_read_pwmfan(const int pwm_id, float *value)
+{
+  std::shared_lock shrlock(sensors.listSharedMutex);
+  char chip_name[64]= {0};
+  snprintf(chip_name, sizeof(chip_name), "pwmfan-isa-00%02d", pwm_id);
+  if (sensors.find(chip_name) != sensors.end()) {
+    return sensors_read_locked(chip_name, "pwm1", value);
+  }
+  return -1;
+>>>>>>> facebook/helium
 }
 
 extern "C" int sensors_write_fan(const char *label, float value)
 {
+<<<<<<< HEAD
   if (sensors.find("aspeed_pwm_tacho-isa-0000") != sensors.end()) {
     return sensors_write("aspeed_pwm_tacho-isa-0000", label, value);
   }
@@ -91,10 +152,41 @@ extern "C" int sensors_write_fan(const char *label, float value)
     return sensors_write("aspeed_tach-isa-0000", label, value);
   }
   return sensors_write("ast_pwm-isa-0000", label, value);
+=======
+  std::shared_lock shrlock(sensors.listSharedMutex);
+
+  if (sensors.find("aspeed_pwm_tacho-isa-0000") != sensors.end()) {
+    return sensors_write_locked("aspeed_pwm_tacho-isa-0000", label, value);
+  }
+  if (sensors.find("aspeed_pwm_tachometer-isa-0000") != sensors.end()) {
+    return sensors_write_locked("aspeed_pwm_tachometer-isa-0000", label, value);
+  }
+  if (sensors.find("aspeed_tach-isa-0000") != sensors.end()) {
+    return sensors_write_locked("aspeed_tach-isa-0000", label, value);
+  }
+  return sensors_write_locked("ast_pwm-isa-0000", label, value);
+}
+
+extern "C" int sensors_write_pwmfan(const int pwm_id, float value)
+{
+  std::shared_lock shrlock(sensors.listSharedMutex);
+
+  char chip_name[64] = {0};
+  snprintf(chip_name, sizeof(chip_name), "pwmfan-isa-00%02d", pwm_id);
+  if (sensors.find(chip_name) != sensors.end()) {
+    return sensors_write_locked(chip_name, "pwm1", value);
+  }
+  return -1;
+>>>>>>> facebook/helium
 }
 
 extern "C" int sensors_read_adc(const char *label, float *value)
 {
+<<<<<<< HEAD
+=======
+  std::shared_lock shrlock(sensors.listSharedMutex);
+
+>>>>>>> facebook/helium
   if (sensors.find("iio_hwmon-isa-0000") != sensors.end()) {
     return sensors_read("iio_hwmon-isa-0000", label, value);
   }
@@ -103,5 +195,14 @@ extern "C" int sensors_read_adc(const char *label, float *value)
 
 extern "C" void sensors_reinit()
 {
+<<<<<<< HEAD
+=======
+  // Explicitly add syslog for renumerate request to get
+  // combine with syslog renumerate start and end within re_enumerate
+  // we shall be able to know whether the C++ shared_mutex
+  // which based on pthread_rwlock will experience writer starvation or
+  // big delay when busy reader threads exists
+  syslog(LOG_INFO, "sensor list renumerate request");
+>>>>>>> facebook/helium
   sensors.re_enumerate(SENSOR_CONF);
 }

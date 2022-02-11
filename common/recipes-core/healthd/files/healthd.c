@@ -1897,7 +1897,12 @@ ubifs_health_monitor() {
       fclose(fp);
       break;
     }
+<<<<<<< HEAD
     fclose(fp);
+=======
+    if (fp != NULL)
+      fclose(fp);
+>>>>>>> facebook/helium
     sleep(uhm_config.monitor_interval);
   }
 

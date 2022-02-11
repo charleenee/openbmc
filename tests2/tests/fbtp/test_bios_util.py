@@ -17,11 +17,28 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
 from common.base_bios_util_test import BaseBiosUtilTest
+=======
+import unittest
+
+from common.base_bios_util_test import BaseBiosUtilTest
+from utils.test_utils import qemu_check
+>>>>>>> facebook/helium
 
 FRU_LIST = ["mb"]
 
 
+<<<<<<< HEAD
 class BiosUtilTest(BaseBiosUtilTest):
     def set_fru_list(self):
         self.fru_list = FRU_LIST
+=======
+@unittest.skipIf(qemu_check(), "test env is QEMU, skipped")
+class BiosUtilTest(BaseBiosUtilTest):
+    def set_fru_list(self):
+        self.fru_list = FRU_LIST
+
+    def test_postcode_get(self):
+        pass
+>>>>>>> facebook/helium

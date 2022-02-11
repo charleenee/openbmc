@@ -27,7 +27,10 @@
 #define PWM_MASK     0x0f
 
 #define DEVICE_KEY "sys_config/fru%d_B_drive0_model_name"
+<<<<<<< HEAD
 #define FAN0_PATH "/sys/class/hwmon/hwmon0/fan0_input"
+=======
+>>>>>>> facebook/helium
 
 #define DUAL_FAN_UCR 13500
 #define DUAL_FAN_UNC 10200
@@ -58,7 +61,11 @@ static int read_cached_val(uint8_t snr_number, float *value);
 static int read_fan_speed(uint8_t snr_number, float *value);
 static int read_fan_pwm(uint8_t pwm_id, float *value);
 static int read_curr_leakage(uint8_t snr_number, float *value);
+<<<<<<< HEAD
 static int read_pdb_dl_vdelta(uint8_t snr_number, float *value);
+=======
+static int read_pdb_cl_vdelta(uint8_t snr_number, float *value);
+>>>>>>> facebook/helium
 
 static int pal_sdr_init(uint8_t fru);
 static sensor_info_t g_sinfo[MAX_NUM_FRUS][MAX_SENSOR_NUM + 1] = {0};
@@ -111,7 +118,11 @@ const uint8_t bmc_sensor_list[] = {
   BMC_SENSOR_MEDUSA_CURR,
   BMC_SENSOR_MEDUSA_PWR,
   BMC_SENSOR_MEDUSA_VDELTA,
+<<<<<<< HEAD
   BMC_SENSOR_PDB_DL_VDELTA,
+=======
+  BMC_SENSOR_PDB_CL_VDELTA,
+>>>>>>> facebook/helium
   BMC_SENSOR_PDB_BB_VDELTA,
   BMC_SENSOR_CURR_LEAKAGE,
   BMC_SENSOR_FAN_IOUT,
@@ -154,7 +165,10 @@ const uint8_t bic_sensor_list[] = {
   BIC_SENSOR_CPU_TEMP,
   BIC_SENSOR_CPU_THERM_MARGIN,
   BIC_SENSOR_CPU_TJMAX,
+<<<<<<< HEAD
   //BIC_SENSOR_SOC_PKG_PWR,
+=======
+>>>>>>> facebook/helium
   BIC_SENSOR_DIMMA0_TEMP,
   BIC_SENSOR_DIMMC0_TEMP,
   BIC_SENSOR_DIMMD0_TEMP,
@@ -173,8 +187,17 @@ const uint8_t bic_sensor_list[] = {
   BIC_SENSOR_P12V_STBY_VOL,
   BIC_SENSOR_P3V_BAT_VOL,
   BIC_SENSOR_P3V3_STBY_VOL,
+<<<<<<< HEAD
   BIC_SENSOR_P1V05_PCH_STBY_VOL,
   BIC_SENSOR_P1V08_PCH_STBY_VOL,
+=======
+  BIC_SENSOR_P1V8_STBY_VOL,
+  BIC_SENSOR_P1V05_PCH_STBY_VOL,
+  BIC_SENSOR_P5V_STBY_VOL,
+  BIC_SENSOR_P12V_DIMM_VOL,
+  BIC_SENSOR_P1V2_STBY_VOL,
+  BIC_SENSOR_P3V3_M2_VOL,
+>>>>>>> facebook/helium
   BIC_SENSOR_HSC_INPUT_VOL,
   BIC_SENSOR_VCCIN_VR_VOL,
   BIC_SENSOR_FIVRA_VR_VOL,
@@ -191,8 +214,13 @@ const uint8_t bic_sensor_list[] = {
   BIC_SENSOR_FAON_VR_CUR,
 
   //BIC - power sensors
+<<<<<<< HEAD
   BIC_SENSOR_HSC_INPUT_PWR,
   //BIC_SENSOR_HSC_INPUT_AVGPWR,
+=======
+  BIC_SENSOR_CPU_PWR,
+  BIC_SENSOR_HSC_INPUT_PWR,
+>>>>>>> facebook/helium
   BIC_SENSOR_VCCIN_VR_POUT,
   BIC_SENSOR_FIVRA_VR_POUT,
   BIC_SENSOR_EHV_VR_POUT,
@@ -438,6 +466,11 @@ const uint8_t bic_skip_sensor_list[] = {
   BIC_SENSOR_VCCD_VR_TEMP,
   BIC_SENSOR_FAON_VR_TEMP,
   //BIC - voltage sensors
+<<<<<<< HEAD
+=======
+  BIC_SENSOR_P12V_DIMM_VOL,
+  BIC_SENSOR_P3V3_M2_VOL,
+>>>>>>> facebook/helium
   BIC_SENSOR_VCCIN_VR_VOL,
   BIC_SENSOR_FIVRA_VR_VOL,
   BIC_SENSOR_EHV_VR_VOL,
@@ -833,6 +866,7 @@ PAL_SENSOR_MAP sensor_map[] = {
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xC5
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xC6
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xC7
+<<<<<<< HEAD
   {"BMC_SENSOR_HSC_PEAK_IOUT", HSC_ID0, read_hsc_peak_iout, 0, {0, 0, 0, 0, 0, 0, 0, 0}, CURR}, //0xC8
   {"BMC_SENSOR_HSC_PEAK_PIN", HSC_ID0, read_hsc_peak_pin, 0, {0, 0, 0, 0, 0, 0, 0, 0}, POWER}, //0xC9
   {"BMC_SENSOR_FAN_PWR", 0xCA, read_cached_val, true, {0, 0, 0, 0, 0, 0, 0, 0}, POWER}, //0xCA
@@ -850,6 +884,26 @@ PAL_SENSOR_MAP sensor_map[] = {
   {"BMC_SENSOR_P3V3_RGM_STBY", ADC13, read_adc_val, true, {3.531, 3.465, 0, 3.069, 3.135, 0, 0, 0}, VOLT}, //0xD6
   {"BMC_SENSOR_P5V_USB", ADC4, read_adc_val, 0, {5.35, 5.25, 5.65, 4.65, 4.75, 4.15, 0, 0}, VOLT}, //0xD7
   {"BMC_SENSOR_P3V3_NIC", ADC14, read_adc_val, 0, {3.63, 3.564, 3.729, 2.97, 3.036, 2.95, 0, 0}, VOLT}, //0xD8
+=======
+//{                SensorName,      ID,     FUNCTION, PWR_STATUS, {  UCR,   UNC,     UNR,    LCR,    LNR,  LNC, Pos, Neg}, Unit}
+  {"BMC_SENSOR_HSC_PEAK_IOUT", HSC_ID0, read_hsc_peak_iout,    0, {      0,     0,       0,      0,     0,     0, 0, 0}, CURR}, //0xC8
+  {"BMC_SENSOR_HSC_PEAK_PIN" , HSC_ID0, read_hsc_peak_pin ,    0, {      0,     0,       0,      0,     0,     0, 0, 0}, POWER}, //0xC9
+  {"BMC_SENSOR_FAN_PWR"      ,    0xCA, read_cached_val   , true, {201.465,     0,  544.88,      0,     0,     0, 0, 0}, POWER}, //0xCA
+  {"BMC_SENSOR_HSC_EIN"      , HSC_ID0, read_hsc_ein      , true, {  287.5,     0,  398.75,      0,     0,     0, 0, 0}, POWER}, //0xCB
+  {"BMC_SENSOR_PDB_CL_VDELTA",    0xCC, read_pdb_cl_vdelta, true, {    0.9,     0,       0,      0,     0,     0, 0, 0}, VOLT}, //0xCC
+  {"BMC_SENSOR_CURR_LEAKAGE" ,    0xCD, read_curr_leakage , true, {      0,     0,       0,      0,     0,     0, 0, 0}, PERCENT}, //0xCD
+  {"BMC_SENSOR_PDB_BB_VDELTA",    0xCE, read_cached_val   , true, {    0.8,     0,       0,      0,     0,     0, 0, 0}, VOLT}, //0xCE
+  {"BMC_SENSOR_MEDUSA_VDELTA",    0xCF, read_medusa_val   , true, {    0.5,     0,       0,      0,     0,     0, 0, 0}, VOLT}, //0xCF
+  {"BMC_SENSOR_MEDUSA_CURR"  ,    0xD0, read_medusa_val   ,    0, {    144,     0,       0,      0,     0,     0, 0, 0}, CURR}, //0xD0
+  {"BMC_SENSOR_MEDUSA_PWR"   ,    0xD1, read_medusa_val   ,    0, {   1800,     0,       0,      0,     0,     0, 0, 0}, POWER}, //0xD1
+  {"BMC_SENSOR_NIC_P12V"     ,   ADC12, read_adc_val      , true, {  13.32,  13.2,   14.91,  10.68, 10.17,  10.8, 0, 0}, VOLT},//0xD2
+  {"BMC_SENSOR_NIC_PWR"      ,    0xD3, read_cached_val   , true, {   82.5,     0, 101.875,      0,     0,     0, 0, 0}, POWER},//0xD3
+  {"BMC_SENSOR_P1V0_STBY"    ,    ADC7, read_adc_val      , true, {   1.08,  1.07,    1.13,   0.92,  0.83,  0.93, 0, 0}, VOLT}, //0xD4
+  {"BMC_SENSOR_P0V6_STBY"    ,    ADC8, read_adc_val      , true, {  0.648, 0.642,       0,  0.552,     0, 0.558, 0, 0}, VOLT}, //0xD5
+  {"BMC_SENSOR_P3V3_RGM_STBY",   ADC13, read_adc_val      , true, {  3.564, 3.531,       0,  3.036,     0, 3.069, 0, 0}, VOLT}, //0xD6
+  {"BMC_SENSOR_P5V_USB"      ,    ADC4, read_adc_val      ,    0, {    5.4,  5.35,    5.65,    4.6,  4.15,  4.65, 0, 0}, VOLT}, //0xD7
+  {"BMC_SENSOR_P3V3_NIC"     ,   ADC14, read_adc_val      ,    0, {  3.630, 3.597,   3.729,   2.97,  2.95, 3.003, 0, 0}, VOLT}, //0xD8
+>>>>>>> facebook/helium
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xD9
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xDA
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xDB
@@ -857,6 +911,7 @@ PAL_SENSOR_MAP sensor_map[] = {
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xDD
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xDE
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xDF
+<<<<<<< HEAD
 
   {"BMC_SENSOR_FAN0_TACH", 0xE0, read_fan_speed, true, {11500, 8500, 0, 500, 0, 0, 0, 0}, FAN}, //0xE0
   {"BMC_SENSOR_FAN1_TACH", 0xE1, read_fan_speed, true, {11500, 8500, 0, 500, 0, 0, 0, 0}, FAN}, //0xE1
@@ -888,6 +943,39 @@ PAL_SENSOR_MAP sensor_map[] = {
   {"BMC_SENSOR_FAN_IOUT", ADC10, read_adc_val, 0, {14.52, 0, 39.2, 0, 0, 0, 0, 0}, CURR}, //0xFB
   {"BMC_SENSOR_NIC_IOUT", ADC11, read_adc_val, 0, {6.6, 0, 8.15, 0, 0, 0, 0, 0}, CURR}, //0xFC
   {"BMC_SENSOR_MEDUSA_VIN", 0xFD, read_medusa_val, true, {13.75, 13.5, 13.9, 11.25, 9.25, 11.5, 0, 0}, VOLT}, //0xFD
+=======
+//{              SensorName,          ID,  FUNCTION, PWR_STATUS, {   UCR,   UNC,    UNR,    LCR,    LNR,    LNC, Pos, Neg}, Unit}
+  {"BMC_SENSOR_FAN0_TACH"  ,        0xE0, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE0
+  {"BMC_SENSOR_FAN1_TACH"  ,        0xE1, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE1
+  {"BMC_SENSOR_FAN2_TACH"  ,        0xE2, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE2
+  {"BMC_SENSOR_FAN3_TACH"  ,        0xE3, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE3
+  {"BMC_SENSOR_FAN4_TACH"  ,        0xE4, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE4
+  {"BMC_SENSOR_FAN5_TACH"  ,        0xE5, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE5
+  {"BMC_SENSOR_FAN6_TACH"  ,        0xE6, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE6
+  {"BMC_SENSOR_FAN7_TACH"  ,        0xE7, read_fan_speed , true, { 11500,  8500,      0,    500,      0,      0, 0, 0}, FAN}, //0xE7
+  {"BMC_SENSOR_PWM0"       ,       PWM_0, read_fan_pwm   , true, {     0,     0,      0,      0,      0,      0, 0, 0}, PERCENT}, //0xE8
+  {"BMC_SENSOR_PWM1"       ,       PWM_1, read_fan_pwm   , true, {     0,     0,      0,      0,      0,      0, 0, 0}, PERCENT}, //0xE9
+  {"BMC_SENSOR_PWM2"       ,       PWM_2, read_fan_pwm   , true, {     0,     0,      0,      0,      0,      0, 0, 0}, PERCENT}, //0xEA
+  {"BMC_SENSOR_PWM3"       ,       PWM_3, read_fan_pwm   , true, {     0,     0,      0,      0,      0,      0, 0, 0}, PERCENT}, //0xEB
+  {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xEC  
+  {"BMC_INLET_TEMP"        ,  TEMP_INLET, read_temp      , true, {    50,     0,    150,      0,      0,      0, 0, 0}, TEMP}, //0xED
+  {"BMC_OUTLET_TEMP"       , TEMP_OUTLET, read_temp      , true, {    55,     0,    150,      0,      0,      0, 0, 0}, TEMP}, //0xEE
+  {"NIC_SENSOR_TEMP"       ,    TEMP_NIC, read_temp      , true, {   105,     0,    120,      0,      0,      0, 0, 0}, TEMP}, //0xEF
+  {"BMC_SENSOR_P5V"        ,        ADC0, read_adc_val   , true, {  5.55,   5.5,   5.65,   4.45,   4.15,    4.5, 0, 0}, VOLT}, //0xF0
+  {"BMC_SENSOR_P12V"       ,        ADC1, read_adc_val   , true, { 13.32,  13.2, 14.333,  10.68, 10.091,   10.8, 0, 0}, VOLT}, //0xF1
+  {"BMC_SENSOR_P3V3_STBY"  ,        ADC2, read_adc_val   , true, { 3.564, 3.531,  3.729,  3.036,  2.739,  3.069, 0, 0}, VOLT}, //0xF2
+  {"BMC_SENSOR_P1V8_STBY"  ,        ADC5, read_adc_val   , true, { 1.944, 1.926,      0,  1.656,      0,  1.674, 0, 0}, VOLT}, //0xF3
+  {"BMC_SENSOR_P1V2_STBY"  ,        ADC6, read_adc_val   , true, { 1.296, 1.284,  1.356,  1.104,  0.996,  1.116, 0, 0}, VOLT}, //0xF4
+  {"BMC_SENSOR_P2V5_STBY"  ,        ADC3, read_adc_val   , true, {   2.7, 2.675,      0,    2.3,      0,  2.235, 0, 0}, VOLT}, //0xF5
+  {"BMC_SENSOR_MEDUSA_VOUT",        0xF6, read_medusa_val, true, {13.875, 13.75,   13.9, 11.125,   9.25,  11.25, 0, 0}, VOLT}, //0xF6
+  {"BMC_SENSOR_HSC_VIN"    ,     HSC_ID0, read_hsc_vin   , true, { 13.32, 13.20, 14.333,  10.68, 10.091,   10.8, 0, 0}, VOLT}, //0xF7
+  {"BMC_SENSOR_HSC_TEMP"   ,     HSC_ID0, read_hsc_temp  , true, {    55,     0,    125,      0,      0,      0, 0, 0}, TEMP}, //0xF8
+  {"BMC_SENSOR_HSC_PIN"    ,     HSC_ID0, read_hsc_pin   , true, { 287.5,     0, 398.75,      0,      0,      0, 0, 0}, POWER}, //0xF9
+  {"BMC_SENSOR_HSC_IOUT"   ,     HSC_ID0, read_hsc_iout  , true, {    23,     0,   31.9,      0,      0,      0, 0, 0}, CURR}, //0xFA
+  {"BMC_SENSOR_FAN_IOUT"   ,       ADC10, read_adc_val   ,    0, { 14.52,     0,   39.2,      0,      0,      0, 0, 0}, CURR}, //0xFB
+  {"BMC_SENSOR_NIC_IOUT"   ,       ADC11, read_adc_val   ,    0, {   6.6,     0,   8.15,      0,      0,      0, 0, 0}, CURR}, //0xFC
+  {"BMC_SENSOR_MEDUSA_VIN" ,        0xFD, read_medusa_val, true, {13.875, 13.75,   13.9, 11.125,   9.25,  11.25, 0, 0}, VOLT}, //0xFD
+>>>>>>> facebook/helium
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xFE
   {NULL, 0, NULL, 0, {0, 0, 0, 0, 0, 0, 0, 0}, 0}, //0xFF
 };
@@ -1044,7 +1132,11 @@ pal_get_fru_sensor_list(uint8_t fru, uint8_t **sensor_list, int *cnt) {
       if (board_type == E1S_BOARD) { // Sierra point expansion
         memcpy(&bic_dynamic_sensor_list[fru-1][current_cnt], bic_spe_sensor_list, bic_spe_sensor_cnt);
         current_cnt += bic_spe_sensor_cnt;
+<<<<<<< HEAD
       } else if (board_type == GPV3_MCHP_BOARD || board_type == GPV3_BRCM_BOARD){
+=======
+      } else if (board_type == GPV3_MCHP_BOARD || board_type == GPV3_BRCM_BOARD) {
+>>>>>>> facebook/helium
         memcpy(&bic_dynamic_sensor_list[fru-1][current_cnt], bic_2ou_gpv3_sensor_list, bic_2ou_gpv3_sensor_cnt);
         current_cnt += bic_2ou_gpv3_sensor_cnt;
       } else if (board_type == DPV2_BOARD) {
@@ -1173,7 +1265,11 @@ int pal_set_fan_speed(uint8_t fan, uint8_t pwm)
       snprintf(label, sizeof(label), "pwm%d", pwm_num) > sizeof(label)) {
       return -1;
     }
+<<<<<<< HEAD
     return sensors_write_fan(label, (float)pwm);
+=======
+    return sensors_write_pwmfan(pwm_num, (float)pwm);
+>>>>>>> facebook/helium
   } else if (bmc_location == NIC_BMC) {
     ret = bic_set_fan_auto_mode(GET_FAN_MODE, &status);
     if (ret < 0) {
@@ -1227,6 +1323,7 @@ int pal_get_fan_speed(uint8_t fan, int *rpm)
     }
 
     if (fan > pal_tach_cnt ||
+<<<<<<< HEAD
         snprintf(label, sizeof(label), "fan%d", fan) > sizeof(label)) {
       syslog(LOG_WARNING, "%s: invalid fan#:%d", __func__, fan);
       return -1;
@@ -1236,6 +1333,13 @@ int pal_get_fan_speed(uint8_t fan, int *rpm)
     } else {
       ret = sensors_read_fan(label, &value);
     }
+=======
+        snprintf(label, sizeof(label), "fan%d", fan + 1) > sizeof(label)) {
+      syslog(LOG_WARNING, "%s: invalid fan#:%d", __func__, fan);
+      return -1;
+    }
+    ret = sensors_read_fan(label, &value);
+>>>>>>> facebook/helium
   } else if ( bmc_location == NIC_BMC ) {
     if ( pal_is_fw_update_ongoing(FRU_SLOT1) == true ) return PAL_ENOTSUP;
     else ret = bic_get_fan_speed(fan, &value);
@@ -1266,10 +1370,14 @@ _pal_get_pwm_value(uint8_t pwm, float *value, uint8_t bmc_location) {
     if ( pal_is_fw_update_ongoing(FRU_SLOT1) == true ) return PAL_ENOTSUP;
     else return bic_get_fan_pwm(pwm, value);
   }
+<<<<<<< HEAD
 
   char label[32] = {0};
   snprintf(label, sizeof(label), "pwm%d", pwm);
   return sensors_read_fan(label, value);
+=======
+  return sensors_read_pwmfan(pwm, value);
+>>>>>>> facebook/helium
 }
 
 // Provide the fan pwm to fan-util and it also will be called by read_fan_pwm
@@ -1451,9 +1559,15 @@ read_snr_from_all_slots(uint8_t target_snr_num, uint8_t action, float *val) {
   return PAL_EOK;
 }
 
+<<<<<<< HEAD
 // Calculate Deltalake vdelta
 static int
 read_pdb_dl_vdelta(uint8_t snr_number, float *value) {
+=======
+// Calculate Crater lake vdelta
+static int
+read_pdb_cl_vdelta(uint8_t snr_number, float *value) {
+>>>>>>> facebook/helium
   float medusa_vout = 0;
   float min_hsc_vin = 0;
 
@@ -1596,7 +1710,11 @@ read_medusa_val(uint8_t snr_number, float *value) {
     strcat(chip, "-i2c-11-44");
     //MP5920 is 12-bit ADC. Use the flag to do the calibration of sensors of mp5920.
     //Make the readings more reliable
+<<<<<<< HEAD
     if( strstr(chip, "mp5920")  != NULL ) is_ltc4282 = false;
+=======
+    if ( strstr(chip, "mp5920")  != NULL ) is_ltc4282 = false;
+>>>>>>> facebook/helium
     syslog(LOG_WARNING, "%s() Use '%s', flag:%d", __func__, chip, is_ltc4282);
   }
 
@@ -1944,7 +2062,11 @@ pal_fan_fail_otp_check(void) {
     syslog(LOG_WARNING, "Failed to get the location of BMC");
   }
 
+<<<<<<< HEAD
   if ( is_fan_fail_otp_asserted == false && bmc_location != NIC_BMC){
+=======
+  if ( is_fan_fail_otp_asserted == false && bmc_location != NIC_BMC) {
+>>>>>>> facebook/helium
     is_fan_fail_otp_asserted = true;
     snprintf(sel_str, sizeof(sel_str), "all fans failed");
     pal_all_slot_power_ctrl(SERVER_12V_OFF, sel_str);
@@ -1964,7 +2086,11 @@ skip_bic_sensor_list(uint8_t fru, uint8_t sensor_num, const uint8_t bmc_location
 
   get_skip_sensor_list(fru, &bic_skip_list, &skip_sensor_cnt, bmc_location, config_status);
 
+<<<<<<< HEAD
   switch(fru){
+=======
+  switch(fru) {
+>>>>>>> facebook/helium
     case FRU_SLOT1:
     case FRU_SLOT2:
     case FRU_SLOT3:
@@ -1982,16 +2108,28 @@ skip_bic_sensor_list(uint8_t fru, uint8_t sensor_num, const uint8_t bmc_location
 }
 
 static int
+<<<<<<< HEAD
 pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t bmc_location, const uint8_t config_status){
 #define BIC_SENSOR_READ_NA 0x20
   int ret = 0;
   uint8_t power_status = 0;
   ipmi_sensor_reading_t sensor = {0};
+=======
+pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t bmc_location, const uint8_t config_status) {
+#define BIC_SENSOR_READ_NA 0x20
+  int ret = 0;
+  uint8_t power_status = 0;
+  snr_reading_ret sensor = {0};
+>>>>>>> facebook/helium
   sdr_full_t *sdr = NULL;
   char path[128];
   sprintf(path, SLOT_SENSOR_LOCK, fru);
   uint8_t *bic_skip_list;
   int skip_sensor_cnt = 0;
+<<<<<<< HEAD
+=======
+  uint8_t reading_msb = 0;
+>>>>>>> facebook/helium
   get_skip_sensor_list(fru, &bic_skip_list, &skip_sensor_cnt, bmc_location, config_status);
 
   ret = bic_get_server_power_status(fru, &power_status);
@@ -2006,7 +2144,11 @@ pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t b
       return READING_NA;
     }
   } else if (power_status == SERVER_POWER_ON && pwr_off_flag[fru-1]) {
+<<<<<<< HEAD
     if ((skip_bic_sensor_list(fru, sensor_num, bmc_location, config_status) < 0) && (temp_cnt < skip_sensor_cnt)){
+=======
+    if ((skip_bic_sensor_list(fru, sensor_num, bmc_location, config_status) < 0) && (temp_cnt < skip_sensor_cnt)) {
+>>>>>>> facebook/helium
       temp_cnt ++;
       return READING_NA;
     }
@@ -2018,7 +2160,11 @@ pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t b
   }
 
   ret = access(path, F_OK);
+<<<<<<< HEAD
   if(ret == 0) {
+=======
+  if (ret == 0) {
+>>>>>>> facebook/helium
     return READING_SKIP;
   }
 
@@ -2067,9 +2213,16 @@ pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t b
   if ((sdr->sensor_units1 & 0xC0) == 0x00) {  // unsigned
     x = sensor.value;
   } else if ((sdr->sensor_units1 & 0xC0) == 0x40) {  // 1's complements
+<<<<<<< HEAD
     x = (sensor.value & 0x80) ? (0-(~sensor.value)) : sensor.value;
   } else if ((sdr->sensor_units1 & 0xC0) == 0x80) {  // 2's complements
     x = (int8_t)sensor.value;
+=======
+    reading_msb = (sensor.read_type == ACCURATE_CMD) ? 15 : 7;
+    x = (sensor.value & (1 << reading_msb)) ? (0-(~sensor.value)) : sensor.value;
+  } else if ((sdr->sensor_units1 & 0xC0) == 0x80) {  // 2's complements
+    x = (sensor.read_type == ACCURATE_CMD) ? (int16_t)sensor.value : (int8_t)sensor.value;
+>>>>>>> facebook/helium
   } else { // Does not return reading
     return READING_NA;
   }
@@ -2097,7 +2250,13 @@ pal_bic_sensor_read_raw(uint8_t fru, uint8_t sensor_num, float *value, uint8_t b
 
   //syslog(LOG_WARNING, "%s() snr#0x%x raw:%x m=%x b=%x b_exp=%x r_exp=%x s_units1=%x", __func__, sensor_num, x, m, b, b_exp, r_exp, sdr->sensor_units1);
   *value = ((m * x) + (b * pow(10, b_exp))) * (pow(10, r_exp));
+<<<<<<< HEAD
 
+=======
+  if (sensor.read_type == ACCURATE_CMD) {
+    *value /= 256;
+  }
+>>>>>>> facebook/helium
   //correct the value
   switch (sensor_num) {
     case BIC_SENSOR_FIO_TEMP:
@@ -2192,7 +2351,11 @@ pal_sensor_read_raw(uint8_t fru, uint8_t sensor_num, void *value) {
   } else {
     sprintf(str, "%.2f",*((float*)value));
   }
+<<<<<<< HEAD
   if(kv_set(key, str, 0, 0) < 0) {
+=======
+  if (kv_set(key, str, 0, 0) < 0) {
+>>>>>>> facebook/helium
     syslog(LOG_WARNING, "pal_sensor_read_raw: cache_set key = %s, str = %s failed.", key, str);
     return -1;
   } else {
@@ -2389,7 +2552,11 @@ _sdr_init(char *path, sensor_info_t *sinfo, uint8_t bmc_location, \
         sdr->uc_thresh = HSC_OUTPUT_CUR_UC_THRESHOLD;
         sdr->m_val = 0x04;
       }
+<<<<<<< HEAD
     } else if (snr_num == BIC_SENSOR_HSC_INPUT_PWR || snr_num == BIC_SENSOR_HSC_INPUT_AVGPWR){
+=======
+    } else if (snr_num == BIC_SENSOR_HSC_INPUT_PWR || snr_num == BIC_SENSOR_HSC_INPUT_AVGPWR) {
+>>>>>>> facebook/helium
       if (bmc_location == NIC_BMC) {
         sdr->uc_thresh = HSC_INPUT_PWR_UC_THRESHOLD;
         sdr->m_val = 0x04;

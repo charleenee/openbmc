@@ -133,8 +133,16 @@ do_install_board() {
 
 FILES:${PN} += "${sysconfdir}"
 
+<<<<<<< HEAD
 SYSTEMD_SERVICES_${PN} += "us_monitor.service \
                        fix_fru_eeprom.service \
                         sensors_config_fix.service"
 
 SYSTEMD_SERVICES_${PN}:remove += "setup_board.service"
+=======
+SYSTEMD_SERVICES:${PN} += "us_monitor.service \
+                       fix_fru_eeprom.service \
+                        sensors_config_fix.service"
+
+SYSTEMD_SERVICES:${PN}:remove += "setup_board.service"
+>>>>>>> facebook/helium

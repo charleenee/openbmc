@@ -9,6 +9,10 @@
 #include <sys/mman.h>
 #include <syslog.h>
 #include <openbmc/pal.h>
+<<<<<<< HEAD
+=======
+#include <openbmc/kv.h>
+>>>>>>> facebook/helium
 #include "pfr_bmc.h"
 
 using namespace std;
@@ -24,6 +28,10 @@ int BmcComponent::update(string image_path)
   string flash_image = image_path;
   stringstream cmd_str;
   string comp = this->component();
+<<<<<<< HEAD
+=======
+  char key[MAX_KEY_LEN] = {0}, value[MAX_VALUE_LEN] = {0};
+>>>>>>> facebook/helium
 
   if (_mtd_name == "") {
     // Upgrade not supported
@@ -110,6 +118,15 @@ int BmcComponent::update(string image_path)
     close(fd_r);
     close(fd_w);
   }
+<<<<<<< HEAD
+=======
+
+  snprintf(key, sizeof(key), "cur_%s_ver", _mtd_name.c_str());
+  if ((kv_get(key, value, NULL, 0) < 0) && (errno == ENOENT)) { // no update before
+    kv_set(key, get_bmc_version().c_str(), 0, 0);
+  }
+
+>>>>>>> facebook/helium
   cmd_str << "flashcp -v " << flash_image << " " << dev;
   ret = sys().runcmd(cmd_str.str());
   if (_writable_offset > 0) {
@@ -199,6 +216,11 @@ std::string BmcComponent::get_bmc_version(const std::string &mtd)
 int BmcComponent::print_version()
 {
   string mtd;
+<<<<<<< HEAD
+=======
+  char key[MAX_KEY_LEN] = {0}, value[MAX_VALUE_LEN] = {0};
+  int ret = 0;
+>>>>>>> facebook/helium
 
   string comp = _component;
   std::transform(comp.begin(), comp.end(),comp.begin(), ::toupper);
@@ -208,7 +230,20 @@ int BmcComponent::print_version()
     return FW_STATUS_SUCCESS;
   }
 
+<<<<<<< HEAD
   sys().output << comp << " Version: " << get_bmc_version() << endl;
+=======
+  snprintf(key, sizeof(key), "cur_%s_ver", _mtd_name.c_str());
+  ret = kv_get(key, value, NULL, 0);
+  if ((ret < 0) && (errno == ENOENT)) { // no update before
+    sys().output << comp << " Version: " << get_bmc_version() << endl;
+  } else if (ret == 0) {
+    sys().output << comp << " Version: " << value << endl;
+  }
+
+  sys().output << comp << " Version After Activated: " << get_bmc_version() << endl;
+
+>>>>>>> facebook/helium
   return FW_STATUS_SUCCESS;
 }
 

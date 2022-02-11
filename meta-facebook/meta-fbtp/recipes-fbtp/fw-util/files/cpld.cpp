@@ -27,7 +27,11 @@ class CpldComponent : public Component {
           printf("CPLD DeviceID: %02X%02X%02X%02X\n", cpld_var[3], cpld_var[2],
 		        cpld_var[1], cpld_var[0]);
         }
+<<<<<<< HEAD
         cpld_intf_close(INTF_JTAG);
+=======
+        cpld_intf_close();
+>>>>>>> facebook/helium
       } else {
         printf("CPLD_INTF Open failed!\n");
       }
@@ -43,7 +47,11 @@ class CpldComponent : public Component {
 
       if ( !cpld_intf_open(LCMXO2_2000HC, INTF_JTAG, NULL) ) {
         ret = cpld_program((char *)image.c_str(), key, false);
+<<<<<<< HEAD
         cpld_intf_close(INTF_JTAG);
+=======
+        cpld_intf_close();
+>>>>>>> facebook/helium
         if ( ret < 0 ) {
           printf("Error Occur at updating CPLD FW!\n");
         }

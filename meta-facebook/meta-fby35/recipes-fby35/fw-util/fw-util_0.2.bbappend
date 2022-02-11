@@ -50,6 +50,11 @@ SRC_URI:remove = " \
         "
 
 CXXFLAGS += "-DBIC_SUPPORT"
+<<<<<<< HEAD
 DEPENDS += "libbic libfpga libfby35-common libncsi libnl-wrapper libobmc-i2c libmcu"
 RDEPENDS:${PN} += "libbic libfpga libfby35-common libnl-wrapper libobmc-i2c libmcu"
+=======
+DEPENDS += "libbic libfpga libfby35-common libncsi libnl-wrapper libobmc-i2c libmcu libkv"
+RDEPENDS:${PN} += "libbic libfpga libfby35-common libnl-wrapper libobmc-i2c libmcu libkv"
+>>>>>>> facebook/helium
 LDFLAGS += "-lbic -lfpga -lfby35_common -lnl-wrapper -lobmc-i2c -lmcu"

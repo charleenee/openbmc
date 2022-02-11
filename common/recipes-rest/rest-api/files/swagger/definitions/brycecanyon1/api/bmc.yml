@@ -1,4 +1,5 @@
 swagger: "2.0"
+<<<<<<< HEAD
 info:
   description: Swagger doc for /api/bmc
   title: Swagger doc for /api/bmc
@@ -122,3 +123,132 @@ paths:
                 type: array
                 items:
                   type: string
+=======
+info: 
+  description: Swagger doc for /api/bmc  
+  title: Swagger doc for /api/bmc  
+  version: 1.0.0
+paths: 
+  /api/bmc: 
+    get: 
+      produces: [application/json]
+      responses: 
+        200: 
+          description: ok
+          schema: 
+            type: object
+            additionalProperties: false
+            properties: 
+              Information: 
+                type: object
+                additionalProperties: false
+                properties: 
+                  OpenBMC Version: 
+                    type: string
+                  u-boot version: 
+                    type: string
+                  memory: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      MemFree: 
+                        type: number
+                        format: int32
+                      Shmem: 
+                        type: number
+                        format: int32
+                      Buffers: 
+                        type: number
+                        format: int32
+                      Cached: 
+                        type: number
+                        format: int32
+                      MemTotal: 
+                        type: number
+                        format: int32
+                      MemAvailable: 
+                        type: number
+                        format: int32
+                  TPM TCG version: 
+                    type: string
+                  load-5: 
+                    type: string
+                  Secondary Boot Triggered: 
+                    type: boolean
+                  Uptime: 
+                    type: string
+                  load-15: 
+                    type: string
+                  Memory Usage: 
+                    type: string
+                  MTD Parts: 
+                    type: array
+                    items: 
+                      type: string
+                  SPI1 Vendor: 
+                    type: string
+                  kernel version: 
+                    type: string
+                  mmc-info: 
+                    type: object
+                    format: nullable
+                  Reset Reason: 
+                    type: string
+                  Description: 
+                    type: string
+                  CPU Usage: 
+                    type: string
+                  load-1: 
+                    type: string
+                  vboot: 
+                    type: object
+                    additionalProperties: false
+                    properties: 
+                      uboot_fallback_time: 
+                        type: string
+                      cert_time: 
+                        type: string
+                      force_recovery: 
+                        type: string
+                      cert_fallback_time: 
+                        type: string
+                      recovery_retried: 
+                        type: string
+                      status: 
+                        type: string
+                      uboot_time: 
+                        type: string
+                      tpm_status: 
+                        type: string
+                      status_text: 
+                        type: string
+                      status_crc: 
+                        type: string
+                      recovery_boot: 
+                        type: string
+                      software_enforce: 
+                        type: string
+                      hardware_enforce: 
+                        type: string
+                  MAC Addr: 
+                    type: string
+                  At-Scale-Debug Running: 
+                    type: boolean
+                  uptime: 
+                    type: string
+                  SPI0 Vendor: 
+                    type: string
+                  TPM FW version: 
+                    type: string
+                  open-fds: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+                type: array
+                items: 
+                  type: string
+            
+>>>>>>> facebook/helium

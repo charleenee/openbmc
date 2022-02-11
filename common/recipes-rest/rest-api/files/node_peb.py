@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+
+>>>>>>> facebook/helium
 from common_utils import async_exec
 from kv import kv_get
 from node import node
@@ -18,7 +23,11 @@ class pebNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         name = pal_get_platform_name()
         location = kv_get("tray_location")
         cmd = "cat /sys/class/gpio/gpio108/value"
@@ -43,7 +52,11 @@ class pebNode(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
+=======
+    async def doAction(self, data, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         if data["action"] == "identify-on":
             cmd = "/usr/bin/fpc-util --identify on"
             _, data, _ = await async_exec(cmd, shell=True)

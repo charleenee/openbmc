@@ -7,6 +7,10 @@
 #include <time.h>
 #include <sys/mman.h>
 #include <sys/file.h>
+<<<<<<< HEAD
+=======
+#include <sys/stat.h>
+>>>>>>> facebook/helium
 #include <string.h>
 #include <ctype.h>
 #include <openbmc/kv.h>
@@ -25,6 +29,7 @@ static int read_adc_val(uint8_t adc_id, float *value);
 static int read_temp(uint8_t id, float *value);
 static int read_nic_temp(uint8_t nic_id, float *value);
 static int read_e1s_temp(uint8_t e1s_id, float *value);
+<<<<<<< HEAD
 static int read_adc128_e1s(uint8_t id, float *value);
 static int read_adc128_iocm(uint8_t id, float *value);
 static int read_adc128_nic(uint8_t id, float *value);
@@ -33,6 +38,16 @@ static int read_ioc_temp(uint8_t id, float *value);
 static bool is_e1s_iocm_i2c_enabled(uint8_t id);
 static int set_e1s_sensor_name(char *sensor_name, char side);
 static void apply_inlet_correction(float *value, inlet_corr_t *ict, size_t ict_cnt);
+=======
+static int read_voltage_e1s(uint8_t id, float *value);
+static int read_current_iocm(uint8_t id, float *value);
+static int read_voltage_nic(uint8_t id, float *value);
+static int read_voltage_iocm(uint8_t id, float *value);
+static int read_ioc_temp(uint8_t id, float *value);
+static int set_e1s_sensor_name(char *sensor_name, char side);
+static void apply_inlet_correction(float *value, inlet_corr_t *ict, size_t ict_cnt);
+static int read_dpb_vol_wrapper(uint8_t id, float *value);
+>>>>>>> facebook/helium
 
 static bool is_dpb_sensor_cached = false;
 static bool is_scc_sensor_cached = false;
@@ -40,6 +55,22 @@ static bool is_scc_sensor_cached = false;
 static sensor_info_t g_sinfo[MAX_SENSOR_NUM + 1] = {0};
 static bool is_sdr_init[FRU_CNT] = {false};
 
+<<<<<<< HEAD
+=======
+static uint8_t dpb_source_info = UNKNOWN_SOURCE;
+static uint8_t iocm_source_info = UNKNOWN_SOURCE;
+
+static bool owning_iocm_snr_flag = false;
+static bool iocm_snr_ready = false;
+static uint8_t pre_status = 0xff;
+static bool e1s_removed[2] = {0};
+static bool iocm_removed = false;
+static uint8_t e1s_adc_skip_times[ADC128_E1S_PIN_CNT] = {0};
+static uint8_t max_iocm_reinit_times = MAX_RETRY;
+static bool scc_thresh_init = false;
+static bool dpb_thresh_init = false;
+
+>>>>>>> facebook/helium
 //{SensorName, ID, FUNCTION, STBY_READ, {UCR, UNC, UNR, LCR, LNC, LNR, Pos, Neg}, unit}
 PAL_SENSOR_MAP uic_sensor_map[] = {
   [UIC_ADC_P12V_DPB] =
@@ -368,21 +399,34 @@ PAL_SENSOR_MAP nic_sensor_map[] = {
   [NIC_SENSOR_TEMP] =
   {"NIC_SENSOR_TEMP", NIC, read_nic_temp, true, {95, 0, 0, 0, 0, 0, 0, 0}, TEMP},
   [NIC_SENSOR_P12V] =
+<<<<<<< HEAD
   {"NIC_SENSOR_P12V", ADC128_IN6, read_adc128_nic, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
   [NIC_SENSOR_CUR] =
   {"NIC_SENSOR_CUR", ADC128_IN7, read_adc128_nic, false, {2.2, 0, 0, 0, 0, 0, 0, 0}, CURR},
+=======
+  {"NIC_SENSOR_P12V", ADC128_IN6, read_voltage_nic, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
+  [NIC_SENSOR_CUR] =
+  {"NIC_SENSOR_CUR", ADC128_IN7, read_voltage_nic, false, {2.2, 0, 0, 0, 0, 0, 0, 0}, CURR},
+>>>>>>> facebook/helium
 };
 
 PAL_SENSOR_MAP e1s_sensor_map[] = {
   [E1S0_CUR] =
+<<<<<<< HEAD
   {"E1S_X0_CUR", ADC128_IN0, read_adc128_e1s, false, {1.6, 0, 0, 0, 0, 0, 0, 0}, CURR},
   [E1S1_CUR] =
   {"E1S_X1_CUR", ADC128_IN1, read_adc128_e1s, false, {1.6, 0, 0, 0, 0, 0, 0, 0}, CURR},
+=======
+  {"E1S_X0_CUR", ADC128_IN0, read_voltage_e1s, false, {1.6, 0, 0, 0, 0, 0, 0, 0}, CURR},
+  [E1S1_CUR] =
+  {"E1S_X1_CUR", ADC128_IN1, read_voltage_e1s, false, {1.6, 0, 0, 0, 0, 0, 0, 0}, CURR},
+>>>>>>> facebook/helium
   [E1S0_TEMP] =
   {"E1S_X0_TEMP", T5_E1S0_T7_IOC_AVENGER, read_e1s_temp, false, {70, 0, 0, 0, 0, 0, 0, 0}, TEMP},
   [E1S1_TEMP] =
   {"E1S_X1_TEMP", T5_E1S1_T7_IOCM_VOLT, read_e1s_temp, false, {70, 0, 0, 0, 0, 0, 0, 0}, TEMP},
   [E1S0_P12V] =
+<<<<<<< HEAD
   {"E1S_X0_P12V", ADC128_IN2, read_adc128_e1s, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
   [E1S1_P12V] =
   {"E1S_X1_P12V", ADC128_IN3, read_adc128_e1s, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
@@ -390,10 +434,20 @@ PAL_SENSOR_MAP e1s_sensor_map[] = {
   {"E1S_X0_P3V3", ADC128_IN4, read_adc128_e1s, false, {3.465, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
   [E1S1_P3V3] =
   {"E1S_X1_P3V3", ADC128_IN5, read_adc128_e1s, false, {3.465, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
+=======
+  {"E1S_X0_P12V", ADC128_IN2, read_voltage_e1s, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
+  [E1S1_P12V] =
+  {"E1S_X1_P12V", ADC128_IN3, read_voltage_e1s, false, {13, 0, 0, 11, 0, 0, 0, 0}, VOLT},
+  [E1S0_P3V3] =
+  {"E1S_X0_P3V3", ADC128_IN4, read_voltage_e1s, false, {3.465, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
+  [E1S1_P3V3] =
+  {"E1S_X1_P3V3", ADC128_IN5, read_voltage_e1s, false, {3.465, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
+>>>>>>> facebook/helium
 };
 
 PAL_SENSOR_MAP iocm_sensor_map[] = {
   [IOCM_P3V3_STBY] =
+<<<<<<< HEAD
   {"IOCM_P3V3_STBY", ADS1015_IN0, read_ads1015, false, {3.63, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
   [IOCM_P1V8] =
   {"IOCM_P1V8", ADS1015_IN1, read_ads1015, false, {1.89, 0, 0, 1.71, 0, 0, 0, 0}, VOLT},
@@ -403,6 +457,17 @@ PAL_SENSOR_MAP iocm_sensor_map[] = {
   {"IOCM_P0V865", ADS1015_IN3, read_ads1015, false, {0.89, 0, 0, 0.85, 0, 0, 0, 0}, VOLT},
   [IOCM_CUR] =
   {"IOCM_CUR", ADC128_IN0, read_adc128_iocm, false, {0, 0, 0, 0, 0, 0, 0, 0}, CURR},
+=======
+  {"IOCM_P3V3_STBY", ADS1015_IN0, read_voltage_iocm, false, {3.63, 0, 0, 2.97, 0, 0, 0, 0}, VOLT},
+  [IOCM_P1V8] =
+  {"IOCM_P1V8", ADS1015_IN1, read_voltage_iocm, false, {1.89, 0, 0, 1.71, 0, 0, 0, 0}, VOLT},
+  [IOCM_P1V5] =
+  {"IOCM_P1V5", ADS1015_IN2, read_voltage_iocm, false, {1.49, 0, 0, 1.41, 0, 0, 0, 0}, VOLT},
+  [IOCM_P0V865] =
+  {"IOCM_P0V865", ADS1015_IN3, read_voltage_iocm, false, {0.89, 0, 0, 0.85, 0, 0, 0, 0}, VOLT},
+  [IOCM_CUR] =
+  {"IOCM_CUR", ADC128_IN0, read_current_iocm, false, {0, 0, 0, 0, 0, 0, 0, 0}, CURR},
+>>>>>>> facebook/helium
   [IOCM_TEMP] =
   {"IOCM_TEMP", TEMP_IOCM, read_temp, false, {93, 0, 0, 0, 0, 0, 0, 0}, TEMP},
   [IOCM_IOC_TEMP] =
@@ -684,6 +749,27 @@ PAL_DEV_INFO adc128_dev_list[] = {
   {"adc128d818-i2c-9-1d",  "NIC_CUR"},
 };
 
+<<<<<<< HEAD
+=======
+PAL_DEV_INFO ltc2990_dev_list[] = {
+  {"ltc2990-i2c-13-4c",  "IOCM_P3V3"},
+  {"ltc2990-i2c-13-4c",  "IOCM_P1V8"},
+  {"ltc2990-i2c-13-4c",  "IOCM_P1V5"},
+  {"ltc2990-i2c-13-4c",  "IOCM_P0V865"},
+};
+
+PAL_DEV_INFO ltc2991_dev_list[] = {
+  {"ltc2991-i2c-9-48",  "E1S0_CUR"},
+  {"ltc2991-i2c-9-48",  "E1S1_CUR"},
+  {"ltc2991-i2c-9-48",  "E1S0_P12V"},
+  {"ltc2991-i2c-9-48",  "E1S1_P12V"},
+  {"ltc2991-i2c-9-48",  "E1S0_P3V3"},
+  {"ltc2991-i2c-9-48",  "E1S1_P3V3"},
+  {"ltc2991-i2c-9-48",  "NIC_P12V"},
+  {"ltc2991-i2c-9-48",  "NIC_CUR"},
+};
+
+>>>>>>> facebook/helium
 // ADS1015 PGA settings in DTS of each channel, unit: mV
 static int ads1015_pga_setting[] = {
   4096, 2048, 2048, 1024
@@ -786,6 +872,18 @@ pal_get_fru_sensor_list(uint8_t fru, uint8_t **sensor_list, int *cnt) {
 }
 
 static int
+<<<<<<< HEAD
+=======
+sensors_read_wrapper(const char *chip, const char *label, float *value) {
+  int ret = 0;
+
+  ret = sensors_read(chip, label, value);
+  if (ret == -1) ret = ERR_FAILURE; // normalize the error code
+  return ret;
+}
+
+static int
+>>>>>>> facebook/helium
 read_adc_val(uint8_t adc_id, float *value) {
   int ret = 0;
 
@@ -805,12 +903,16 @@ read_adc_val(uint8_t adc_id, float *value) {
 
 static int
 read_temp(uint8_t id, float *value) {
+<<<<<<< HEAD
   int ret = 0;
 
+=======
+>>>>>>> facebook/helium
   if (id >= ARRAY_SIZE(temp_dev_list)) {
     return ERR_SENSOR_NA;
   }
 
+<<<<<<< HEAD
   if (id == TEMP_IOCM) { // type 7
     if (is_e1s_iocm_i2c_enabled(T5_E1S1_T7_IOCM_VOLT) == false) {
       return ERR_SENSOR_NA;
@@ -828,6 +930,9 @@ read_temp(uint8_t id, float *value) {
   }
 
   return sensors_read(temp_dev_list[id].chip, temp_dev_list[id].label, value);
+=======
+  return sensors_read_wrapper(temp_dev_list[id].chip, temp_dev_list[id].label, value);
+>>>>>>> facebook/helium
 }
 
 /* Check the valid range of NIC Temperature. */
@@ -925,7 +1030,11 @@ is_e1s_iocm_present(uint8_t id) {
   return true;
 }
 
+<<<<<<< HEAD
 static bool
+=======
+bool
+>>>>>>> facebook/helium
 is_e1s_iocm_i2c_enabled(uint8_t id) {
   gpio_value_t val = 0;
 
@@ -982,7 +1091,16 @@ read_e1s_temp(uint8_t e1s_id, float *value) {
   } while (ret < 0 && retry > 0 );
 
   if (ret >= 0) {
+<<<<<<< HEAD
     *value = (float)(rbuf[NVMe_TEMP_REG]);
+=======
+    // valid temperature range: -60C(0xC4) ~ +127C(0x7F)
+    // C4h-FFh is two's complement, means -60 to -1
+    ret = nvme_temp_value_check((int)rbuf[NVMe_TEMP_REG], value);
+    if (ret != 0) {
+      ret = ERR_SENSOR_NA;
+    }
+>>>>>>> facebook/helium
   }
   close(fd);
 
@@ -1005,6 +1123,7 @@ is_e1s_power_good(uint8_t id) {
 }
 
 static int
+<<<<<<< HEAD
 read_adc128_e1s(uint8_t id, float *value) {
   int ret = 0;
   static uint8_t e1s_adc_skip_times[ADC128_E1S_PIN_CNT] = {0};
@@ -1019,6 +1138,36 @@ read_adc128_e1s(uint8_t id, float *value) {
   }
 
   if (is_e1s_power_good(id % 2) == false) {
+=======
+read_dpb_vol_wrapper(uint8_t id, float *value) {
+  int ret = 0;
+
+  if (value == NULL) {
+    syslog(LOG_ERR, "%s: Null parameter", __func__);
+    return ERR_SENSOR_NA;
+  }
+
+  if (dpb_source_info == MAIN_SOURCE) {
+    ret = sensors_read_wrapper(adc128_dev_list[id].chip, adc128_dev_list[id].label, value);
+  } else if (dpb_source_info == SECOND_SOURCE) {
+    ret = sensors_read_wrapper(ltc2991_dev_list[id].chip, ltc2991_dev_list[id].label, value);
+  } else {
+    ret = ERR_SENSOR_NA;
+  }
+
+  return ret;
+}
+
+static int
+read_voltage_e1s(uint8_t id, float *value) {
+  int ret = 0;
+
+  if (id >= ARRAY_SIZE(adc128_dev_list)) {
+    return ERR_SENSOR_NA;
+  }
+
+  if (is_e1s_power_good(id % 2) == false) { // power-util power off E1.S
+>>>>>>> facebook/helium
     e1s_adc_skip_times[id] = MAX_E1S_VOL_SNR_SKIP;
     return ERR_SENSOR_NA;
   }
@@ -1028,13 +1177,21 @@ read_adc128_e1s(uint8_t id, float *value) {
     return READING_SKIP;
   }
 
+<<<<<<< HEAD
   ret = sensors_read(adc128_dev_list[id].chip, adc128_dev_list[id].label, value);
 
+=======
+  ret = read_dpb_vol_wrapper(id, value);
+>>>>>>> facebook/helium
   return ret;
 }
 
 static int
+<<<<<<< HEAD
 read_adc128_nic(uint8_t id, float *value) {
+=======
+read_voltage_nic(uint8_t id, float *value) {
+>>>>>>> facebook/helium
   int ret = 0;
   uint8_t prsnt_status = 0;
 
@@ -1047,7 +1204,11 @@ read_adc128_nic(uint8_t id, float *value) {
     return ERR_SENSOR_NA;
   }
 
+<<<<<<< HEAD
   ret = sensors_read(adc128_dev_list[id].chip, adc128_dev_list[id].label, value);
+=======
+  ret = read_dpb_vol_wrapper(id, value);
+>>>>>>> facebook/helium
 
   if ((id == ADC128_IN7) && (*value < 0)) { // NIC current doesn't support negative value
     *value = 0;
@@ -1075,22 +1236,33 @@ is_iocm_power_good(void) { // check IOCM power from main connector
 }
 
 static int
+<<<<<<< HEAD
 read_adc128_iocm(uint8_t id, float *value) {
+=======
+read_current_iocm(uint8_t id, float *value) {
+>>>>>>> facebook/helium
   int ret = 0;
 
   if (id >= ARRAY_SIZE(adc128_dev_list)) {
     return ERR_SENSOR_NA;
   }
 
+<<<<<<< HEAD
   if (is_e1s_iocm_present(id) == false) {
     return ERR_SENSOR_NA;
   }
 
+=======
+>>>>>>> facebook/helium
   if (is_iocm_power_good() == false) {
     return ERR_SENSOR_NA;
   }
 
+<<<<<<< HEAD
   ret = sensors_read(adc128_dev_list[id].chip, adc128_dev_list[id].label, value);
+=======
+  ret = read_dpb_vol_wrapper(id, value);
+>>>>>>> facebook/helium
 
   return ret;
 }
@@ -1191,6 +1363,7 @@ read_ads1015(uint8_t id, float *value) {
   int read_value = 0;
   char full_dir_name[MAX_PATH_LEN * 2] = {0};
   char dir_name[MAX_PATH_LEN] = {0};
+<<<<<<< HEAD
   int ret = 0;
 
   if (is_e1s_iocm_present(T5_E1S1_T7_IOCM_VOLT) == false) {
@@ -1218,6 +1391,8 @@ read_ads1015(uint8_t id, float *value) {
       return ERR_SENSOR_NA;
     }
   }
+=======
+>>>>>>> facebook/helium
 
   if (get_current_dir(IOCM_VOLTAGE_SENSOR_DIR, dir_name) < 0) {
     syslog(LOG_WARNING, "%s() Failed to get dir: %s\n", __func__, IOCM_VOLTAGE_SENSOR_PATH);
@@ -1239,6 +1414,34 @@ read_ads1015(uint8_t id, float *value) {
 }
 
 static int
+<<<<<<< HEAD
+=======
+read_ltc2990(uint8_t id, float *value) {
+  if (id >= ARRAY_SIZE(ltc2990_dev_list)) {
+    return ERR_SENSOR_NA;
+  }
+
+  return sensors_read_wrapper(ltc2990_dev_list[id].chip, ltc2990_dev_list[id].label, value);
+}
+
+static int
+read_voltage_iocm(uint8_t id, float *value) {
+  if (value == NULL) {
+    syslog(LOG_ERR, "%s: Null parameter", __func__);
+    return ERR_SENSOR_NA;
+  }
+
+  if (iocm_source_info == MAIN_SOURCE) {
+    return read_ads1015(id, value);
+  } else if (iocm_source_info == SECOND_SOURCE) {
+    return read_ltc2990(id, value);
+  } else {
+    return ERR_SENSOR_NA;
+  }
+}
+
+static int
+>>>>>>> facebook/helium
 read_ioc_temp(uint8_t id, float *value) {
   char key[MAX_KEY_LEN] = {0};
   char cache_value[MAX_VALUE_LEN] = {0};
@@ -1288,6 +1491,241 @@ read_ioc_temp(uint8_t id, float *value) {
 }
 
 static int
+<<<<<<< HEAD
+=======
+exp_read_sensor_thresh_wrapper(uint8_t fru, uint8_t *sensor_list, thresh_sensor_t *snr_thresh, int sensor_cnt, uint8_t index) {
+  uint8_t tbuf[MAX_IPMB_BUFFER] = {0x00};
+  uint8_t rbuf[MAX_IPMB_BUFFER] = {0x00};
+  uint8_t rlen = 0, tlen = 0;
+  uint8_t snr_num = 0;
+  int ret = 0, i = 0, retry = 0;
+  int tach_cnt = 0;
+  float high_crit = 0, high_warn = 0, low_crit = 0, low_warn = 0;
+  EXPANDER_THRES_DATA *p_thres_data = NULL;
+
+  if ((sensor_list == NULL) || (snr_thresh == NULL)) {
+    syslog(LOG_WARNING, "%s() failed to get sensor threshold from expander because NULL pointer\n", __func__);
+    return -1;
+  }
+
+  tbuf[0] = sensor_cnt;
+  for(i = 0 ; i < sensor_cnt; i++) {
+    tbuf[i + 1] = sensor_list[i + index];  //feed sensor number to tbuf
+  }
+  tlen = sensor_cnt + 1;
+
+  //send tbuf with sensor count and numbers to get specific sensor threshold data from exp
+  do {
+    ret = expander_ipmb_wrapper(NETFN_OEM_REQ, CMD_OEM_EXP_GET_SENSOR_THRESHOLD, tbuf, tlen, rbuf, &rlen);
+    retry++;
+  } while ((ret < 0) && (retry < MAX_RETRY));
+
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s() expander_ipmb_wrapper failed. ret: %d\n", __func__, ret);
+    return ret;
+  }
+
+  tach_cnt = pal_get_tach_cnt();
+
+  p_thres_data = (EXPANDER_THRES_DATA *)(&rbuf[1]);
+
+  for(i = 0; i < sensor_cnt; i++) {
+    snr_num = p_thres_data[i].sensor_num;
+    snr_thresh[snr_num].flag = GETMASK(SENSOR_VALID) | GETMASK(UCR_THRESH) | 
+      GETMASK(UNC_THRESH) | GETMASK(LCR_THRESH) | GETMASK(LNC_THRESH);
+    pal_get_sensor_name(fru, snr_num, snr_thresh[snr_num].name);
+    pal_get_sensor_units(fru, snr_num, snr_thresh[snr_num].units);
+
+    if (strncmp(snr_thresh[snr_num].units, "C", sizeof(snr_thresh[snr_num].units)) == 0) {
+      high_crit = p_thres_data[i].high_crit_2;
+      high_warn = p_thres_data[i].high_warn_2;
+      low_crit = p_thres_data[i].low_crit_2;
+      low_warn = p_thres_data[i].low_warn_2;
+    } else if (strncmp(snr_thresh[snr_num].units, "RPM", sizeof(snr_thresh[snr_num].units)) == 0) {
+      high_crit = (((p_thres_data[i].high_crit_1 << 8) + p_thres_data[i].high_crit_2)) * 10;
+      high_warn = (((p_thres_data[i].high_warn_1 << 8) + p_thres_data[i].high_warn_2)) * 10;
+      low_crit = (((p_thres_data[i].low_crit_1 << 8) + p_thres_data[i].low_crit_2)) * 10;
+      low_warn = (((p_thres_data[i].low_warn_1 << 8) + p_thres_data[i].low_warn_2)) * 10;
+
+      if (tach_cnt == SINGLE_FAN_CNT) {
+        if ((snr_num == FAN_0_REAR) || (snr_num == FAN_1_REAR)
+          || (snr_num == FAN_2_REAR) || (snr_num == FAN_3_REAR)) {
+            continue;
+          }
+      } else if (tach_cnt == UNKNOWN_FAN_CNT) {
+        continue;
+      }
+    } else if (strncmp(snr_thresh[snr_num].units, "Watts", sizeof(snr_thresh[snr_num].units)) == 0) {
+      high_crit = (((p_thres_data[i].high_crit_1 << 8) + p_thres_data[i].high_crit_2));
+      high_warn = (((p_thres_data[i].high_warn_1 << 8) + p_thres_data[i].high_warn_2));
+      low_crit = (((p_thres_data[i].low_crit_1 << 8) + p_thres_data[i].low_crit_2));
+      low_warn = (((p_thres_data[i].low_warn_1 << 8) + p_thres_data[i].low_warn_2));
+    } else {
+      high_crit = (float)(((p_thres_data[i].high_crit_1 << 8) + p_thres_data[i].high_crit_2)) / 100;
+      high_warn = (float)(((p_thres_data[i].high_warn_1 << 8) + p_thres_data[i].high_warn_2)) / 100;
+      low_crit = (float)(((p_thres_data[i].low_crit_1 << 8) + p_thres_data[i].low_crit_2)) / 100;
+      low_warn = (float)(((p_thres_data[i].low_warn_1 << 8) + p_thres_data[i].low_warn_2)) / 100;
+    }
+
+    // Get threshold of SCC_IOC_TEMP from sensor map
+    if ((fru == FRU_SCC) && (snr_num == SCC_IOC_TEMP)) {
+      high_crit = scc_sensor_map[snr_num].snr_thresh.ucr_thresh;
+      high_warn = scc_sensor_map[snr_num].snr_thresh.unc_thresh;
+      low_crit = scc_sensor_map[snr_num].snr_thresh.lcr_thresh;
+      low_warn = scc_sensor_map[snr_num].snr_thresh.lnc_thresh;
+    }
+    snr_thresh[snr_num].ucr_thresh = high_crit;
+    snr_thresh[snr_num].unc_thresh = high_warn;
+    snr_thresh[snr_num].lcr_thresh = low_crit;
+    snr_thresh[snr_num].lnc_thresh = low_warn;
+    if (snr_thresh[snr_num].ucr_thresh == 0) {
+      snr_thresh[snr_num].flag = CLEARBIT(snr_thresh[snr_num].flag, UCR_THRESH);
+    }
+    if (snr_thresh[snr_num].unc_thresh == 0) {
+      snr_thresh[snr_num].flag = CLEARBIT(snr_thresh[snr_num].flag, UNC_THRESH);
+    }
+    if (snr_thresh[snr_num].lcr_thresh == 0) {
+      snr_thresh[snr_num].flag = CLEARBIT(snr_thresh[snr_num].flag, LCR_THRESH);
+    }
+    if (snr_thresh[snr_num].lnc_thresh == 0) {
+      snr_thresh[snr_num].flag = CLEARBIT(snr_thresh[snr_num].flag, LNC_THRESH);
+    }
+  }
+
+  return ret;
+}
+
+static int
+exp_get_sensor_thresh_from_file(uint8_t fru) {
+  uint8_t *sensor_list = NULL;
+  uint8_t snr_num = 0, bytes_rd = 0;
+  uint8_t buf[MAX_THERSH_LEN] = {0};
+  int fd = 0, cnt = 0, sensor_cnt = 0, ret = 0;
+  char fru_name[MAX_FRU_CMD_STR] = {0};
+  char fpath[MAX_PATH_LEN] = {0};
+  thresh_sensor_t snr_thresh[MAX_SENSOR_NUM + 1] = {0};
+  PAL_SENSOR_MAP *sensor_map = NULL;
+
+  switch (fru) {
+    case FRU_DPB:
+      sensor_map = dpb_sensor_map;
+      break;
+    case FRU_SCC:
+      sensor_map = scc_sensor_map;
+      break;
+    default:
+      syslog(LOG_WARNING, "%s: Unknown FRU:%d", __func__, fru);
+      return ERR_UNKNOWN_FRU;
+  }
+
+  ret = pal_get_fru_sensor_list(fru, &sensor_list, &sensor_cnt);
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s: fail to get sensor list of FRU:%d", __func__, fru);
+    return ret;
+  }
+
+  ret = pal_get_fru_name(fru, fru_name);
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s: fail to get FRU:%d name", __func__, fru);
+    return ret;
+  }
+
+  sprintf(fpath, INIT_THRESHOLD_BIN, fru_name);
+  // INIT_THRESHOLD_BIN doesn't exist, use initial sensor map.
+  if (access(fpath, F_OK) == -1) {
+    return 0;
+  }
+
+  fd = open(fpath, O_RDONLY);
+  if (fd < 0) {
+    syslog(LOG_WARNING, "%s: open failed for %s, errno : %d %s\n", __func__, fpath, errno, strerror(errno));
+    return -1;
+  }
+
+  while ((bytes_rd = read(fd, buf, sizeof(thresh_sensor_t))) > 0) {
+    if (bytes_rd != sizeof(thresh_sensor_t)) {
+      syslog(LOG_WARNING, "%s: read returns %d bytes\n", __func__, bytes_rd);
+      close(fd);
+      return -1;
+    }
+
+    snr_num = sensor_list[cnt];
+    memcpy(&snr_thresh[snr_num], &buf, sizeof(thresh_sensor_t));
+    memcpy(&(sensor_map[snr_num].snr_thresh.ucr_thresh), &(snr_thresh[snr_num].ucr_thresh), sizeof(PAL_SENSOR_THRESHOLD));
+    memset(buf, 0, sizeof(buf));
+    cnt++;
+
+    if (cnt == sensor_cnt) {
+      break;
+    }
+  }
+
+  close(fd);
+  return ret;
+}
+
+int
+pal_exp_sensor_threshold_init(uint8_t fru) {
+  int i = 0, ret = 0, remain = 0, sensor_cnt = 0, read_cnt = 0, index = 0;
+  uint8_t snr_num = 0;
+  uint8_t *sensor_list = NULL;
+  char fru_name[MAX_FRU_CMD_STR] = {0};
+  char fpath[MAX_PATH_LEN] = {0};
+  char initpath[MAX_PATH_LEN] = {0};
+  char cmd[MAX_SYS_CMD_REQ_LEN + MAX_PATH_LEN*2] = {0};
+  thresh_sensor_t snr_thresh[MAX_SENSOR_NUM + 1] = {0};
+
+  // Get sensors' threshold of SCC and DPB
+  ret = pal_get_fru_sensor_list(fru, &sensor_list, &sensor_cnt);
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s() get sensor list failed \n", __func__);
+    return ret;
+  }
+
+  ret = pal_get_fru_name(fru, fru_name);
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s() fail to get FRU:%d name\n", __func__, fru);
+    return ret;
+  }
+
+  remain = sensor_cnt;
+  while (remain > 0) {
+    read_cnt = (remain > MAX_EXP_IPMB_THRESH_COUNT) ? MAX_EXP_IPMB_THRESH_COUNT : remain;
+    ret = exp_read_sensor_thresh_wrapper(fru, sensor_list, snr_thresh, read_cnt, index);
+    if (ret < 0) {
+      syslog(LOG_WARNING, "%s() fail to get sensors' threshold of FRU:%d from expander\n", __func__, fru);
+      return ret;
+    }
+    remain -= read_cnt;
+    index += read_cnt;
+  }
+
+  if (access(THRESHOLD_PATH, F_OK) == -1) {
+    mkdir(THRESHOLD_PATH, 0777);
+  }
+
+  ret = pal_copy_all_thresh_to_file(fru, snr_thresh);
+  if (ret < 0) {
+    syslog(LOG_WARNING, "%s: fail to copy thresh to file for FRU: %d", __func__, fru);
+    return ret;
+  }
+
+  // Create THRESHOLD_BIN for the threshold initialization of sensord.
+  sprintf(fpath, THRESHOLD_BIN, fru_name);
+  sprintf(initpath, INIT_THRESHOLD_BIN, fru_name);
+  if (access(fpath, F_OK) != 0) {
+    sprintf(cmd,"cp -rf %s %s", initpath, fpath);
+    if (system(cmd) != 0) {
+      syslog(LOG_WARNING, "%s failed", cmd);
+      ret = -1;
+    }
+  }
+
+  return ret;
+}
+
+static int
+>>>>>>> facebook/helium
 exp_read_sensor_wrapper(uint8_t fru, uint8_t *sensor_list, int sensor_cnt, uint8_t index) {
   uint8_t tbuf[256] = {0x00};
   uint8_t rbuf[256] = {0x00};
@@ -1779,6 +2217,233 @@ end:
   return ret;
 }
 
+<<<<<<< HEAD
+=======
+static void
+get_current_source(const char *key, uint8_t *source_info) {
+  char value[MAX_VALUE_LEN] = {0};
+
+  if (key == NULL || source_info == NULL) {
+    syslog(LOG_WARNING, "%s Failed by null parameter\n", __func__);
+    return;
+  }
+
+  if (*source_info != UNKNOWN_SOURCE) { // cached before
+    return;
+  }
+
+  if (kv_get(key, value, NULL, 0) == 0) {
+    if (strcmp(value, STR_MAIN_SOURCE) == 0) {
+      *source_info = MAIN_SOURCE;
+    } else if (strcmp(value, STR_SECOND_SOURCE) == 0) {
+      *source_info = SECOND_SOURCE;
+    } else {
+      syslog(LOG_WARNING, "%s() Unknown source info: %s. Switch to main source configuration\n", __func__, value);
+      kv_set(key, STR_MAIN_SOURCE, 0, 0);
+      *source_info = MAIN_SOURCE; // set to default
+    }
+  }
+
+  return;
+}
+
+int pal_sensor_monitor_initial(void) {
+  owning_iocm_snr_flag = true;
+  kv_set(KEY_IOCM_SNR_READY, IOCM_SNR_NOT_READY, 0, 0);
+  // get current dpb source and load corresponding driver
+  run_command("/usr/local/bin/check_2nd_source.sh dpb > /dev/NULL 2>&1");
+  // reload sensor map
+  sensors_reinit();
+}
+
+static bool
+get_iocm_snr_ready_flag() {
+  char value[MAX_VALUE_LEN] = {0};
+
+  if (owning_iocm_snr_flag) {
+    return iocm_snr_ready;
+  } else {
+    if (kv_get(KEY_IOCM_SNR_READY, value, NULL, 0) == 0) {
+      if (strcmp(value, IOCM_SNR_READY) == 0) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+static void
+set_iocm_snr_ready_flag(bool value) {
+  if (owning_iocm_snr_flag) {
+    iocm_snr_ready = value;
+    if (value) {
+      kv_set(KEY_IOCM_SNR_READY, IOCM_SNR_READY, 0, 0);
+    } else {
+      kv_set(KEY_IOCM_SNR_READY, IOCM_SNR_NOT_READY, 0, 0);
+    }
+  }
+}
+
+static void
+do_i2c_isolation(const char *shadow, gpio_value_t value) {
+  if (!owning_iocm_snr_flag) {
+    return;
+  }
+
+  if (gpio_set_init_value_by_shadow(shadow, value) < 0) {
+    syslog(LOG_ERR, "%s() Failed to set GPIO %s to %x\n", __func__, shadow, value);
+  }
+}
+
+static int
+check_e1s_iocm_present(uint8_t sensor_num, uint8_t chassis_type) {
+  uint8_t id = 0;
+
+  // Disable I2C while E1.S/IOCM is missing
+  if (chassis_type == CHASSIS_TYPE5) {
+    id = e1s_sensor_map[sensor_num].id % 2;
+    if (is_e1s_iocm_present(id) == false) {
+      if (id == T5_E1S0_T7_IOC_AVENGER) {
+        do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_LOW);
+      } else if (id == T5_E1S1_T7_IOCM_VOLT) {
+        do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_2_P3V3_PG_R), GPIO_VALUE_LOW);
+      }
+      e1s_removed[id] = true;
+      return ERR_SENSOR_NA;
+    }
+  } else if (chassis_type == CHASSIS_TYPE7) {
+    if ((is_e1s_iocm_present(T5_E1S0_T7_IOC_AVENGER) == false) ||
+        (is_e1s_iocm_present(T5_E1S1_T7_IOCM_VOLT) == false)) {
+      do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_LOW);
+      do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_2_P3V3_PG_R), GPIO_VALUE_LOW);
+      set_iocm_snr_ready_flag(false);
+      iocm_removed = true;
+      return ERR_SENSOR_NA;
+    }
+  }
+
+  return 0;
+}
+
+static bool
+is_e1s_iocm_removed(uint8_t sensor_num, uint8_t chassis_type) {
+  uint8_t id = 0;
+  if (chassis_type == CHASSIS_TYPE5) {
+    id = e1s_sensor_map[sensor_num].id % 2;
+    return e1s_removed[id];
+  } else if (chassis_type == CHASSIS_TYPE7) {
+    return iocm_removed;
+  }
+
+  return false;
+}
+
+static void
+set_e1s_adc_skip_times(uint8_t e1s_id) {
+  int i = 0, start = 0;
+
+  start = (e1s_id == T5_E1S0_T7_IOC_AVENGER) ? 0 : 1;
+  for (i = start; i < ADC128_E1S_PIN_CNT; i+=2) {
+    e1s_adc_skip_times[i] = MAX_E1S_VOL_SNR_SKIP;
+  }
+}
+
+static int
+check_server_dc_power(uint8_t sensor_num, uint8_t chassis_type) {
+  uint8_t status = 0;
+  int i = 0;
+
+  if (pal_get_server_power(FRU_SERVER, &status) < 0) {
+    do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_LOW);
+    do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_2_P3V3_PG_R), GPIO_VALUE_LOW);
+    return ERR_SENSOR_NA;
+  }
+
+  /* Skip isolation actions while:
+   *  1. Not running as sensord 
+   *  2. No power change and hotplug happened
+   */
+  if (!owning_iocm_snr_flag || 
+      (status == pre_status && is_e1s_iocm_removed(sensor_num, chassis_type) == false)) {
+    return (status == SERVER_POWER_ON) ? 0 : ERR_SENSOR_NA;
+  }
+
+  // do i2c isolation by server DC power
+  if (status == SERVER_POWER_ON) {  // E1.S & IOCM are powered on
+    if (is_e1s_iocm_present(T5_E1S0_T7_IOC_AVENGER)) {
+      set_e1s_adc_skip_times(T5_E1S0_T7_IOC_AVENGER);
+      do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_HIGH);
+      e1s_removed[T5_E1S0_T7_IOC_AVENGER] = false;
+      iocm_removed = false;
+    }
+    if (is_e1s_iocm_present(T5_E1S1_T7_IOCM_VOLT)) {
+      set_e1s_adc_skip_times(T5_E1S1_T7_IOCM_VOLT);
+      do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_2_P3V3_PG_R), GPIO_VALUE_HIGH);
+      e1s_removed[T5_E1S1_T7_IOCM_VOLT] = false;
+      iocm_removed = false;
+    }
+    pre_status = status;
+  } else { // E1.S & IOCM are powered off
+    do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_1_P3V3_PG_R), GPIO_VALUE_LOW);
+    do_i2c_isolation(fbgc_get_gpio_name(GPIO_E1S_2_P3V3_PG_R), GPIO_VALUE_LOW);
+    if (chassis_type == CHASSIS_TYPE7) {
+      set_iocm_snr_ready_flag(false);
+    }
+    pre_status = status;
+    return ERR_SENSOR_NA;
+  }
+
+  return 0;
+}
+
+static void
+read_iocm_fru() {
+  char path[MAX_PATH_LEN] = {0};
+
+  if (access(FRU_IOCM_BIN, F_OK) == -1 && access(IOCM_EEPROM_BIND_DIR, F_OK) == 0) {
+    snprintf(path, sizeof(path), EEPROM_PATH, I2C_T5E1S1_T7IOC_BUS, IOCM_FRU_ADDR);
+    if ((pal_copy_eeprom_to_bin(path, FRU_IOCM_BIN)) < 0) {
+      syslog(LOG_WARNING, "%s() Failed to copy %s to %s", __func__, path, FRU_IOCM_BIN);
+    }
+    if (pal_check_fru_is_valid(FRU_IOCM_BIN) < 0) {
+      syslog(LOG_WARNING, "%s() The FRU %s is wrong.", __func__, FRU_IOCM_BIN);
+    }
+  }
+}
+
+static void
+reload_iocm_sensors() {
+  char value[MAX_VALUE_LEN] = {0};
+
+  // clean up
+  iocm_source_info = UNKNOWN_SOURCE;
+  unlink(FRU_IOCM_BIN);
+  kv_del(KEY_IOCM_SOURCE_INFO, 0);
+
+  pal_unbind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_EEPROM_ADDR, IOCM_EEPROM_DRIVER_NAME, IOCM_EEPROM_BIND_DIR);
+  pal_unbind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_TMP75_ADDR, IOCM_TMP75_DRIVER_NAME, IOCM_TMP75_BIND_DIR);
+  pal_unbind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_LTC2990_ADDR, IOCM_LTC2990_DRIVER_NAME, IOCM_LTC2990_BIND_DIR);
+  pal_unbind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_ADS1015_ADDR, IOCM_ADS1015_DRIVER_NAME, IOCM_ADS1015_BIND_DIR);
+
+  pal_bind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_EEPROM_ADDR, IOCM_EEPROM_DRIVER_NAME, IOCM_EEPROM_BIND_DIR);
+  pal_bind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_TMP75_ADDR, IOCM_TMP75_DRIVER_NAME, IOCM_TMP75_BIND_DIR);
+  read_iocm_fru();
+  // check IOCM source
+  run_command("/usr/local/bin/check_2nd_source.sh e1s_iocm > /dev/NULL 2>&1");
+
+  if (kv_get(KEY_IOCM_SOURCE_INFO, value, NULL, 0) == 0) {
+    if (strcmp(value, STR_MAIN_SOURCE) == 0) {
+      pal_bind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_ADS1015_ADDR, IOCM_ADS1015_DRIVER_NAME, IOCM_ADS1015_BIND_DIR);
+    } else if (strcmp(value, STR_SECOND_SOURCE) == 0) {
+      pal_bind_i2c_device(I2C_T5E1S1_T7IOC_BUS, IOCM_LTC2990_ADDR, IOCM_LTC2990_DRIVER_NAME, IOCM_LTC2990_BIND_DIR);
+    }
+  }
+  // reload sensor map
+  sensors_reinit();
+  set_iocm_snr_ready_flag(true);
+}
+
+>>>>>>> facebook/helium
 int
 pal_sensor_read_raw(uint8_t fru, uint8_t sensor_num, void *value) {
   char key[MAX_KEY_LEN] = {0};
@@ -1830,6 +2495,10 @@ pal_sensor_read_raw(uint8_t fru, uint8_t sensor_num, void *value) {
     }
     break;
   case FRU_NIC:
+<<<<<<< HEAD
+=======
+    get_current_source(KEY_DPB_SOURCE_INFO, &dpb_source_info);
+>>>>>>> facebook/helium
     id = nic_sensor_map[sensor_num].id;
     ret = nic_sensor_map[sensor_num].read_sensor(id, (float*) value);
     break;
@@ -1838,13 +2507,44 @@ pal_sensor_read_raw(uint8_t fru, uint8_t sensor_num, void *value) {
       syslog(LOG_WARNING, "%s() Failed to get chassis type\n", __func__);
       return ERR_UNKNOWN_FRU;
     }
+<<<<<<< HEAD
+=======
+    if ((ret = check_e1s_iocm_present(sensor_num, chassis_type)) < 0) {
+      break;
+    }
+    if ((ret = check_server_dc_power(sensor_num, chassis_type)) < 0) {
+      break;
+    }
+    get_current_source(KEY_DPB_SOURCE_INFO, &dpb_source_info);
+>>>>>>> facebook/helium
     if (chassis_type == CHASSIS_TYPE5) {
       id = e1s_sensor_map[sensor_num].id;
       ret = e1s_sensor_map[sensor_num].read_sensor(id, (float*) value);
       break;
     } else if (chassis_type == CHASSIS_TYPE7) {
+<<<<<<< HEAD
       id = iocm_sensor_map[sensor_num].id;
       ret = iocm_sensor_map[sensor_num].read_sensor(id, (float*) value);
+=======
+      if (get_iocm_snr_ready_flag() == false) {
+        if (owning_iocm_snr_flag) {
+          reload_iocm_sensors();
+        } else {
+          ret = ERR_SENSOR_NA;
+          break;
+        }
+      }
+      get_current_source(KEY_IOCM_SOURCE_INFO, &iocm_source_info);
+      id = iocm_sensor_map[sensor_num].id;
+      ret = iocm_sensor_map[sensor_num].read_sensor(id, (float*) value);
+      if (ret == ERR_FAILURE) { // hotswap happened during sensor monitor interval, reinit IOCM sensors
+        if (max_iocm_reinit_times-- > 0) {
+          set_iocm_snr_ready_flag(false);
+        }
+      } else if (ret == 0) {
+        max_iocm_reinit_times = MAX_RETRY;
+      }
+>>>>>>> facebook/helium
       break;
     } else {
       syslog(LOG_WARNING, "%s() Unknow chassis type %u\n", __func__, chassis_type);
@@ -1935,6 +2635,10 @@ pal_get_sensor_name(uint8_t fru, uint8_t sensor_num, char *name) {
 int
 pal_get_sensor_threshold(uint8_t fru, uint8_t sensor_num, uint8_t thresh, void *value) {
   float *val = (float*) value;
+<<<<<<< HEAD
+=======
+  bool *exp_thresh_init = NULL;
+>>>>>>> facebook/helium
   uint8_t chassis_type = 0;
   PAL_SENSOR_MAP * sensor_map = NULL;
 
@@ -1943,9 +2647,17 @@ pal_get_sensor_threshold(uint8_t fru, uint8_t sensor_num, uint8_t thresh, void *
     sensor_map = uic_sensor_map;
     break;
   case FRU_DPB:
+<<<<<<< HEAD
     sensor_map = dpb_sensor_map;
     break;
   case FRU_SCC:
+=======
+    exp_thresh_init = &dpb_thresh_init;
+    sensor_map = dpb_sensor_map;
+    break;
+  case FRU_SCC:
+    exp_thresh_init = &scc_thresh_init;
+>>>>>>> facebook/helium
     sensor_map = scc_sensor_map;
     break;
   case FRU_NIC:
@@ -1970,6 +2682,19 @@ pal_get_sensor_threshold(uint8_t fru, uint8_t sensor_num, uint8_t thresh, void *
     return ERR_UNKNOWN_FRU;
   }
 
+<<<<<<< HEAD
+=======
+  if ((fru == FRU_DPB) || (fru == FRU_SCC)) {
+    // sensord don't need to get threshold of SCC_IOC_TEMP from file.
+    if ((owning_iocm_snr_flag == false) && (*exp_thresh_init == false)) {
+      if (exp_get_sensor_thresh_from_file(fru) < 0) {
+        syslog(LOG_WARNING, "%s:fail to get sensor threshold of FRU:%d, use initial sensors' threshold\n", __func__, fru);
+      }
+      *exp_thresh_init = true;
+    }
+  }
+
+>>>>>>> facebook/helium
   switch(thresh) {
   case UCR_THRESH:
     *val = sensor_map[sensor_num].snr_thresh.ucr_thresh;

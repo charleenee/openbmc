@@ -35,7 +35,11 @@ import plat_dump
 PERSISTENT_STORE_HEADROOM = 1024 * 100
 DUMP_DIR = "/tmp/obmc-dump-%d" % (int(time.time()))
 
+<<<<<<< HEAD
 DUMP_PATHS = ["/var/log", "/tmp/cache_store", "/mnt/data/kv_store"]
+=======
+DUMP_PATHS = ["/var/log", "/tmp/cache_store", "/mnt/data/kv_store", "/tmp/rest.log"]
+>>>>>>> facebook/helium
 DUMP_COMMANDS = [
     [["log-util", "all", "--print"], "sel-log"],
     [["fw-util", "all", "--version"], "fw-ver"],

@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Description: 
                     type: string
                   version: 
@@ -27,6 +28,17 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  version: 
+                    type: string
+                  Description: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

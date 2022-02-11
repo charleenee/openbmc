@@ -27,6 +27,7 @@ from utils.test_utils import qemu_check
 @unittest.skipIf(qemu_check(), "test env is QEMU, skipped")
 class FansTest(CommonFanUtilBasedFansTest, unittest.TestCase):
     def setUp(self):
+<<<<<<< HEAD
         Logger.start(name=self._testMethodName)
         self.fans = [0, 1, 2, 3, 4, 5, 6, 7]
         self.pwms = {0: [0, 1], 1: [2, 3], 2: [4, 5], 3: [6, 7]}
@@ -40,6 +41,23 @@ class FansTest(CommonFanUtilBasedFansTest, unittest.TestCase):
             "Fan 6": 6,
             "Fan 7": 7,
         }
+=======
+        from pal import pal_get_tach_cnt, pal_get_pwm_cnt
+
+        Logger.start(name=self._testMethodName)
+
+        tach_cnt = pal_get_tach_cnt()
+        pwm_cnt = pal_get_pwm_cnt()
+        is_dual_fan = (tach_cnt // pwm_cnt) == 2
+
+        self.fans = list(range(tach_cnt))
+        self.names = {"Fan {}".format(fan): fan for fan in range(tach_cnt)}
+        if is_dual_fan:
+            self.pwms = {0: [0, 1], 1: [2, 3], 2: [4, 5], 3: [6, 7]}
+        else:
+            self.pwms = {0: [0], 1: [1], 2: [2], 3: [3]}
+
+>>>>>>> facebook/helium
         self.kill_fan_ctrl_cmd = ["/usr/bin/sv stop fscd"]
         self.start_fan_ctrl_cmd = ["/usr/bin/sv start fscd"]
 

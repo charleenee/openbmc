@@ -159,6 +159,7 @@ ubifs_format() {
     fi
 }
 
+<<<<<<< HEAD
 ubifs_resize() {
     ubi_dev="$1"
     vol_id="$2"
@@ -219,6 +220,8 @@ ubifs_resize() {
     return 1
 }
 
+=======
+>>>>>>> facebook/helium
 ubifs_mount() {
     ubi_vol="$1"
     mnt_point="$2"
@@ -295,10 +298,13 @@ do_mount_ubifs() {
             exit 1
         fi
     fi
+<<<<<<< HEAD
 
     if ! ubifs_resize "$ubi_dev" "0" "$mnt_point"; then
         exit 1
     fi
+=======
+>>>>>>> facebook/helium
 }
 
 jffs2_format() {

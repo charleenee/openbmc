@@ -20,6 +20,10 @@ DEPENDS += " \
     libobmc-i2c \
     libobmc-sensors \
     libsensor-correction \
+<<<<<<< HEAD
+=======
+    libmisc-utils \
+>>>>>>> facebook/helium
     "
 
 # These shouldn't be needed but are because we aren't properly versioning the
@@ -34,6 +38,10 @@ RDEPENDS:${PN} += " \
     libobmc-i2c \
     libobmc-sensors \
     libsensor-correction \
+<<<<<<< HEAD
+=======
+    libmisc-utils \
+>>>>>>> facebook/helium
     "
 
 CFLAGS += " -Wall -Werror "

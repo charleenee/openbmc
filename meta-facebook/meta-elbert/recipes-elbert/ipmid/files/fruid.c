@@ -119,7 +119,12 @@ static void populate_fruid(
   g_fruid[i++] = LANG_CODE_ENGLISH;
   _APPEND_STR_VALUE(eeprom.fbw_system_manufacturer);
   _APPEND_STR_VALUE(eeprom.fbw_product_name);
+<<<<<<< HEAD
   _APPEND_STR_VALUE(eeprom.fbw_product_number);
+=======
+  // Elbert uses product_asset instead of product_number for FRU
+  _APPEND_STR_VALUE(eeprom.fbw_product_asset);
+>>>>>>> facebook/helium
   char vbuf[8] = {0};
   snprintf(
       vbuf,

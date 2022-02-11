@@ -20,6 +20,11 @@ paths:
                 properties: 
                   Error Counter: 
                     type: string
+<<<<<<< HEAD
+=======
+                  Error Code 0xF7: 
+                    type: string
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

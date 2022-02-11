@@ -33,7 +33,11 @@ echo "Setup sensor monitoring for FBGC... "
 
 # Store vr information before sensor monitoring 
 if [ "$(is_sb_bic_ready 1)" -eq "1" ]; then
+<<<<<<< HEAD
     /usr/bin/fw-util server --version > /dev/null
+=======
+    /usr/bin/fw-util server --version vr > /dev/null
+>>>>>>> facebook/helium
 fi
 
 runsv /etc/sv/sensord > /dev/null 2>&1 &

@@ -18,6 +18,7 @@ paths:
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Error Code f7: 
                     type: string
                   Error Counter: 
@@ -29,6 +30,15 @@ paths:
                 items: 
                   type: string
               Actions: 
+=======
+                  Error Counter: 
+                    type: string
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

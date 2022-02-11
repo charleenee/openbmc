@@ -39,3 +39,9 @@ string encodeBase64(std::vector<uint8_t>& bytes);
 
 /** Prints an array of bytes as 2-character hex values. */
 void printHexValues(uint8_t *values, int size);
+<<<<<<< HEAD
+=======
+
+
+vector<string> splitMessage(string message, string delimiter);
+>>>>>>> facebook/helium

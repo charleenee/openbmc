@@ -47,7 +47,11 @@ SRC_URI += "\
         file://bic_m2_dev.h \
         "
 
+<<<<<<< HEAD
 CXXFLAGS += " -DBIC_SUPPORT -DCONFIG_FBY3_CWC "
+=======
+CXXFLAGS += " -DBIC_SUPPORT "
+>>>>>>> facebook/helium
 DEPENDS += " libbic libfpga libfby3-common libncsi libnl-wrapper libkv libobmc-i2c libmcu"
 RDEPENDS:${PN} += " libbic libfpga libfby3-common libncsi libnl-wrapper libkv libobmc-i2c libmcu"
 LDFLAGS += " -lbic -lfpga -lfby3_common -lnl-wrapper -lkv -lobmc-i2c -lmcu"

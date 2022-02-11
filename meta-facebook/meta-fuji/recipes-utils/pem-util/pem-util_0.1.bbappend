@@ -15,5 +15,9 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 
+<<<<<<< HEAD
 CFLAGS_prepend = "-DPEM_NUM=4"
+=======
+CFLAGS:prepend = "-DPEM_NUM=4"
+>>>>>>> facebook/helium
 

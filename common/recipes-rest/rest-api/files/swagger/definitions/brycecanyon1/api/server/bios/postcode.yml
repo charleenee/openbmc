@@ -20,11 +20,19 @@ paths:
                 properties: 
                   POST Code: 
                     type: string
+<<<<<<< HEAD
               Resources: 
                 type: array
                 items: 
                   type: string
               Actions: 
+=======
+              Actions: 
+                type: array
+                items: 
+                  type: string
+              Resources: 
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string

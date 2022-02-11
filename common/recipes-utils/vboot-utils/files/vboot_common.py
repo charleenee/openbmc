@@ -34,6 +34,7 @@ EC_SPLROM_BAD = 1
 EC_UBOOT_BAD = 2
 EC_KERNEL_BAD = 3
 EC_ROOTFS_BAD = 4
+<<<<<<< HEAD
 EC_EXCEPTION = 255
 
 VBS_LOCATION = {
@@ -42,6 +43,21 @@ VBS_LOCATION = {
     "SOC_MODEL_ASPEED_G6": (0x10015000, 4 * 1024, 0x800, 56),
 }
 
+=======
+EC_MEASURE_FAIL_BASE = 10
+EC_EXCEPTION = 255
+
+VBS_SIZE = 56
+VBS_LOCATION = {
+    # VBS SRAM mapping: (addr , size, vbs_offset, vbs_size)
+    "SOC_MODEL_ASPEED_G5": (0x1E720000, 4 * 1024, 0x200, VBS_SIZE),
+    "SOC_MODEL_ASPEED_G6": (0x10015000, 4 * 1024, 0x800, VBS_SIZE),
+}
+
+VBS_ERROR_TYPE_OFFSET = 0x19
+VBS_ERROR_CODE_OFFSET = 0x1A
+
+>>>>>>> facebook/helium
 
 def get_fdt(content):
     # Represent the FIT as an IO resource.
@@ -71,7 +87,12 @@ def get_soc_model():
 def read_vbs() -> bytearray:
     memfn = None
     try:
+<<<<<<< HEAD
         SRAM_OFFSET, SRAM_SIZE, VBS_OFFSET, VBS_SIZE = VBS_LOCATION[get_soc_model()]
+=======
+        SRAM_OFFSET, SRAM_SIZE, VBS_OFFSET, vbs_data_size = VBS_LOCATION[
+            get_soc_model()
+        ]
         memfn = os.open("/dev/mem", os.O_RDWR | os.O_SYNC)
         with mmap.mmap(
             memfn,
@@ -81,7 +102,34 @@ def read_vbs() -> bytearray:
             offset=SRAM_OFFSET,
         ) as sram:
             sram.seek(VBS_OFFSET)
+            return sram.read(vbs_data_size)
+    finally:
+        if memfn is not None:
+            os.close(memfn)
+
+
+def write_vbs(vbs_data: bytearray):
+    memfn = None
+    SRAM_OFFSET, SRAM_SIZE, VBS_OFFSET, vbs_data_size = VBS_LOCATION[get_soc_model()]
+    assert (
+        len(vbs_data) == vbs_data_size
+    ), f"vbs_data length {len(vbs_data)} is not {vbs_data_size}"
+    try:
+>>>>>>> facebook/helium
+        memfn = os.open("/dev/mem", os.O_RDWR | os.O_SYNC)
+        with mmap.mmap(
+            memfn,
+            SRAM_SIZE,
+            mmap.MAP_SHARED,
+            mmap.PROT_READ | mmap.PROT_WRITE,
+            offset=SRAM_OFFSET,
+        ) as sram:
+            sram.seek(VBS_OFFSET)
+<<<<<<< HEAD
             return sram.read(VBS_SIZE)
+=======
+            sram.write(vbs_data)
+>>>>>>> facebook/helium
     finally:
         if memfn is not None:
             os.close(memfn)

@@ -1,11 +1,21 @@
+<<<<<<< HEAD
 import redfish_sensors
 import rest_pal_legacy
+=======
+import redfish_chassis
+import redfish_sensors
+>>>>>>> facebook/helium
 from aiohttp import web
 from aiohttp.web import Application
 from redfish_account_service import get_account_service, get_accounts, get_roles
 from redfish_bios_firmware_dumps import RedfishBIOSFirmwareDumps
+<<<<<<< HEAD
 from redfish_chassis import RedfishChassis
 from redfish_computer_system import RedfishComputerSystems
+=======
+from redfish_computer_system import RedfishComputerSystems
+from redfish_log_service import RedfishLogService
+>>>>>>> facebook/helium
 from redfish_managers import (
     get_managers,
     get_managers_members,
@@ -23,12 +33,21 @@ class Redfish:
     def __init__(self):
         self.computer_systems = RedfishComputerSystems()
         self.bios_firmware_dumps = RedfishBIOSFirmwareDumps()
+<<<<<<< HEAD
+=======
+        self.log_service = RedfishLogService()
+>>>>>>> facebook/helium
 
     async def controller(self, request):
         return web.json_response()
 
     def setup_redfish_common_routes(self, app: Application):
+<<<<<<< HEAD
         redfish_chassis = RedfishChassis()
+=======
+        redfish_log_service = self.log_service.get_log_service_controller()
+
+>>>>>>> facebook/helium
         app.router.add_get("/redfish", get_redfish)
         app.router.add_get("/redfish/v1", get_service_root)
         app.router.add_get("/redfish/v1/", get_service_root)
@@ -40,6 +59,7 @@ class Redfish:
         app.router.add_get("/redfish/v1/SessionService", get_session_service)
         app.router.add_get("/redfish/v1/SessionService/Sessions", get_session)
         app.router.add_get("/redfish/v1/Chassis", redfish_chassis.get_chassis)
+<<<<<<< HEAD
         app.router.add_get("/redfish/v1/Chassis/1", redfish_chassis.get_chassis_members)
         app.router.add_get(
             "/redfish/v1/Chassis/1/Thermal",
@@ -47,6 +67,10 @@ class Redfish:
         )
         app.router.add_get(
             "/redfish/v1/Chassis/1/Power", redfish_chassis.get_chassis_power
+=======
+        app.router.add_get(
+            "/redfish/v1/Chassis/{fru_name}", redfish_chassis.get_chassis_member
+>>>>>>> facebook/helium
         )
 
         app.router.add_get(
@@ -66,6 +90,13 @@ class Redfish:
         app.router.add_get(
             "/redfish/v1/Managers/1/EthernetInterfaces/1", get_ethernet_members
         )
+<<<<<<< HEAD
+=======
+        app.router.add_post(
+            "/redfish/v1/Managers/1/Actions/Manager.Reset",
+            oobcycle_post_handler,
+        )
+>>>>>>> facebook/helium
         app.router.add_get(
             "/redfish/v1/Chassis/{fru_name}/Sensors",
             redfish_sensors.get_redfish_sensors_handler,
@@ -78,6 +109,7 @@ class Redfish:
             "/redfish/v1/Systems/{fru_name}/Actions/ComputerSystem.Reset",
             powercycle_post_handler,
         )
+<<<<<<< HEAD
         app.router.add_post(
             "/redfish/v1/Managers/1/Actions/Manager.Reset",
             oobcycle_post_handler,
@@ -141,3 +173,57 @@ class Redfish:
                 + "/Bios/FirmwareDumps/{DumpID}",
                 bios_firmware_dumps.delete_dump,
             )
+=======
+        app.router.add_get(
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}",
+            redfish_log_service.get_log_service,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}/Entries",
+            redfish_log_service.get_log_service_entries,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{fru_name}/LogServices/{LogServiceID}"
+            + "/Entries/{EntryID}",
+            redfish_log_service.get_log_service_entry,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{server_name}",
+            self.computer_systems.get_system_descriptor,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{server_name}/Bios",
+            self.computer_systems.get_bios_descriptor,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareInventory",
+            self.computer_systems.get_bios_firmware_inventory,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps",
+            self.bios_firmware_dumps.get_collection_descriptor,
+        )
+        app.router.add_post(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/",
+            self.bios_firmware_dumps.create_dump,
+        )
+        app.router.add_post(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}",
+            self.bios_firmware_dumps.create_dump,
+        )
+        app.router.add_get(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}",
+            self.bios_firmware_dumps.get_dump_descriptor,
+        )
+        app.router.add_get(
+            (
+                "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}/"
+                "Actions/BIOSFirmwareDump.ReadContent"
+            ),
+            self.bios_firmware_dumps.read_dump_content,
+        )
+        app.router.add_delete(
+            "/redfish/v1/Systems/{server_name}/Bios/FirmwareDumps/{DumpID}",
+            self.bios_firmware_dumps.delete_dump,
+        )
+>>>>>>> facebook/helium

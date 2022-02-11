@@ -438,6 +438,26 @@ program_done(uint8_t slot_id, uint8_t intf, uint8_t addr) {
   return ret;
 }
 
+<<<<<<< HEAD
+=======
+static int
+isc_disable(uint8_t slot_id, uint8_t intf, uint8_t addr) {
+  int ret;
+  uint8_t data[3]= {0x26, 0x0, 0x0};
+  uint8_t data_len = sizeof(data);
+  uint8_t rsp[16] = {0};
+  uint8_t read_cnt = 0;
+
+  ret = send_cpld_data(slot_id, intf, addr, data, data_len, rsp, read_cnt);
+  if ( ret < 0 ) {
+    printf("Couldn't send isc_disable cmd\n");
+    return ret;
+  }
+
+  return ret;
+}
+
+>>>>>>> facebook/helium
 #if 0
 static uint8_t
 read_cpld_user_code(uint8_t slot_id, uint8_t intf, uint8_t addr) {
@@ -1008,6 +1028,15 @@ int update_bic_cpld_lattice(uint8_t slot_id, char *image, uint8_t intf, uint8_t 
     goto error_exit;
   }
 
+<<<<<<< HEAD
+=======
+  //step 9 - Disable configuration interface
+  ret = isc_disable(slot_id, intf, addr);
+  if ( ret < 0 ) {
+    printf("Couldn't disable the configuration interface!\n");
+  }
+
+>>>>>>> facebook/helium
 error_exit:
 
   if ( fp != NULL ) fclose(fp);

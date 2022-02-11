@@ -16,7 +16,11 @@ RDEPENDS:${PN} += " \
 
 def openbmc_net_dhcpclient(d):
     distro = d.getVar('DISTRO_CODENAME', True)
+<<<<<<< HEAD
     if distro in [ 'rocko', 'zeus', 'dunfell' ]:
+=======
+    if distro in [ 'rocko', 'dunfell' ]:
+>>>>>>> facebook/helium
         return "dhcp-client"
     return "dhcpcd"
 

@@ -17,11 +17,23 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
 from common.base_power_util_test import BasePowerUtilTest
+=======
+import unittest
+
+from common.base_power_util_test import BasePowerUtilTest
+from utils.test_utils import qemu_check
+
+>>>>>>> facebook/helium
 
 slots = ["server"]
 
 
+<<<<<<< HEAD
+=======
+@unittest.skipIf(qemu_check(), "test env is QEMU, skipped")
+>>>>>>> facebook/helium
 class PowerUtilTest(BasePowerUtilTest):
     def set_slots(self):
         self.slots = slots

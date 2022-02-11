@@ -161,7 +161,11 @@ do_install_board() {
 }
 
 
+<<<<<<< HEAD
 do_install_append() {
+=======
+do_install:append() {
+>>>>>>> facebook/helium
   do_install_board
 }
 

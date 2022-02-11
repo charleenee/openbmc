@@ -19,6 +19,7 @@ paths:
                 additionalProperties: false
                 properties: 
                   stratum: 
+<<<<<<< HEAD
                     type: integer
                     format: int32
                   when: 
@@ -29,6 +30,18 @@ paths:
                     format: int32
                   reach: 
                     type: integer
+=======
+                    type: number
+                    format: int32
+                  when: 
+                    type: number
+                    format: int32
+                  poll: 
+                    type: number
+                    format: int32
+                  reach: 
+                    type: number
+>>>>>>> facebook/helium
                     format: int32
                   delay: 
                     type: number

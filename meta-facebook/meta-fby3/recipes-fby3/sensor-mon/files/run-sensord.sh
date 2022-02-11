@@ -52,6 +52,11 @@ read_system_conf() {
       else
         system_type=${system_type}DP
       fi
+<<<<<<< HEAD
+=======
+    elif [ "$type_2ou" == "0x03" ] ; then # Config D GPv3
+        system_type=${system_type}15
+>>>>>>> facebook/helium
     else
       system_type=${system_type}1
     fi

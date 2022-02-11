@@ -28,6 +28,13 @@ paths:
                     type: string
                   slot1_cpu_ppin: 
                     type: string
+<<<<<<< HEAD
+=======
+                  slot1_sensor_health: 
+                    type: string
+                  slot1_sel_error: 
+                    type: string
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 

@@ -84,6 +84,17 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_th3[] = {
     0x0, 4, 2,
   },
   {
+<<<<<<< HEAD
+=======
+    "board_respin",
+    "0: Not respin\n"
+    "1: Respin",
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    NULL,
+    0x0, 6, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "cpld_ver",
     NULL,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -831,6 +842,16 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_th3[] = {
     0x40, 1, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "oob_6321_eeprom_wp_n",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x40, 1, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "scm_spi_wp_n",
     enable_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -908,6 +929,30 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_th3[] = {
     0x41, 4, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "cpld_usb_mux2_sel",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 5, 1,
+  },
+  {
+    "cpld_oob_eeprom_sel1",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 6, 1,
+  },
+  {
+    "cpld_oob_eeprom_sel0",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 7, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "th3_turn_on",
     enable_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -936,6 +981,23 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_th3[] = {
     0x42, 3, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "xp1r5v_oob_6321_en",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x42, 4, 1,
+  },
+  {
+    "xp1r1v_oob_6321_en",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x42, 5, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "xp3r3v_1220_power_good",
     fail_normal_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -1505,6 +1567,17 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_gb[] = {
     0x0, 4, 2,
   },
   {
+<<<<<<< HEAD
+=======
+    "board_respin",
+    "0: Not respin\n"
+    "1: Respin",
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    NULL,
+    0x0, 6, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "cpld_ver",
     NULL,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -2252,6 +2325,16 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_gb[] = {
     0x40, 1, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "oob_6321_eeprom_wp_n",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x40, 1, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "scm_spi_wp_n",
     enable_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -2329,6 +2412,30 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_gb[] = {
     0x41, 4, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "cpld_usb_mux2_sel",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 5, 1,
+  },
+  {
+    "cpld_oob_eeprom_sel1",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 6, 1,
+  },
+  {
+    "cpld_oob_eeprom_sel0",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x41, 7, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "gb_turn_on",
     enable_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,
@@ -2357,6 +2464,23 @@ static const i2c_dev_attr_st smb_syscpld_attr_table_gb[] = {
     0x42, 3, 1,
   },
   {
+<<<<<<< HEAD
+=======
+    "xp1r5v_oob_6321_en",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x42, 4, 1,
+  },
+  {
+    "xp1r1v_oob_6321_en",
+    enable_help_str,
+    I2C_DEV_ATTR_SHOW_DEFAULT,
+    I2C_DEV_ATTR_STORE_DEFAULT,
+    0x42, 5, 1,
+  },
+  {
+>>>>>>> facebook/helium
     "xp3r3v_1220_power_good",
     fail_normal_help_str,
     I2C_DEV_ATTR_SHOW_DEFAULT,

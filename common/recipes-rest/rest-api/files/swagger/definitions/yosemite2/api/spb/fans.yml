@@ -15,6 +15,7 @@ paths:
             additionalProperties: false
             properties: 
               Information: 
+<<<<<<< HEAD
                 type: object
                 additionalProperties: false
                 properties: 
@@ -23,6 +24,8 @@ paths:
                   Fan 0 Speed: 
                     type: string
               Actions: 
+=======
+>>>>>>> facebook/helium
                 type: array
                 items: 
                   type: string
@@ -30,4 +33,11 @@ paths:
                 type: array
                 items: 
                   type: string
+<<<<<<< HEAD
+=======
+              Actions: 
+                type: array
+                items: 
+                  type: string
+>>>>>>> facebook/helium
             

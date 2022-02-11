@@ -1,2 +1,6 @@
 Common targets are:
     elbert-image
+<<<<<<< HEAD
+=======
+    elbertvboot-image # NOTE: Uncomment 'MACHINE ??= "elbervboot"' in local.conf
+>>>>>>> facebook/helium

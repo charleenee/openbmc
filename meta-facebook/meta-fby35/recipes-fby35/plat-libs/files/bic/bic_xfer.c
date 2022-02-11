@@ -95,8 +95,22 @@ int i2c_io(int fd, uint8_t *tbuf, uint8_t tcount, uint8_t *rbuf, uint8_t rcount)
 }
 
 int is_bic_ready(uint8_t slot_id, uint8_t intf) {
+<<<<<<< HEAD
   //TODO: 1. check the ready pin of server bic by reading GPIO
   //send a command to BIC2 to see if it can be reached
+=======
+  int ret;
+  uint8_t bic_ready = 0;
+
+  // check the ready pin of server bic by reading GPIO
+  // TODO: check expansion BIC status
+  ret = fby35_common_is_bic_ready(slot_id, &bic_ready);
+  if (!ret && bic_ready != 1) {
+    // still treat BIC is ready when failing to access CPLD
+    return BIC_STATUS_FAILURE;
+  }
+
+>>>>>>> facebook/helium
   return BIC_STATUS_SUCCESS;
 }
 
@@ -202,8 +216,12 @@ int bic_ipmb_wrapper(uint8_t slot_id, uint8_t netfn, uint8_t cmd,
 
   tlen = IPMB_HDR_SIZE + IPMI_REQ_HDR_SIZE + txlen;
 
+<<<<<<< HEAD
   while(retry < RETRY_TIME) {
 
+=======
+  while (retry < IPMB_RETRY_TIME) {
+>>>>>>> facebook/helium
     // avoid meaningless retry
     ret = fby35_common_server_stby_pwr_sts(slot_id, &status_12v);
     if ( ret < 0 || status_12v == 0) {
@@ -214,6 +232,7 @@ int bic_ipmb_wrapper(uint8_t slot_id, uint8_t netfn, uint8_t cmd,
     lib_ipmb_handle(bus_id, tbuf, tlen, rbuf, &rlen);
 
     if (rlen == 0) {
+<<<<<<< HEAD
 #if 0
       //TODO: implement the is_bic_ready funcitons
       if (!is_bic_ready(slot_id)) {
@@ -228,17 +247,43 @@ int bic_ipmb_wrapper(uint8_t slot_id, uint8_t netfn, uint8_t cmd,
         retry++;
         msleep(IPMB_RETRY_DELAY_TIME);
       } else break;
+=======
+      if (is_bic_ready(slot_id, NONE_INTF) != BIC_STATUS_SUCCESS) {
+        break;
+      }
+
+      if (++retry < IPMB_RETRY_TIME) {
+        msleep(IPMB_RETRY_DELAY);
+      }
+    } else {
+      res = (ipmb_res_t*) rbuf;
+      if ((res->cc == CC_NODE_BUSY) && (++retry < IPMB_RETRY_TIME)) {
+        msleep(IPMB_RETRY_DELAY);
+        continue;
+      }
+      break;
+>>>>>>> facebook/helium
     }
   }
 
   if (rlen == 0) {
+<<<<<<< HEAD
     syslog(LOG_ERR, "bic_ipmb_wrapper: slot%d netfn: 0x%02X cmd: 0x%02X, Zero bytes received, retry:%d ", slot_id, netfn, cmd, retry );
+=======
+    syslog(LOG_ERR, "bic_ipmb_wrapper: slot%d netfn: 0x%02X cmd: 0x%02X, Zero bytes received, retry:%d ", slot_id, netfn, cmd, retry);
+>>>>>>> facebook/helium
     return BIC_STATUS_FAILURE;
   }
 
   // Handle IPMB response
   if (res->cc) {
     syslog(LOG_ERR, "bic_ipmb_wrapper: slot%d netfn: 0x%02X cmd: 0x%02X, Completion Code: 0x%02X ", slot_id, netfn, cmd, res->cc);
+<<<<<<< HEAD
+=======
+    if (res->cc == CC_INVALID_CMD) {
+      return BIC_STATUS_NOT_SUPP_IN_CURR_STATE;
+    }
+>>>>>>> facebook/helium
     return BIC_STATUS_FAILURE;
   }
 

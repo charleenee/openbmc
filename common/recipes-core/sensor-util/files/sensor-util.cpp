@@ -62,6 +62,7 @@ static pthread_mutex_t timer = PTHREAD_MUTEX_INITIALIZER;
 static pthread_cond_t done = PTHREAD_COND_INITIALIZER;
 static pthread_condattr_t done_attr;
 static bool done_flag = false;
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 #define FRU_CWC 31
 #define FRU_2U_TOP 32
@@ -69,6 +70,8 @@ static bool done_flag = false;
 static uint8_t expFru = 0;
 static uint8_t cwcPlat = 0;
 #endif
+=======
+>>>>>>> facebook/helium
 
 // This is for get_sensor_reading
 typedef struct {
@@ -115,6 +118,7 @@ const char *sensor_status[] = {
 
 static void
 print_usage() {
+<<<<<<< HEAD
   printf("Usage: sensor-util [fru] <sensor num> <option> ..\n");
   printf("       sensor-util [fru] <option> ..\n\n");
 #ifdef CONFIG_FBY3_CWC
@@ -129,6 +133,15 @@ print_usage() {
     printf("       [fru2]          : %s\n", pal_fru_exp_list);
   }
 #endif
+=======
+  const char *fru_list = pal_fru_list;
+  if (pal_get_print_sensor_name(&fru_list) != PAL_EOK) {
+    fru_list = pal_fru_list;
+  }
+  printf("Usage: sensor-util [fru] <sensor num> <option> ..\n");
+  printf("       sensor-util [fru] <option> ..\n\n");
+  printf("       [fru]           : %s\n", fru_list);
+>>>>>>> facebook/helium
   printf("       [historical fru]: %s\n", pal_fru_list_sensor_history_t);
   printf("       Use \"aggregate\" as the [fru] to print just aggregated sensors defined for this platform\n");
   printf("       <sensor num>: 0xXX (Omit [sensor num] means all sensors.)\n");
@@ -706,6 +719,11 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
   struct timespec timeout;
   get_sensor_reading_struct data;
   char fru_list[256] = {0};
+<<<<<<< HEAD
+=======
+  uint8_t expList[MAX_NUM_FRUS] = {0}, len = 0, i = 0, root = 0;
+  unsigned int caps = 0;
+>>>>>>> facebook/helium
 
   //Setup timeout for each fru get_sensor_reading
   memset(&timeout, 0, sizeof(timeout));
@@ -736,6 +754,7 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
     // Check if platform supports the FRU
     if (pal_get_fru_list(fru_list) == 0) {
       if ( strstr(fru_list, fruname) == NULL ) {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
         if (pal_is_cwc() == PAL_EOK) {
           uint8_t cwc_fru = 0;
@@ -748,6 +767,15 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
 #ifdef CONFIG_FBY3_CWC
         }
 #endif
+=======
+        if (pal_is_exp() == PAL_EOK) {
+          if (pal_get_exp_arg_name(fru, fruname) != PAL_EOK) {
+            return 0;
+          }
+        } else {
+          return 0;
+        }
+>>>>>>> facebook/helium
       }
     }
 
@@ -787,6 +815,7 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
     return 0;
   }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (fru == FRU_CWC) {
     fru = FRU_SLOT1;
@@ -799,6 +828,32 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
     get_sensor_history(fru, sensor_list, sensor_cnt, sensor_num, period);
   } else {
     data.fru = fru;
+=======
+  if (pal_get_fru_capability(fru, &caps) == PAL_EOK) {
+    if (caps & FRU_CAPABILITY_SENSOR_SLAVE) {
+      pal_get_root_fru(fru, &root);
+    }
+  }
+
+  if (history_clear) {
+    if ((caps & FRU_CAPABILITY_SENSOR_SLAVE) && root > 0) {
+      clear_sensor_history(root, sensor_list, sensor_cnt, sensor_num);
+    } else {
+      clear_sensor_history(fru, sensor_list, sensor_cnt, sensor_num);
+    }
+  } else if (history) {
+    if ((caps & FRU_CAPABILITY_SENSOR_SLAVE) && root > 0) {
+      get_sensor_history(root, sensor_list, sensor_cnt, sensor_num, period);
+    } else {
+      get_sensor_history(fru, sensor_list, sensor_cnt, sensor_num, period);
+    }
+  } else {
+    if ((caps & FRU_CAPABILITY_SENSOR_SLAVE) && root > 0) {
+      data.fru = root;
+    } else {
+      data.fru = fru;
+    }
+>>>>>>> facebook/helium
     data.sensor_cnt = sensor_cnt;
     data.sensor_num = sensor_num;
     data.threshold = threshold;
@@ -820,7 +875,28 @@ print_sensor(uint8_t fru, int sensor_num, bool allow_absent, bool history, bool 
       printf("\n");
   }
 
+<<<<<<< HEAD
   return 0;
+=======
+  ret = 0;
+  if (pal_is_exp() == PAL_EOK && pal_get_exp_fru_list(expList, &len) == PAL_EOK) {
+    for (i = 0; i < len; ++i) {
+      char name[16] = {0};
+      if (pal_get_fru_capability(expList[i], &caps) == PAL_EOK &&
+          (caps & FRU_CAPABILITY_SENSOR_SLAVE)) {
+        continue;
+      }
+      if (pal_get_root_fru(expList[i], &root) == PAL_EOK && root == fru) {
+        if (pal_get_exp_arg_name(expList[i], name) == PAL_EOK) {
+          printf("%s:\n", name);
+        }
+        ret |= print_sensor(expList[i], sensor_num, allow_absent, history, threshold, force, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
+      }
+    }
+  }
+
+  return ret;
+>>>>>>> facebook/helium
 }
 
 int parse_args(int argc, char *argv[], char *fruname,
@@ -896,6 +972,7 @@ int parse_args(int argc, char *argv[], char *fruname,
   }
   strcpy(fruname, argv[optind]);
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (cwcPlat > 0 && strcmp(fruname, "slot1") == 0) {
     if (argc >= 3 && optind < argc-1) {
@@ -910,6 +987,8 @@ int parse_args(int argc, char *argv[], char *fruname,
   }
 #endif
 
+=======
+>>>>>>> facebook/helium
   if (*filter) {
     if (argc <= optind + 1) {
       printf("No sensor name\n");
@@ -951,12 +1030,15 @@ main(int argc, char **argv) {
   char ** filter_list = argv + 3;
   json_t *fru_sensor_obj = json_object();
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (pal_is_cwc() == PAL_EOK) {
     cwcPlat = 1;
   }
 #endif
 
+=======
+>>>>>>> facebook/helium
   if (parse_args(argc, argv, fruname,
         &history_clear, &history,
         &threshold, &force, &json, &filter, &period, &num)) {
@@ -967,6 +1049,7 @@ main(int argc, char **argv) {
   if (!strcmp(fruname, AGGREGATE_SENSOR_FRU_NAME)) {
     fru = AGGREGATE_SENSOR_FRU_ID;
   } else {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
     if (cwcPlat > 0 && expFru > 0) {
       ret = pal_get_cwc_id(fruname, &fru);
@@ -976,6 +1059,9 @@ main(int argc, char **argv) {
 #ifdef CONFIG_FBY3_CWC
     }
 #endif
+=======
+    ret = pal_get_fru_id(fruname, &fru);
+>>>>>>> facebook/helium
     if (ret < 0) {
       print_usage();
       return ret;
@@ -983,24 +1069,32 @@ main(int argc, char **argv) {
     if (history_clear || history) {
       //Check if the input FRU is exist in sensor history list
       if (NULL == strstr(pal_fru_list_sensor_history_t, fruname)) {
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
         if (cwcPlat > 0 && NULL != strstr(pal_fru_exp_list, fruname)) {
           goto history_exit;
         }
 #endif
+=======
+>>>>>>> facebook/helium
         print_usage();
         exit(-1);
       }
     }
   }
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
 history_exit:
 #endif
+=======
+
+>>>>>>> facebook/helium
   if (fru == 0) {
     for (fru = 1; fru <= MAX_NUM_FRUS; fru++) {
       ret |= print_sensor(fru, num, true, history, threshold, force, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
     }
     ret |= print_sensor(AGGREGATE_SENSOR_FRU_ID, num, true, history, threshold, false, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (cwcPlat > 0) {
     printf("====================TOP GPV3====================\n");
@@ -1009,6 +1103,8 @@ history_exit:
     ret = print_sensor(FRU_2U_BOT, num, false, history, threshold, force, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
   }
 #endif
+=======
+>>>>>>> facebook/helium
   } else if (pal_get_pair_fru(fru, &pair_fru)) {
     ret = print_sensor(fru, num, false, history, threshold, fru == AGGREGATE_SENSOR_FRU_ID ? false : force, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
     ret = print_sensor(pair_fru, num, false, history, threshold, pair_fru == AGGREGATE_SENSOR_FRU_ID ? false : force, json, history_clear, filter, filter_list, filter_len ,period, fru_sensor_obj);
@@ -1016,6 +1112,7 @@ history_exit:
     ret = print_sensor(fru, num, false, history, threshold, fru == AGGREGATE_SENSOR_FRU_ID ? false : force, json, history_clear, filter, filter_list, filter_len, period, fru_sensor_obj);
   }
 
+<<<<<<< HEAD
 #ifdef CONFIG_FBY3_CWC
   if (cwcPlat > 0 && fru == FRU_SLOT1) {
     printf("====================TOP GPV3====================\n");
@@ -1025,6 +1122,8 @@ history_exit:
   }
 #endif
 
+=======
+>>>>>>> facebook/helium
   if (json) {
     json_dumpf(fru_sensor_obj, stdout, 4);
     printf("\n");

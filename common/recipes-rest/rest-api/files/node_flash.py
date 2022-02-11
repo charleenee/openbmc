@@ -1,4 +1,8 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+>>>>>>> facebook/helium
 
 from kv import kv_get
 from node import node
@@ -18,7 +22,11 @@ class flashNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         # Get vendor name
         vendor_name = " "
         data = kv_get("ssd_vendor")

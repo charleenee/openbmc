@@ -35,6 +35,18 @@ PIM_16Q_SENSORS = [
     "PIM{}_DPM_TEMP",
 ]
 
+<<<<<<< HEAD
+=======
+PIM_16Q2_SENSORS = [
+    "PIM{}_POS_3V3_U_VOUT",
+    "PIM{}_POS_3V3_U_TEMP",
+    "PIM{}_POS_3V3_U_CURR",
+    "PIM{}_POS_3V3_L_VOUT",
+    "PIM{}_POS_3V3_L_TEMP",
+    "PIM{}_POS_3V3_L_CURR",
+]
+
+>>>>>>> facebook/helium
 PIM_8DDM_SENSORS = [
     "PIM{}_POS_3V3_U_VOUT",
     "PIM{}_POS_3V3_U_TEMP",

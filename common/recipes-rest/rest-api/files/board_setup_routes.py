@@ -17,6 +17,17 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
 
 
 """ This file will be replaced by board specific file."""
+=======
+from aiohttp.web import Application
+
+
+""" This file will be replaced by board specific file."""
+
+
+def setup_board_routes(app: Application, write_enabled: bool):
+    pass
+>>>>>>> facebook/helium

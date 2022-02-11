@@ -24,6 +24,10 @@ from tests.elbert.test_data.sensors.sensors import (
     SCM_SENSORS,
     SMB_SENSORS,
     PIM_16Q_SENSORS,
+<<<<<<< HEAD
+=======
+    PIM_16Q2_SENSORS,
+>>>>>>> facebook/helium
     PIM_8DDM_SENSORS,
     FAN_SENSORS,
     PSU_SENSORS,
@@ -84,7 +88,14 @@ class RestEndpointTest(FbossRestEndpointTest, unittest.TestCase):
         pim_types = run_shell_cmd(cmd)
         self.endpoint_sensors_attrb = []
         for idx in range(2, 10):
+<<<<<<< HEAD
             if "PIM {}: PIM16Q".format(idx) in pim_types:
+=======
+            if "PIM {}: PIM16Q2".format(idx) in pim_types:
+                for sensor in PIM_16Q2_SENSORS:
+                    self.endpoint_sensors_attrb.append(sensor.format(idx))
+            elif "PIM {}: PIM16Q".format(idx) in pim_types:
+>>>>>>> facebook/helium
                 for sensor in PIM_16Q_SENSORS:
                     self.endpoint_sensors_attrb.append(sensor.format(idx))
             elif "PIM {}: PIM8DDM".format(idx) in pim_types:

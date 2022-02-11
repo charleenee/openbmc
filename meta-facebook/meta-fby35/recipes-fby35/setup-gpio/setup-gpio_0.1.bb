@@ -16,9 +16,15 @@ S = "${WORKDIR}"
 
 binfiles = "setup-gpio \
            "
+<<<<<<< HEAD
 DEPENDS += " libpal libgpio-ctrl libfby35-gpio libphymem "
 DEPENDS += " update-rc.d-native "
 RDEPENDS:${PN} += " libpal libgpio-ctrl libfby35-gpio libphymem "
+=======
+DEPENDS += "libgpio-ctrl libfby35-gpio libphymem libkv"
+DEPENDS += " update-rc.d-native "
+RDEPENDS:${PN} += "libgpio-ctrl libfby35-gpio libphymem libkv"
+>>>>>>> facebook/helium
 
 pkgdir = "setup-gpio"
 

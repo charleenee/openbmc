@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+
+>>>>>>> facebook/helium
 from node import node
 from rest_pal_legacy import *
 
@@ -38,7 +43,11 @@ class biosNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         info = {"Description": "BIOS Information"}
 
         return info
@@ -66,7 +75,11 @@ class bios_boot_order_trunk_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         info = {"Description": "BIOS Boot Order Information"}
 
         return info
@@ -90,7 +103,11 @@ class bios_boot_mode_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --boot_order get --boot_mode"
         _, boot_order, _ = await async_exec(cmd, shell=True)
         boot_order = boot_order.split("\n")[0].split(": ")
@@ -103,6 +120,7 @@ class bios_boot_mode_node(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         if data["action"] == "set" and len(data) == 2:
             cmd = (
@@ -124,6 +142,8 @@ class bios_boot_mode_node(node):
 
         return result
 
+=======
+>>>>>>> facebook/helium
 
 """""" """""" """""" """""" """''
          Clear CMOS
@@ -143,7 +163,11 @@ class bios_clear_cmos_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --boot_order get --clear_CMOS"
         _, clear_cmos, _ = await async_exec(cmd, shell=True)
         clear_cmos = clear_cmos.split("\n")[0].split(": ")
@@ -152,6 +176,7 @@ class bios_clear_cmos_node(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         if data["action"] == "enable":
             cmd = (
@@ -183,6 +208,8 @@ class bios_clear_cmos_node(node):
 
         return result
 
+=======
+>>>>>>> facebook/helium
 
 """""" """""" """""" """""" """''
     Force Boot BIOS Setup
@@ -202,7 +229,11 @@ class bios_force_boot_setup_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = (
             "/usr/local/bin/bios-util "
             + self.name
@@ -216,6 +247,7 @@ class bios_force_boot_setup_node(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         if data["action"] == "enable":
             cmd = (
@@ -248,6 +280,8 @@ class bios_force_boot_setup_node(node):
 
         return result
 
+=======
+>>>>>>> facebook/helium
 
 """""" """""" """""" """""" """''
          Boot Order
@@ -267,7 +301,11 @@ class bios_boot_order_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --boot_order get --boot_order"
         _, data, _ = await async_exec(cmd, shell=True)
 
@@ -281,6 +319,7 @@ class bios_boot_order_node(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         if data["action"] == "set" and len(data) == 6:
             cmd = (
@@ -321,28 +360,46 @@ class bios_boot_order_node(node):
 
         return result
 
+=======
+>>>>>>> facebook/helium
 
 def get_node_bios_boot_order_trunk(name):
     return bios_boot_order_trunk_node(name)
 
 
 def get_node_bios_boot_mode(name):
+<<<<<<< HEAD
     actions = ["set"]
+=======
+    actions = []
+>>>>>>> facebook/helium
     return bios_boot_mode_node(name=name, actions=actions)
 
 
 def get_node_bios_clear_cmos(name):
+<<<<<<< HEAD
     actions = ["enable", "disable"]
+=======
+    actions = []
+>>>>>>> facebook/helium
     return bios_clear_cmos_node(name=name, actions=actions)
 
 
 def get_node_bios_force_boot_setup(name):
+<<<<<<< HEAD
     actions = ["enable", "disable"]
+=======
+    actions = []
+>>>>>>> facebook/helium
     return bios_force_boot_setup_node(name=name, actions=actions)
 
 
 def get_node_bios_boot_order(name):
+<<<<<<< HEAD
     actions = ["set", "disable"]
+=======
+    actions = []
+>>>>>>> facebook/helium
     return bios_boot_order_node(name=name, actions=actions)
 
 
@@ -364,7 +421,11 @@ class bios_postcode_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --postcode get"
         _, data, _ = await async_exec(cmd, shell=True)
         postcode = data.replace("\n", "").strip()
@@ -396,7 +457,11 @@ class bios_plat_info_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --plat_info get"
         _, plat_info, err = await async_exec(cmd, shell=True)
 
@@ -433,7 +498,11 @@ class bios_pcie_port_config_node(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         cmd = "/usr/local/bin/bios-util " + self.name + " --pcie_port_config get"
         _, pcie_port_config, err = await async_exec(cmd, shell=True)
 
@@ -465,6 +534,7 @@ class bios_pcie_port_config_node(node):
 
         return info
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         if data["action"] == "enable" and len(data) == 2:
             cmd = (
@@ -502,4 +572,9 @@ class bios_pcie_port_config_node(node):
 
 def get_node_bios_pcie_port_config_trunk(name):
     actions = ["enable", "disable"]
+=======
+
+def get_node_bios_pcie_port_config_trunk(name):
+    actions = []
+>>>>>>> facebook/helium
     return bios_pcie_port_config_node(name=name, actions=actions)

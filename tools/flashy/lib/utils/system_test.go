@@ -581,6 +581,17 @@ func TestGetOpenBMCVersionFromIssueFile(t *testing.T) {
 			wantErr:         nil,
 		},
 		{
+<<<<<<< HEAD
+=======
+			name:             "ancient galaxy100 /etc/issue",
+			etcIssueContents: `OpenBMC Release 
+`,
+			etcIssueReadErr:  nil,
+			want:             "unknown-v1",
+			wantErr:          nil,
+		},
+		{
+>>>>>>> facebook/helium
 			name:             "read error",
 			etcIssueContents: ``,
 			etcIssueReadErr:  errors.Errorf("/etc/issue read error"),

@@ -18,6 +18,10 @@
 FILESEXTRAPATHS:prepend := "${THISDIR}/files:"
 
 PACKAGECONFIG += "disable-watchdog"
+<<<<<<< HEAD
+=======
+PACKAGECONFIG += " boot-info"
+>>>>>>> facebook/helium
 
 SRC_URI += "file://enable_watchdog_ext_signal.sh \
             file://ec_version.sh \

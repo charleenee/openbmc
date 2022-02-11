@@ -17,6 +17,11 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+
+>>>>>>> facebook/helium
 from node import node
 from rest_pal_legacy import *
 
@@ -33,7 +38,11 @@ class spbNode(node):
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
+=======
+    async def doAction(self, data, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         if pal_sled_action(data["action"]) == -1:
             res = "failure"
         else:

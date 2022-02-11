@@ -60,4 +60,8 @@ IMAGE_INSTALL += " \
   iocd \
   otp \
   mctp-util \
+<<<<<<< HEAD
+=======
+  modprobe \
+>>>>>>> facebook/helium
   "

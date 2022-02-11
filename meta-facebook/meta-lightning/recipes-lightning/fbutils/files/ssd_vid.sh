@@ -15,7 +15,11 @@ INTEL=0x8680
 SEAGATE=0xb11b
 SAMSUNG=0x4d14
 TOSHIBA=0x7911
+<<<<<<< HEAD
 WD=0x961B
+=======
+WD=0x961b
+>>>>>>> facebook/helium
 
 M2_MUX_ADDR=$(echo $I2C_M2_MUX_ADDR | cut -c3-4)
 

@@ -172,6 +172,10 @@ enum {
   PIM_POS_3V3_L_VOUT,
   PIM_POS_3V3_L_TEMP,
   PIM_POS_3V3_L_CURR,
+<<<<<<< HEAD
+=======
+  PIM16Q2_SENSOR_COUNT = PIM_POS_3V3_L_CURR,
+>>>>>>> facebook/helium
   PIM_LM73_TEMP,
   PIM_POS_12V,
   PIM_POS_3V3_E,

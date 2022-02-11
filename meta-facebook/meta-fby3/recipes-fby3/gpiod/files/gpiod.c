@@ -176,6 +176,10 @@ fru_cache_dump(void *arg) {
   uint8_t flagIdx = fru;
   uint8_t fruIdx = fru - 1;
   uint8_t keepPoll = 1;
+<<<<<<< HEAD
+=======
+  uint8_t root = fru;
+>>>>>>> facebook/helium
   const int max_retry = 3;
   int oldstate;
   int finish_count = 0; // fru finish
@@ -183,6 +187,11 @@ fru_cache_dump(void *arg) {
   fruid_info_t fruid;
   struct timespec slp_time;
 
+<<<<<<< HEAD
+=======
+  pal_get_root_fru(fru, &root);
+
+>>>>>>> facebook/helium
   pthread_setcancelstate(PTHREAD_CANCEL_ENABLE, NULL);
   pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
 
@@ -192,6 +201,16 @@ fru_cache_dump(void *arg) {
 
   // Check 2OU BIC Self Test Result
   do {
+<<<<<<< HEAD
+=======
+    if ( pal_is_fw_update_ongoing(root) == true ) {
+      slp_time.tv_sec = 5;
+      slp_time.tv_nsec = 0;
+      nanosleep(&slp_time, NULL);
+      continue;
+    }
+
+>>>>>>> facebook/helium
     pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, &oldstate);
     if (fru == FRU_2U_TOP) {
       ret = bic_get_self_test_result(FRU_SLOT1, (uint8_t *)&self_test_result, RREXP_BIC_INTF1);
@@ -225,11 +244,24 @@ fru_cache_dump(void *arg) {
   while (finish_count < MAX_NUM_GPV3_DEVS) {
     // Get GPV3 devices' FRU
     for (dev_id = 1; dev_id <= MAX_NUM_GPV3_DEVS; dev_id++) {
+<<<<<<< HEAD
+=======
+      if ( pal_is_fw_update_ongoing(root) == true ) {
+        slp_time.tv_sec = 5;
+        slp_time.tv_nsec = 0;
+        nanosleep(&slp_time, NULL);
+        continue;
+      }
+>>>>>>> facebook/helium
 
       //check for power status
       ret = pal_get_dev_info(fru, dev_id, &nvme_ready ,&status[dev_id], &type);
 
+<<<<<<< HEAD
       syslog(LOG_WARNING, "fru_cache_dump1: Slot%u Dev%d power=%u nvme_ready=%u type=%u", fru, dev_id-1, status[dev_id], nvme_ready, type);
+=======
+      //syslog(LOG_WARNING, "fru_cache_dump1: Slot%u Dev%d power=%u nvme_ready=%u type=%u", fru, dev_id-1, status[dev_id], nvme_ready, type);
+>>>>>>> facebook/helium
 
       if (dev_fru_complete[flagIdx][dev_id] != DEV_FRU_NOT_COMPLETE) {
         if (keepPoll) {
@@ -304,7 +336,11 @@ fru_cache_dump(void *arg) {
   // update the fan speed control table according to the device type
   while (((finish_count < MAX_NUM_GPV3_DEVS) || (nvme_ready_count < MAX_NUM_GPV3_DEVS)) && !keepPoll) {
     nvme_ready_count = 0;
+<<<<<<< HEAD
     if ( pal_is_fw_update_ongoing(fru) == true ) {
+=======
+    if ( pal_is_fw_update_ongoing(root) == true ) {
+>>>>>>> facebook/helium
       sleep(5);
       continue;
     }
@@ -317,7 +353,11 @@ fru_cache_dump(void *arg) {
 
       // check for device type
       ret = pal_get_dev_info(fru, dev_id, &nvme_ready, &status[dev_id], &type);
+<<<<<<< HEAD
       syslog(LOG_WARNING, "fru_cache_dump2: Slot%u Dev%d power=%u nvme_ready=%u type=%u", fru, dev_id-1, status[dev_id], nvme_ready, type);
+=======
+      //syslog(LOG_WARNING, "fru_cache_dump2: Slot%u Dev%d power=%u nvme_ready=%u type=%u", fru, dev_id-1, status[dev_id], nvme_ready, type);
+>>>>>>> facebook/helium
 
       if (ret || (!nvme_ready))
         continue;
@@ -870,11 +910,17 @@ host_pwr_mon() {
     if ( retry == MAX_NIC_PWR_RETRY && nic_pwr_set_off == false) {
       //set off here because users may power off the host from OS instead of BMC
       if ( pal_server_set_nic_power(SERVER_POWER_OFF) == 0 ) {
+<<<<<<< HEAD
         syslog(LOG_CRIT, "NIC Power is set to VAUX");
         nic_pwr_set_off = true;
       }
     } else if ( retry < MAX_NIC_PWR_RETRY && nic_pwr_set_off == true) {
       syslog(LOG_CRIT, "NIC Power is set to VMAIN");
+=======
+        nic_pwr_set_off = true;
+      }
+    } else if ( retry < MAX_NIC_PWR_RETRY && nic_pwr_set_off == true) {
+>>>>>>> facebook/helium
       nic_pwr_set_off = false;
       //Don't change NIC Power to normal here.
       //Because the power seq. of NIC will be affected. We should change it before turning on any one of the slots.

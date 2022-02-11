@@ -30,12 +30,23 @@
 extern "C" {
 #endif
 
+<<<<<<< HEAD
 #define EEPROM_PATH     "/sys/bus/i2c/devices/%d-00%X/eeprom"
 #define COMMON_FRU_PATH "/tmp/fruid_%s.bin"
 #define FRU_BMC_BIN     "/tmp/fruid_bmc.bin"
 #define FRU_UIC_BIN     "/tmp/fruid_uic.bin"
 #define FRU_NIC_BIN     "/tmp/fruid_nic.bin"
 #define FRU_IOCM_BIN    "/tmp/fruid_iocm.bin"
+=======
+#define EEPROM_PATH              "/sys/bus/i2c/devices/%d-00%X/eeprom"
+#define COMMON_FRU_PATH          "/tmp/fruid_%s.bin"
+#define COMMON_FAN_FRU_PATH      "/mnt/data/fruid_%s.bin"
+#define COMMON_TMP_FRU_PATH      "/tmp/tfruid_%s.bin"
+#define FRU_BMC_BIN              "/tmp/fruid_bmc.bin"
+#define FRU_UIC_BIN              "/tmp/fruid_uic.bin"
+#define FRU_NIC_BIN              "/tmp/fruid_nic.bin"
+#define FRU_IOCM_BIN             "/tmp/fruid_iocm.bin"
+>>>>>>> facebook/helium
 
 #define BMC_FRU_ADDR  0x54
 #define UIC_FRU_ADDR  0x50
@@ -206,6 +217,20 @@ enum {
   STAGE_MP
 };
 
+<<<<<<< HEAD
+=======
+// UIC board ID stage
+enum {
+  UIC_STAGE_PRE_EVT = 0,
+  UIC_STAGE_EVT,
+  UIC_STAGE_DVT,
+  UIC_STAGE_DVT3,
+  UIC_STAGE_PVT,
+  UIC_STAGE_PVT3,
+  UIC_STAGE_MP
+};
+
+>>>>>>> facebook/helium
 enum {
   DEV_ID0_E1S = 0x1,
   DEV_ID1_E1S = 0x2,

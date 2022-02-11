@@ -14,10 +14,18 @@ paths:
             type: object
             additionalProperties: false
             properties: 
+<<<<<<< HEAD
+=======
+              Resources: 
+                type: array
+                items: 
+                  type: string
+>>>>>>> facebook/helium
               Information: 
                 type: object
                 additionalProperties: false
                 properties: 
+<<<<<<< HEAD
                   Description: 
                     type: string
                   SPI0 Vendor: 
@@ -25,11 +33,23 @@ paths:
                   Reset Reason: 
                     type: string
                   load-1: 
+=======
+                  MTD Parts: 
+                    type: array
+                    items: 
+                      type: string
+                  load-5: 
+                    type: string
+                  Uptime: 
+                    type: string
+                  u-boot version: 
+>>>>>>> facebook/helium
                     type: string
                   vboot: 
                     type: object
                     additionalProperties: false
                     properties: 
+<<<<<<< HEAD
                       force_recovery: 
                         type: string
                       recovery_retried: 
@@ -49,11 +69,31 @@ paths:
                       status_text: 
                         type: string
                       uboot_fallback_time: 
+=======
+                      status: 
+                        type: string
+                      recovery_boot: 
+                        type: string
+                      status_crc: 
+                        type: string
+                      software_enforce: 
+                        type: string
+                      recovery_retried: 
+                        type: string
+                      force_recovery: 
+                        type: string
+                      hardware_enforce: 
+                        type: string
+                      cert_fallback_time: 
+                        type: string
+                      tpm_status: 
+>>>>>>> facebook/helium
                         type: string
                       uboot_time: 
                         type: string
                       cert_time: 
                         type: string
+<<<<<<< HEAD
                       cert_fallback_time: 
                         type: string
                   open-fds: 
@@ -65,17 +105,64 @@ paths:
                   u-boot version: 
                     type: string
                   Memory Usage: 
+=======
+                      status_text: 
+                        type: string
+                      uboot_fallback_time: 
+                        type: string
+                  Description: 
+                    type: string
+                  kernel version: 
+                    type: string
+                  SPI0 Vendor: 
+                    type: string
+                  Memory Usage: 
+                    type: string
+                  TPM FW version: 
+                    type: string
+                  uptime: 
+                    type: string
+                  Secondary Boot Triggered: 
+                    type: boolean
+                  CPU Usage: 
+                    type: string
+                  At-Scale-Debug Running: 
+                    type: boolean
+                  Reset Reason: 
+                    type: string
+                  mmc-info: 
+                    type: object
+                    format: nullable
+                  load-15: 
+                    type: string
+                  TPM TCG version: 
+                    type: string
+                  load-1: 
+                    type: string
+                  OpenBMC Version: 
+                    type: string
+                  SPI1 Vendor: 
+                    type: string
+                  MAC Addr: 
+                    type: string
+                  open-fds: 
+>>>>>>> facebook/helium
                     type: string
                   memory: 
                     type: object
                     additionalProperties: false
                     properties: 
+<<<<<<< HEAD
                       Shmem: 
+=======
+                      MemAvailable: 
+>>>>>>> facebook/helium
                         type: integer
                         format: int32
                       Cached: 
                         type: integer
                         format: int32
+<<<<<<< HEAD
                       MemAvailable: 
                         type: integer
                         format: int32
@@ -112,8 +199,26 @@ paths:
                 type: array
                 items: 
                   type: string
+=======
+                      Buffers: 
+                        type: integer
+                        format: int32
+                      MemTotal: 
+                        type: integer
+                        format: int32
+                      Shmem: 
+                        type: integer
+                        format: int32
+                      MemFree: 
+                        type: integer
+                        format: int32
+>>>>>>> facebook/helium
               Actions: 
                 type: array
                 items: 
                   type: string
+<<<<<<< HEAD
             
+=======
+            
+>>>>>>> facebook/helium

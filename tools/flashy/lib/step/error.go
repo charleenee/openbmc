@@ -56,6 +56,13 @@ type ExitBadFlashChip struct {
 	Err error
 }
 
+<<<<<<< HEAD
+=======
+type ExitMustReboot struct {
+	Err error
+}
+
+>>>>>>> facebook/helium
 type ExitUnknownError struct {
 	Err error
 }
@@ -96,6 +103,23 @@ func (e ExitBadFlashChip) GetType() string {
 	return "ExitBadFlashChip"
 }
 
+<<<<<<< HEAD
+=======
+func (e ExitMustReboot) GetError() string {
+	return e.Err.Error()
+}
+
+func (e ExitMustReboot) GetExitCode() int {
+	// Equivalent to ExitSafeToReboot, but without checking for valid
+	// flash devices (the reboot may be necessary to make them visible).
+	return FLASHY_ERROR_SAFE_TO_REBOOT
+}
+
+func (e ExitMustReboot) GetType() string {
+	return "ExitMustReboot"
+}
+
+>>>>>>> facebook/helium
 func (e ExitUnknownError) GetError() string {
 	return e.Err.Error()
 }
@@ -138,7 +162,12 @@ func HandleStepError(err StepExitError) {
 
 	case ExitUnsafeToReboot,
 		ExitUnknownError,
+<<<<<<< HEAD
 		ExitBadFlashChip:
+=======
+		ExitBadFlashChip,
+		ExitMustReboot:
+>>>>>>> facebook/helium
 
 		encodeExitError(err)
 		exit(err.GetExitCode())

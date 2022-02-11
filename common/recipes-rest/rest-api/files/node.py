@@ -18,6 +18,11 @@
 # Boston, MA 02110-1301 USA
 #
 
+<<<<<<< HEAD
+=======
+from typing import Any, Dict, Optional
+
+>>>>>>> facebook/helium
 # Class Definition for Resource
 
 
@@ -33,11 +38,24 @@ class node:
         else:
             self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(
+        self, param: Optional[Dict[Any, Any]] = None
+    ):  # noqa: B006
+>>>>>>> facebook/helium
         return self.info
 
     def getActions(self):
         return self.actions
 
+<<<<<<< HEAD
     async def doAction(self, action, param={}):
         result = {"result": "failure", "reason": "not supported"}
+=======
+    async def doAction(
+        self, action, param: Optional[Dict[Any, Any]] = None
+    ):  # noqa: B006
+        return {"result": "failure", "reason": "not supported"}
+>>>>>>> facebook/helium

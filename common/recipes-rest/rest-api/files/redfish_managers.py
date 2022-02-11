@@ -2,8 +2,14 @@ import fcntl
 import os
 import socket
 import struct
+<<<<<<< HEAD
 from uuid import getnode as get_mac
 from subprocess import *
+=======
+from typing import Optional, Union
+from uuid import getnode as get_mac
+
+>>>>>>> facebook/helium
 import rest_pal_legacy
 from aiohttp import web
 from common_utils import async_exec, dumps_bytestr
@@ -21,6 +27,10 @@ def get_fqdn_str() -> str:
 def get_mac_address(if_name: str) -> str:
     mac_addr = ""
     mac_path = "/sys/class/net/%s/address" % (if_name)
+<<<<<<< HEAD
+=======
+    mac = ""  # type: Union[str, int]
+>>>>>>> facebook/helium
     if os.path.isfile(mac_path):
         mac = open(mac_path).read()
         mac_addr = mac[0:17].upper()
@@ -30,7 +40,11 @@ def get_mac_address(if_name: str) -> str:
     return mac_addr
 
 
+<<<<<<< HEAD
 def get_ipv4_ip_address(if_name: str) -> str:
+=======
+def get_ipv4_ip_address(if_name: str) -> Optional[str]:
+>>>>>>> facebook/helium
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
         v4_ip = socket.inet_ntoa(
@@ -64,7 +78,11 @@ async def get_ipv6_ip_address(if_name: str) -> str:
     return v6_ip
 
 
+<<<<<<< HEAD
 def get_ipv4_gateway() -> str:
+=======
+def get_ipv4_gateway() -> Optional[str]:
+>>>>>>> facebook/helium
     """Returns the default gateway"""
     octet_list = []
     gw_from_route = None
@@ -83,8 +101,13 @@ def get_ipv4_gateway() -> str:
 
     for i in range(8, 1, -2):
         octet = gw_from_route[i - 2 : i]
+<<<<<<< HEAD
         octet = int(octet, 16)
         octet_list.append(str(octet))
+=======
+        octet_16_base = int(octet, 16)
+        octet_list.append(str(octet_16_base))
+>>>>>>> facebook/helium
 
     gw_ip = ".".join(octet_list)
 
@@ -204,6 +227,11 @@ async def get_ethernet_members(request: str) -> web.Response:
             }
         ],
         "StaticNameServers": [],
+<<<<<<< HEAD
+=======
+        "NameServers": [],
+        "LinkStatus": "LinkUp",
+>>>>>>> facebook/helium
     }
     await validate_keys(body)
     return web.json_response(body, dumps=dumps_bytestr)
@@ -212,6 +240,12 @@ async def get_ethernet_members(request: str) -> web.Response:
 async def get_manager_network(request: str) -> web.Response:
     host_name = socket.gethostname()
     fqdn = get_fqdn_str()
+<<<<<<< HEAD
+=======
+    headers = {
+        "Link": "</redfish/v1/schemas/ManagerNetworkProtocol.v1_2_0.json>; rel=describedby"
+    }
+>>>>>>> facebook/helium
     body = {
         "@odata.context": "/redfish/v1/$metadata#ManagerNetworkProtocol.ManagerNetworkProtocol",  # noqa: B950
         "@odata.id": "/redfish/v1/Managers/1/NetworkProtocol",
@@ -234,4 +268,8 @@ async def get_manager_network(request: str) -> web.Response:
         },
     }
     await validate_keys(body)
+<<<<<<< HEAD
     return web.json_response(body, dumps=dumps_bytestr)
+=======
+    return web.json_response(body, headers=headers, dumps=dumps_bytestr)
+>>>>>>> facebook/helium

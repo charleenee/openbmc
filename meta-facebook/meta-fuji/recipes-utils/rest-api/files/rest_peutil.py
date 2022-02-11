@@ -59,42 +59,77 @@ def _packet_peutil_date(cmd):
     data = data.split("\r\n")
     return {"Information": _parse_peutil_data(data), "Actions": [], "Resources": []}
 
+<<<<<<< HEAD
 
 def get_peutil_pim1_data():
     cmd = ["/usr/local/bin/peutil", "1"]
+=======
+# The new peutil numbering scheme requires
+# the pim number to start from 2 (previously 1)
+def get_peutil_pim1_data():
+    cmd = ["/usr/local/bin/peutil", "2"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim2_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "2"]
+=======
+    cmd = ["/usr/local/bin/peutil", "3"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim3_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "3"]
+=======
+    cmd = ["/usr/local/bin/peutil", "4"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim4_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "4"]
+=======
+    cmd = ["/usr/local/bin/peutil", "5"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim5_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "5"]
+=======
+    cmd = ["/usr/local/bin/peutil", "6"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim6_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "6"]
+=======
+    cmd = ["/usr/local/bin/peutil", "7"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim7_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "7"]
+=======
+    cmd = ["/usr/local/bin/peutil", "8"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)
 
 
 def get_peutil_pim8_data():
+<<<<<<< HEAD
     cmd = ["/usr/local/bin/peutil", "8"]
+=======
+    cmd = ["/usr/local/bin/peutil", "9"]
+>>>>>>> facebook/helium
     return _packet_peutil_date(cmd)

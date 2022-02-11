@@ -69,16 +69,22 @@ if [ ! -z "$OLDPID" ] && (grep "autodump" /proc/$OLDPID/cmdline &> /dev/null) ; 
     exit 1
   fi
 
+<<<<<<< HEAD
   LOG_FILE="/tmp/autodump.log"
   LOG_ARCHIVE="/mnt/data/autodump_uncompleted_${SLOT_NAME}.tar.gz"
   echo -n "(uncompleted) Auto Dump End at " >> $LOG_FILE
   date >> $LOG_FILE
+=======
+  LOG_FILE="/tmp/crashdump/"
+  LOG_ARCHIVE="/mnt/data/acd_uncompleted_${SLOT_NAME}.tar.gz"
+>>>>>>> facebook/helium
 
   tar zcf $LOG_ARCHIVE -C `dirname $LOG_FILE` `basename $LOG_FILE` && \
   rm -rf $LOG_FILE && \
 
   echo "kill pid $OLDPID..."
   kill -s 9 $OLDPID
+<<<<<<< HEAD
   ps | grep '{dump.sh}' | grep "$SLOT_NAME" | awk '{print $1}'| xargs kill -s 9 &> /dev/null
   ps | grep 'me-util' | grep "$SLOT_NAME" | awk '{print $1}'| xargs kill -s 9 &> /dev/null
   ps | grep 'bic-util' | grep "$SLOT_NAME" | awk '{print $1}'| xargs kill -s 9 &> /dev/null
@@ -94,6 +100,14 @@ echo $((sys_runtime+1200)) > /tmp/cache_store/fru${SLOT_NUM}_crashdump
 DUMP_SCRIPT="/usr/local/bin/dump.sh"
 CRASHDUMP_FILE="/mnt/data/crashdump_$SLOT_NAME"
 CRASHDUMP_LOG_ARCHIVE="/mnt/data/crashdump_$SLOT_NAME.tar.gz"
+=======
+  ps | grep 'crashdump' | grep "$SLOT_NAME" | awk '{print $1}'| xargs kill -s 9 &> /dev/null
+fi
+unset OLDPID
+
+CRASHDUMP_FILE="/tmp/crashdump/"
+CRASHDUMP_LOG_ARCHIVE="/mnt/data/acd_crashdump_$SLOT_NAME.tar.gz"
+>>>>>>> facebook/helium
 LOG_MSG_PREFIX=""
 
 DWR=0
@@ -120,15 +134,24 @@ do
 done
 
 if [ "$DWR" == "1" ] || [ "$SECOND_DUMP" == "1" ]; then
+<<<<<<< HEAD
   echo "Auto Dump after System Reset or Demoted Warm Reset"
 fi
 
 if [ "$DELAY_SEC" != "0" ]; then
   echo "Auto Dump will start after ${DELAY_SEC}s..."
+=======
+  echo "ACD Dump after System Reset or Demoted Warm Reset"
+fi
+
+if [ "$DELAY_SEC" != "0" ]; then
+  echo "ACD Dump will start after ${DELAY_SEC}s..."
+>>>>>>> facebook/helium
 
   sleep ${DELAY_SEC}
 fi
 
+<<<<<<< HEAD
 echo "Auto Dump for $SLOT_NAME Started"
 logger -t "ipmid" -p daemon.crit "${LOG_MSG_PREFIX}Crashdump for FRU: $SLOT_NUM started"
 
@@ -247,10 +270,26 @@ if [ "$DWR" == "1" ] || [ "$SECOND_DUMP" == "1" ]; then
     LOG_MSG_PREFIX="DWR "
   else
     CRASHDUMP_LOG_ARCHIVE="/mnt/data/crashdump_second_$SLOT_NAME.tar.gz"
+=======
+echo "ACD for $SLOT_NAME Started"
+logger -t "ipmid" -p daemon.crit "ACD for FRU: $SLOT_NUM started"
+
+crashdump $SLOT_NUM
+
+# only second/dwr dump need to rename accordingly
+if [ "$DWR" == "1" ] || [ "$SECOND_DUMP" == "1" ]; then
+  # rename the archieve file based on whether dump in DWR mode or not
+  if [ "$?" == "2" ]; then
+    CRASHDUMP_LOG_ARCHIVE="/mnt/data/acd_crashdump_dwr_$SLOT_NAME.tar.gz"
+    LOG_MSG_PREFIX="DWR "
+  else
+    CRASHDUMP_LOG_ARCHIVE="/mnt/data/acd_crashdump_second_$SLOT_NAME.tar.gz"
+>>>>>>> facebook/helium
     LOG_MSG_PREFIX="SECOND_DUMP "
   fi
 fi
 
+<<<<<<< HEAD
 echo -n "Auto Dump End at " >> $CRASHDUMP_FILE
 date >> $CRASHDUMP_FILE
 
@@ -259,9 +298,20 @@ rm -rf $CRASHDUMP_FILE && \
 logger -t "ipmid" -p daemon.crit "${LOG_MSG_PREFIX}Crashdump for FRU: $SLOT_NUM is generated at $CRASHDUMP_LOG_ARCHIVE"
 cp -f "$CRASHDUMP_LOG_ARCHIVE" /tmp
 echo "Auto Dump for $SLOT_NAME Completed"
+=======
+tar zcf $CRASHDUMP_LOG_ARCHIVE -C `dirname $CRASHDUMP_FILE` `basename $CRASHDUMP_FILE` && \
+rm -rf $CRASHDUMP_FILE && \
+logger -t "ipmid" -p daemon.crit "${LOG_MSG_PREFIX}ACD for FRU: $SLOT_NUM is generated at $CRASHDUMP_LOG_ARCHIVE"
+cp -f "$CRASHDUMP_LOG_ARCHIVE" /tmp
+echo "ACD for $SLOT_NAME Completed"
+>>>>>>> facebook/helium
 
 # Remove current pid file
 rm $PID_FILE
 
+<<<<<<< HEAD
 echo "${LOG_MSG_PREFIX}Auto Dump Stored in $CRASHDUMP_LOG_ARCHIVE"
+=======
+echo "${LOG_MSG_PREFIX}ACD Dump Stored in $CRASHDUMP_LOG_ARCHIVE"
+>>>>>>> facebook/helium
 exit 0

@@ -85,7 +85,11 @@ do_install() {
 
   # install check_bmc_ready.sh
   install -m 755 check_bmc_ready.sh ${D}${sysconfdir}/init.d/check_bmc_ready.sh
+<<<<<<< HEAD
   update-rc.d -r ${D} check_bmc_ready.sh start 100 5 .
+=======
+  update-rc.d -r ${D} check_bmc_ready.sh start 99 5 .
+>>>>>>> facebook/helium
 }
 
 FILES:${PN} += "/usr/local ${sysconfdir}"

@@ -17,6 +17,7 @@
 # 51 Franklin Street, Fifth Floor,
 # Boston, MA 02110-1301 USA
 #
+<<<<<<< HEAD
 
 import os
 import subprocess
@@ -25,6 +26,13 @@ from asyncio import TimeoutError
 from common_utils import async_exec
 from node import node
 from rest_pal_legacy import pal_set_key_value
+=======
+from asyncio import TimeoutError
+from typing import Any, Dict, Optional
+
+from common_utils import async_exec
+from node import node
+>>>>>>> facebook/helium
 
 
 class configNode(node):
@@ -39,7 +47,11 @@ class configNode(node):
             self.altname = name.replace("server", "slot")
         self.actions = actions
 
+<<<<<<< HEAD
     async def getInformation(self, param={}):
+=======
+    async def getInformation(self, param: Optional[Dict[Any, Any]] = None):
+>>>>>>> facebook/helium
         result = {}
         cmd = ["/usr/local/bin/cfg-util", "dump-all"]
         try:
@@ -59,6 +71,7 @@ class configNode(node):
             result = {"status": "unsupported"}
         return result
 
+<<<<<<< HEAD
     async def doAction(self, data, param={}):
         res = "failure"
         if "update" not in data:
@@ -90,4 +103,9 @@ class configNode(node):
 
 def get_node_config(name):
     actions = ["update"]
+=======
+
+def get_node_config(name):
+    actions = []
+>>>>>>> facebook/helium
     return configNode(name=name, actions=actions)
